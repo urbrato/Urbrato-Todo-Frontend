@@ -63,7 +63,10 @@
               "browserTarget": "Urbrato-Todo-Frontend:build:production"
             },
             "development": {
-              "browserTarget": "Urbrato-Todo-Frontend:build:development"
+              "browserTarget": "Urbrato-Todo-Frontend:build:development",
+              "ssl": true,
+              "sslCert": "src/assets/ssl/urbrato_local.cer",
+              "sslKey": "src/assets/ssl/urbrato_local.pkcs8"
             }
           },
           "defaultConfiguration": "development"
