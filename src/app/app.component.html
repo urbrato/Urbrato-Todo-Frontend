@@ -1,2 +1,3 @@
 <p *ngIf="!cookieEnabled">Куки отключены.
   Пожалуйста, включите куки в настройках браузера и обновите страницу.</p>
+<router-outlet *ngIf="cookieEnabled"></router-outlet>
