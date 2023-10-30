@@ -1,33 +1,37 @@
-<div class="container">
-  <div class="card">
-    <div class="card-body">
-      <form>
-        <h2 class="card-title">Вход в систему</h2>
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <h2 class="card-title">Вход в систему</h2>
 
-        <div class="row">
-          <div class="col-md-6 col-sm-12">
-            <label class="col-form-label">Логин</label>
-          </div>
-
-          <div class="col-md-6 col-sm-12">
-            <p class="jasmine-errored">Обязательное поле</p>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 col-sm-12">
-            <div class="input-group">
-              <input id="username" type="text" formControlName="username" />
-            </div>
-          </div>
-
-          <div class="col-md-6 col-sm-12">
-            <div class="input-group">
-              <p class="jasmine-description">Имя учётной записи</p>
-            </div>
-          </div>
-        </div>
-      </form>
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <label class="col-form-label">Логин</label>
     </div>
   </div>
-</div>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <div class="input-group">
+        <input id="username" type="text" formControlName="username" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <label class="col-form-label">Пароль</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <div class="input-group">
+        <input id="password" type="password" formControlName="password" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <button type="submit">Войти</button>
+    </div>
+  </div>
+</form>
