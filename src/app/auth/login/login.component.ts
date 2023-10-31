@@ -10,16 +10,16 @@ import {FormBuilder} from "@angular/forms";
 export class LoginComponent implements OnInit{
   form: FormGroup;
 
-  get usernameField(): AbstractControl {
-    return this.form!.get('username')!;
+  get txtLogin(): AbstractControl {
+    return this.form!.get('login')!;
   }
 
-  get passwordField(): AbstractControl {
+  get txtPassword(): AbstractControl {
     return this.form!.get('password')!;
   }
 
   submitForm() {
-    alert(this.form + '|' + this.usernameField.value + '|' + this.passwordField.value);
+    alert(this.txtLogin.value + '|' + this.txtPassword.value);
   }
 
   ngOnInit(): void {
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit{
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      username: ['', Validators.required],
+      login: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
