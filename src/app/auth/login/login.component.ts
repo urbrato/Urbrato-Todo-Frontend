@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormGroup, Validators} from "@angular/forms";
 import {FormBuilder} from "@angular/forms";
+import {AuthService} from "../service/auth.service";
+import {LoginDto} from "../../dto/login-dto";
 
 @Component({
   selector: 'app-login',
@@ -19,13 +21,36 @@ export class LoginComponent implements OnInit{
   }
 
   submitForm() {
-    alert(this.txtLogin.value + '|' + this.txtPassword.value);
+    const login: LoginDto = new LoginDto();
+    login.login = this.txtLogin.value;
+    login.password = this.txtPassword.value;
+
+    this.authService.login(login).subscribe({
+        next: (result) => {
+          if (result.code === 'OK') {
+            alert(result.payload!.name! + ' logged in');
+          } else {
+            alert(result.message!);
+          }
+        },
+        error: (err) => {
+          if (err.error.message === undefined) {
+            alert(err.message);
+          } else {
+            alert(err.error.message);
+          }
+        }
+      }
+    )
   }
 
   ngOnInit(): void {
   }
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService) {
+
     this.form = this.formBuilder.group({
       login: ['', Validators.required],
       password: ['', Validators.required]
