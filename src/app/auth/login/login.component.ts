@@ -12,6 +12,7 @@ import {LoginDto} from "../../dto/login-dto";
 export class LoginComponent implements OnInit{
   form: FormGroup;
   wasSubmitPressed: boolean = false;
+  isLoading: boolean = false;
 
   get txtLogin(): AbstractControl {
     return this.form!.get('login')!;
@@ -28,12 +29,15 @@ export class LoginComponent implements OnInit{
       return;
     }
 
+    this.isLoading = true;
+
     const login: LoginDto = new LoginDto();
     login.login = this.txtLogin.value;
     login.password = this.txtPassword.value;
 
     this.authService.login(login).subscribe({
         next: (result) => {
+          this.isLoading = false;
           if (result.code === 'OK') {
             alert(result.payload!.name! + ' logged in');
           } else {
@@ -41,6 +45,7 @@ export class LoginComponent implements OnInit{
           }
         },
         error: (err) => {
+          this.isLoading = false;
           if (err.error.message === undefined) {
             alert(err.message);
           } else {
