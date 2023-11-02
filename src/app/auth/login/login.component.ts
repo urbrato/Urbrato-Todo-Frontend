@@ -11,6 +11,7 @@ import {LoginDto} from "../../dto/login-dto";
 })
 export class LoginComponent implements OnInit{
   form: FormGroup;
+  wasSubmitPressed: boolean = false;
 
   get txtLogin(): AbstractControl {
     return this.form!.get('login')!;
@@ -21,6 +22,12 @@ export class LoginComponent implements OnInit{
   }
 
   submitForm() {
+    this.wasSubmitPressed = true;
+
+    if (this.form.invalid) {
+      return;
+    }
+
     const login: LoginDto = new LoginDto();
     login.login = this.txtLogin.value;
     login.password = this.txtPassword.value;
