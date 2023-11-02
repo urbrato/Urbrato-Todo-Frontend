@@ -1,61 +1,71 @@
-<div class="card w-50 mx-auto">
-  <form [formGroup]="form" (ngSubmit)="submitForm()">
-    <div class="card-header">
-      <h2>Вход в систему</h2>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6 col-sm-12">
-        <label for="login" class="col-form-label">Логин</label>
+<div class="container-fluid h-100 d-flex align-items-center auth-background">
+  <div class="card w-50 mx-auto ">
+    <form [formGroup]="form" (ngSubmit)="submitForm()">
+      <div class="card-header">
+        <h2>Вход в систему</h2>
       </div>
 
-      <div class="col-md-6 col-sm-12">
-        <span class="spinner-border text-primary" *ngIf="isLoading"></span>
-      </div>
-    </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <label for="login" class="col-form-label">Логин</label>
+          </div>
 
-    <div class="row">
-      <div class="col-md-6 col-sm-12">
-        <div class="input-group">
-          <input id="login" type="text" formControlName="login" />
+          <div class="col-md-6 col-sm-12">
+            <span class="spinner-border text-primary" *ngIf="isLoading"></span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="input-group">
+              <input id="login" type="text" formControlName="login" class="w-100"
+                     [readOnly]="isLoading" [ngClass]="{'border-danger': wasSubmitPressed && txtLogin.errors}" />
+            </div>
+          </div>
+
+          <div class="col-md-6 col-sm-12">
+            <p *ngIf="wasSubmitPressed && txtLogin.errors && txtLogin.errors['required']" class="text-danger">
+              Обязательное поле
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <label for="password" class="col-form-label">Пароль</label>
+          </div>
+
+          <div class="col-md-6 col-sm-12">
+            <!-- здесь будут подсказки -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="input-group">
+              <input id="password" type="password" formControlName="password" class="w-100"
+                     [readOnly]="isLoading" [ngClass]="{'border-danger': wasSubmitPressed && txtPassword.errors}" />
+            </div>
+          </div>
+
+          <div class="col-md-6 col-sm-12">
+            <p *ngIf="wasSubmitPressed && txtPassword.errors && txtPassword.errors['required']" class="text-danger">
+              Обязательное поле
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-12 pt-3">
+            <button type="submit" class="btn btn-outline-primary" [disabled]="isLoading">Войти</button>
+          </div>
+
+          <div class="col-md-6 col-sm-12">
+            <p class="text-danger">{{controllerMessage}}</p>
+          </div>
         </div>
       </div>
-
-      <div class="col-md-6 col-sm-12">
-        <p *ngIf="wasSubmitPressed && txtLogin.errors && txtLogin.errors['required']" class="text-danger">
-          Обязательное поле
-        </p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6 col-sm-12">
-        <label for="password" class="col-form-label">Пароль</label>
-      </div>
-
-      <div class="col-md-6 col-sm-12">
-        <!-- здесь будут подсказки -->
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6 col-sm-12">
-        <div class="input-group">
-          <input id="password" type="password" formControlName="password" />
-        </div>
-      </div>
-
-      <div class="col-md-6 col-sm-12">
-        <p *ngIf="wasSubmitPressed && txtPassword.errors && txtPassword.errors['required']" class="text-danger">
-          Обязательное поле
-        </p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6 col-sm-12">
-        <button type="submit" class="btn btn-outline-primary">Войти</button>
-      </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

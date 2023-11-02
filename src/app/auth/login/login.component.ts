@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit{
   form: FormGroup;
   wasSubmitPressed: boolean = false;
   isLoading: boolean = false;
+  controllerMessage: string = '';
 
   get txtLogin(): AbstractControl {
     return this.form!.get('login')!;
@@ -40,16 +41,17 @@ export class LoginComponent implements OnInit{
           this.isLoading = false;
           if (result.code === 'OK') {
             alert(result.payload!.name! + ' logged in');
+            this.controllerMessage = '';
           } else {
-            alert(result.message!);
+            this.controllerMessage = result.message!;
           }
         },
         error: (err) => {
           this.isLoading = false;
           if (err.error.message === undefined) {
-            alert(err.message);
+            this.controllerMessage = err.message;
           } else {
-            alert(err.error.message);
+            this.controllerMessage = err.error.message;
           }
         }
       }
