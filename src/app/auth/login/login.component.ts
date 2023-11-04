@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit{
         next: (result) => {
           this.isLoading = false;
           if (result.code === 'OK') {
-            alert(result.payload!.name! + ' logged in');
+            window.location.href = 'main';
             this.controllerMessage = '';
           } else {
             this.controllerMessage = result.message!;
