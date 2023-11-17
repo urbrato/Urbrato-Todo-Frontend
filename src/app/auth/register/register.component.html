@@ -5,7 +5,18 @@
         <h2>Регистрация пользователя</h2>
       </div>
 
-      <div class="card-body">
+      <div class="card-body" *ngIf="captcha === ''">
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <p>А не робот ли Вы?</p>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <re-captcha (resolved)="resolved($event)" (errored)="errored()"></re-captcha>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body" *ngIf="captcha !== ''">
         <div class="row">
           <div class="col-md-6 col-sm-12">
             <label for="login" class="col-form-label">Логин</label>

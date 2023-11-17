@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit{
   wasSubmitPressed: boolean = false;
   isLoading: boolean = false;
   controllerMessage: string = '';
+  captcha: string = '';
 
   get txtLogin(): AbstractControl {
     return this.form!.get('login')!;
@@ -34,6 +35,15 @@ export class RegisterComponent implements OnInit{
     return this.form!.get('password_copy')!;
   }
 
+  resolved(captcha: string) {
+    this.captcha = captcha;
+  }
+
+  errored() {
+    this.captcha = '?';
+    this.controllerMessage = 'Ошибка при выполнении теста Тьюринга';
+  }
+
   submitForm() {
     this.wasSubmitPressed = true;
 
@@ -48,6 +58,7 @@ export class RegisterComponent implements OnInit{
     user.email = this.txtEmail.value;
     user.name = this.txtName.value;
     user.password = this.txtPassword.value;
+    user.captcha = this.captcha;
 
     this.authService.register(user).subscribe({
         next: (result) => {
@@ -72,6 +83,7 @@ export class RegisterComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.captcha = '';
   }
 
   constructor(

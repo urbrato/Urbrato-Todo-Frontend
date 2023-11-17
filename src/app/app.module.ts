@@ -10,7 +10,6 @@ import {HttpClientModule} from "@angular/common/http";
 import { MainComponent } from './main/main.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { RegisterCaptchaComponent } from './auth/register-captcha/register-captcha.component';
 import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from "ng-recaptcha";
 import { MustMatchDirective } from './directives/must-match.directive';
 
@@ -21,7 +20,6 @@ import { MustMatchDirective } from './directives/must-match.directive';
     MainComponent,
     RegisterComponent,
     ResetPasswordComponent,
-    RegisterCaptchaComponent,
     MustMatchDirective
   ],
   imports: [
