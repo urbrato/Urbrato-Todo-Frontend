@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../service/auth.service";
 import {UserDto} from "../../dto/user-dto";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-register',
@@ -83,7 +84,7 @@ export class RegisterComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.captcha = '';
+    this.captcha = environment.useCaptcha ? '' : '?';
   }
 
   constructor(
