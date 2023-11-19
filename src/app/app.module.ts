@@ -12,6 +12,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from "ng-recaptcha";
 import { MustMatchDirective } from './directives/must-match.directive';
+import { InfoPageComponent } from './auth/info-page/info-page.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MustMatchDirective } from './directives/must-match.directive';
     MainComponent,
     RegisterComponent,
     ResetPasswordComponent,
-    MustMatchDirective
+    MustMatchDirective,
+    InfoPageComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/form
 import {AuthService} from "../service/auth.service";
 import {UserDto} from "../../dto/user-dto";
 import {environment} from "../../../environments/environment";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -42,7 +43,7 @@ export class RegisterComponent implements OnInit{
 
   errored() {
     this.captcha = '?';
-    this.controllerMessage = 'Ошибка при выполнении теста Тьюринга';
+    this.controllerMessage = 'Ошибка при выполнении теста reCAPTCHA';
   }
 
   submitForm() {
@@ -65,8 +66,10 @@ export class RegisterComponent implements OnInit{
         next: (result) => {
           this.isLoading = false;
           if (result.code === 'OK') {
-            window.location.href = '';
             this.controllerMessage = '';
+            this.router.navigate(['auth/info-page',
+              {message: 'Вам отправлено письмо для подтверждения регистрации. Проверьте почту через 1-2 мин.'}])
+              .then(_ => {});
           } else {
             this.controllerMessage = result.message!;
           }
@@ -89,7 +92,8 @@ export class RegisterComponent implements OnInit{
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private router: Router) {
 
     this.form = this.formBuilder.group({
       login: ['', Validators.required],
