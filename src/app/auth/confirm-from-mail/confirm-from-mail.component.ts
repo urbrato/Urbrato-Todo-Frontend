@@ -25,6 +25,11 @@ export class ConfirmFromMailComponent implements OnInit{
           } else {
             this.router.navigate(['main']).then(_ => {});
           }
+        },
+        error: (_) => {
+          this.router.navigate(['auth/info-page',
+            {message: 'Возникла непредвиденная ошибка. Возможно, сервер не отвечает.'}])
+            .then(_ => {});
         }
       })
     });
