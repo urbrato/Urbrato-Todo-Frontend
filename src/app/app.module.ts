@@ -13,6 +13,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from "ng-recaptcha";
 import { MustMatchDirective } from './directives/must-match.directive';
 import { InfoPageComponent } from './auth/info-page/info-page.component';
+import { ConfirmFromMailComponent } from './auth/confirm-from-mail/confirm-from-mail.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { InfoPageComponent } from './auth/info-page/info-page.component';
     RegisterComponent,
     ResetPasswordComponent,
     MustMatchDirective,
-    InfoPageComponent
+    InfoPageComponent,
+    ConfirmFromMailComponent
   ],
   imports: [
     BrowserModule,
