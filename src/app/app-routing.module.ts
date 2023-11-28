@@ -6,6 +6,7 @@ import {RegisterComponent} from "./auth/register/register.component";
 import {ResetPasswordComponent} from "./auth/reset-password/reset-password.component";
 import {InfoPageComponent} from "./auth/info-page/info-page.component";
 import {ConfirmFromMailComponent} from "./auth/confirm-from-mail/confirm-from-mail.component";
+import {UpdatePasswordComponent} from "./auth/update-password/update-password.component";
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'auth/register', component: RegisterComponent},
   {path: 'auth/reset-password', component: ResetPasswordComponent},
   {path: 'auth/info-page', component: InfoPageComponent},
-  {path: 'confirm-activation/:uuid', component: ConfirmFromMailComponent}
+  {path: 'confirm-activation/:uuid', component: ConfirmFromMailComponent},
+  {path: 'change-password/:uuid', component: UpdatePasswordComponent}
 ];
 
 @NgModule({

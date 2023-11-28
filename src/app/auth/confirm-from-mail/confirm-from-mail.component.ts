@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {ActivityService} from "../service/activity.service";
+import {ActivityService} from "../../service/activity.service";
 
 @Component({
   selector: 'app-confirm-from-mail',

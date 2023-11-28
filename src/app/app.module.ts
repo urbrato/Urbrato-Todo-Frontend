@@ -14,6 +14,7 @@ import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettin
 import { MustMatchDirective } from './directives/must-match.directive';
 import { InfoPageComponent } from './auth/info-page/info-page.component';
 import { ConfirmFromMailComponent } from './auth/confirm-from-mail/confirm-from-mail.component';
+import { UpdatePasswordComponent } from './auth/update-password/update-password.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ConfirmFromMailComponent } from './auth/confirm-from-mail/confirm-from-
     ResetPasswordComponent,
     MustMatchDirective,
     InfoPageComponent,
-    ConfirmFromMailComponent
+    ConfirmFromMailComponent,
+    UpdatePasswordComponent
   ],
   imports: [
     BrowserModule,
