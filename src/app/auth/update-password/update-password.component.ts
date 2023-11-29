@@ -56,6 +56,8 @@ export class UpdatePasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isCheckingUuid = true;
+
     this.route.params.subscribe(params => {
       const uuid = params['uuid'];
 
