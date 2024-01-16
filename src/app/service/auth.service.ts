@@ -7,6 +7,7 @@ import {User} from "../entities/user";
 import {LoginDto} from "../dto/login-dto";
 import {UserDto} from "../dto/user-dto";
 import {PasswordResetDto} from "../dto/password-reset-dto";
+import {ReactivateDto} from "../dto/reactivate-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,9 @@ export class AuthService {
 
   public resetPassword(dto: PasswordResetDto): Observable<ControllerResult<User>> {
     return this.http.post<ControllerResult<User>>(this.authController + '/reset-password', dto);
+  }
+
+  public reactivate(dto: ReactivateDto): Observable<ControllerResult<User>> {
+    return this.http.post<ControllerResult<User>>(this.authController + '/reactivate', dto);
   }
 }

@@ -7,6 +7,7 @@ import {ResetPasswordComponent} from "./auth/reset-password/reset-password.compo
 import {InfoPageComponent} from "./auth/info-page/info-page.component";
 import {ConfirmFromMailComponent} from "./auth/confirm-from-mail/confirm-from-mail.component";
 import {UpdatePasswordComponent} from "./auth/update-password/update-password.component";
+import {ResendActivityComponent} from "./auth/resend-activity/resend-activity.component";
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'main', component: MainComponent},
   {path: 'auth/register', component: RegisterComponent},
   {path: 'auth/reset-password', component: ResetPasswordComponent},
+  {path: 'auth/resend-activity', component: ResendActivityComponent},
   {path: 'auth/info-page', component: InfoPageComponent},
   {path: 'confirm-activation/:uuid', component: ConfirmFromMailComponent},
   {path: 'confirm-mail/:uuid', component: ConfirmFromMailComponent},

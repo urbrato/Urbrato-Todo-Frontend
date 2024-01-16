@@ -15,6 +15,7 @@ import { MustMatchDirective } from './directives/must-match.directive';
 import { InfoPageComponent } from './auth/info-page/info-page.component';
 import { ConfirmFromMailComponent } from './auth/confirm-from-mail/confirm-from-mail.component';
 import { UpdatePasswordComponent } from './auth/update-password/update-password.component';
+import { ResendActivityComponent } from './auth/resend-activity/resend-activity.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UpdatePasswordComponent } from './auth/update-password/update-password.
     MustMatchDirective,
     InfoPageComponent,
     ConfirmFromMailComponent,
-    UpdatePasswordComponent
+    UpdatePasswordComponent,
+    ResendActivityComponent
   ],
   imports: [
     BrowserModule,
