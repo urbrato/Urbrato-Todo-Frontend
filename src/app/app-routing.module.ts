@@ -17,6 +17,8 @@ const routes: Routes = [
   {path: 'auth/reset-password', component: ResetPasswordComponent},
   {path: 'auth/info-page', component: InfoPageComponent},
   {path: 'confirm-activation/:uuid', component: ConfirmFromMailComponent},
+  {path: 'confirm-mail/:uuid', component: ConfirmFromMailComponent},
+  {path: 'deletion-pending/:uuid', component: ConfirmFromMailComponent},
   {path: 'change-password/:uuid', component: UpdatePasswordComponent}
 ];
 
