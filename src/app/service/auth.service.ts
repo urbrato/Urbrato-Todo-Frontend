@@ -17,6 +17,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  public currentUser?: User;
+
   public login(login: LoginDto): Observable<ControllerResult<User>> {
     return this.http.post<ControllerResult<User>>(this.authController + '/login', login);
   }

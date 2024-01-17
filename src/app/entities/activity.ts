@@ -3,6 +3,6 @@ export class Activity {
   public actionTypeId?: number;
   public actionId?: string;
   public lastActivityTime?: Date;
-  public actionDeadLine?: Date;
+  public actionDeadline?: Date;
   public additionalData?: string;
 }

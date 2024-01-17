@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit{
           if (result.code === 'OK') {
             window.location.href = 'main';
             this.controllerMessage = '';
+            this.authService.currentUser = result.payload;
           } else {
             this.controllerMessage = result.message!;
           }

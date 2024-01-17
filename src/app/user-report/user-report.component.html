@@ -1,0 +1,53 @@
+<p *ngIf="currentUser === null || currentUser === undefined">
+  Нет информации о залогиненном пользователе
+</p>
+<div *ngIf="currentUser !== null && currentUser !== undefined">
+  <h1>Информация о пользователе</h1>
+  <table>
+    <tr>
+      <td>ID</td>
+      <td>{{currentUser!.id!}}</td>
+    </tr>
+    <tr>
+      <td>Учётная запись</td>
+      <td>{{currentUser!.login!}}</td>
+    </tr>
+    <tr>
+      <td>e-mail</td>
+      <td>{{currentUser!.email!}}</td>
+    </tr>
+    <tr>
+      <td>Экранное имя</td>
+      <td>{{currentUser!.name!}}</td>
+    </tr>
+    <tr>
+      <td>Последний вход</td>
+      <td>{{currentUser!.activity!.lastActivityTime! | date: 'dd MMM yyyy HH:mm:ss'}}</td>
+    </tr>
+  </table>
+
+  <h2>Роли: {{currentUser!.roles!.length}}</h2>
+  <table *ngIf="currentUser!.roles!.length > 0">
+    <thead>
+    <tr>
+      <th>Название</th>
+      <th>Суть</th>
+    </tr>
+    </thead>
+    <tr *ngFor="let role of currentUser!.roles!">
+      <td>{{role.name!}}</td>
+      <td>({{role.description!}})</td>
+    </tr>
+  </table>
+  <p *ngIf="currentUser!.roles!.length === 0">отсутствуют</p>
+
+  <div *ngIf="currentUser!.activity!.actionTypeId !== null">
+    <p [ngSwitch]="currentUser!.activity!.actionTypeId!">
+      <span *ngSwitchCase="1">Требуется активация аккаунта</span>
+      <span *ngSwitchCase="2">Требуется подтверждение нового email: {{currentUser!.activity!.additionalData!}}</span>
+      <span *ngSwitchCase="3">Запрошено восстановление пароля</span>
+      <span *ngSwitchCase="4">Личный кабинет может быть удалён</span>
+      <span *ngSwitchDefault>Неизвестный запрос</span>
+    <br>Крайний срок: {{currentUser!.activity!.actionDeadline! | date: 'dd MMM yyyy HH:mm:ss'}}</p>
+  </div>
+</div>

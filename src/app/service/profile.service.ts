@@ -14,6 +14,10 @@ export class ProfileService {
   constructor(private http: HttpClient) { }
 
   public updatePassword(password: string): Observable<any> {
-    return this.http.post<ControllerResult<User>>(this.profileController + '/update-password', password, {withCredentials: true});
+    return this.http.post<ControllerResult<User>>(this.profileController + '/update-password', password);
+  }
+
+  public getCurrentUser(): Observable<User> {
+    return this.http.post<User>(this.profileController + '/current', '');
   }
 }

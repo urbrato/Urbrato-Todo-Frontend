@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { MainComponent } from './main/main.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
@@ -16,6 +16,8 @@ import { InfoPageComponent } from './auth/info-page/info-page.component';
 import { ConfirmFromMailComponent } from './auth/confirm-from-mail/confirm-from-mail.component';
 import { UpdatePasswordComponent } from './auth/update-password/update-password.component';
 import { ResendActivityComponent } from './auth/resend-activity/resend-activity.component';
+import { UserReportComponent } from './user-report/user-report.component';
+import {WithCredentialsInterceptor} from "./interceptors/with-credentials.interceptor";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { ResendActivityComponent } from './auth/resend-activity/resend-activity.
     InfoPageComponent,
     ConfirmFromMailComponent,
     UpdatePasswordComponent,
-    ResendActivityComponent
+    ResendActivityComponent,
+    UserReportComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,11 @@ import { ResendActivityComponent } from './auth/resend-activity/resend-activity.
     {
       provide: RECAPTCHA_LANGUAGE,
       useValue: 'ru'
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: WithCredentialsInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

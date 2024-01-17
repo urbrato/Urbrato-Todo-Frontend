@@ -12,6 +12,6 @@ export class ActivityService {
   constructor(private http: HttpClient) { }
 
   public confirm(uuid: string): Observable<any> {
-    return this.http.get(`${this.activityController}/${uuid}`, {withCredentials: true});
+    return this.http.get(`${this.activityController}/${uuid}`);
   }
 }
