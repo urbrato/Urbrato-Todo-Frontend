@@ -1,0 +1,15 @@
+<table>
+  <thead>
+  <th>Id</th>
+  <th>Name</th>
+  <th>Icon</th>
+  </thead>
+  <tr *ngFor="let cat of cats">
+    <td>{{cat.id}}</td>
+    <td>{{cat.name}}</td>
+    <td><img src="{{this.getCatIconUrl(cat)}}" alt=""></td>
+  </tr>
+</table>
+<input id="catId" type="text" formControlName="catId"><br>
+<input type="file" (change)="setFile($event)"><br>
+<button (click)="sendIcon()">Send Icon</button>

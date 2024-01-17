@@ -18,6 +18,7 @@ import { UpdatePasswordComponent } from './auth/update-password/update-password.
 import { ResendActivityComponent } from './auth/resend-activity/resend-activity.component';
 import { UserReportComponent } from './user-report/user-report.component';
 import {WithCredentialsInterceptor} from "./interceptors/with-credentials.interceptor";
+import { CategoryIconDemoComponent } from './category-icon-demo/category-icon-demo.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {WithCredentialsInterceptor} from "./interceptors/with-credentials.interc
     ConfirmFromMailComponent,
     UpdatePasswordComponent,
     ResendActivityComponent,
-    UserReportComponent
+    UserReportComponent,
+    CategoryIconDemoComponent
   ],
   imports: [
     BrowserModule,
