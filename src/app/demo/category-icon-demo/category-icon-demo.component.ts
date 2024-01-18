@@ -2,7 +2,6 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {CategoryService} from "../../dao/category.service";
 import {Category} from "../../entities/category";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {FileUtils} from "../../util/file-utils";
 
 @Component({
   selector: 'app-category-icon-demo',
