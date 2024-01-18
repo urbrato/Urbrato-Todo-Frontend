@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {from, Observable, switchMap} from "rxjs";
 import {ControllerResult} from "../dto/controller-result";
 import {User} from "../entities/user";
+import {UserUpdateDto} from "../dto/user-update-dto";
+import {FileUtils} from "../util/file-utils";
+import {UserAvatar} from "../entities/user-avatar";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +20,26 @@ export class ProfileService {
     return this.http.post<ControllerResult<User>>(this.profileController + '/update-password', password);
   }
 
+  public update(dto: UserUpdateDto): Observable<boolean> {
+    return this.http.post<boolean>(this.profileController + '/update', dto);
+  }
+
   public getCurrentUser(): Observable<User> {
     return this.http.post<User>(this.profileController + '/current', '');
+  }
+
+  public getAvatarUrl(id: number): string {
+    return `${this.profileController}/avatar?id=${id}`;
+  }
+
+  public setAvatar(id: number, file: File): Observable<string> {
+    return from(FileUtils.readFileAsBase64(file)).pipe(
+      switchMap(base64 => {
+        const dto: UserAvatar = new UserAvatar();
+        dto.id = id;
+        dto.avatar = base64;
+
+        return this.http.put(this.profileController + '/avatar', dto) as Observable<string>;
+      }));
   }
 }
