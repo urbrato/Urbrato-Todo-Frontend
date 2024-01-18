@@ -9,15 +9,14 @@ import {ProfileService} from "../../service/profile.service";
   styleUrls: ['./user-report.component.css']
 })
 export class UserReportComponent {
-  currentUser?: User;
+  currentUser: User | null = null;
 
   constructor(private authService: AuthService,
               private profileService: ProfileService) {
-    if (authService.currentUser == undefined) {
+    if (authService.currentUser.value === null) {
       profileService.getCurrentUser().subscribe({
         next: (user) => {
-          authService.currentUser = user;
-          this.currentUser = user;
+          authService.currentUser.next(user);
         },
         error: (err) => {
           if (err.error.message === undefined) {
@@ -27,8 +26,8 @@ export class UserReportComponent {
           }
         }
       });
-    } else {
-      this.currentUser = authService.currentUser;
     }
+
+    this.authService.currentUser.subscribe((user) => this.currentUser = user);
   }
 }
