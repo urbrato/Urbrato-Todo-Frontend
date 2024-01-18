@@ -16,9 +16,9 @@ import { InfoPageComponent } from './auth/info-page/info-page.component';
 import { ConfirmFromMailComponent } from './auth/confirm-from-mail/confirm-from-mail.component';
 import { UpdatePasswordComponent } from './auth/update-password/update-password.component';
 import { ResendActivityComponent } from './auth/resend-activity/resend-activity.component';
-import { UserReportComponent } from './user-report/user-report.component';
+import { UserReportComponent } from './demo/user-report/user-report.component';
 import {WithCredentialsInterceptor} from "./interceptors/with-credentials.interceptor";
-import { CategoryIconDemoComponent } from './category-icon-demo/category-icon-demo.component';
+import { CategoryIconDemoComponent } from './demo/category-icon-demo/category-icon-demo.component';
 
 @NgModule({
   declarations: [

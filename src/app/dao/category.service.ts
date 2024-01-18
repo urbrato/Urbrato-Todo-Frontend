@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {from, Observable, switchMap} from "rxjs";
 import {Category} from "../entities/category";
 import {CategoryCreateDto} from "../dto/category-create-dto";
 import {ControllerResult} from "../dto/controller-result";
 import {CategoryUpdateDto} from "../dto/category-update-dto";
 import {CategorySearchDto} from "../dto/category-search-dto";
+import {FileUtils} from "../util/file-utils";
+import {CategoryIcon} from "../entities/category-icon";
 
 @Injectable({
   providedIn: 'root'
@@ -44,50 +46,14 @@ export class CategoryService {
     return `${this.controller}/icon?id=${id}`;
   }
 
-  public setIcon(id: string, file: File): void {
-    const formData: FormData = new FormData();
-    formData.append('id', id);
-    formData.append('icon', file, file.name);
+  public setIcon(id: number, file: File): Observable<string> {
+    return from(FileUtils.readFileAsBase64(file)).pipe(
+      switchMap(base64 => {
+      const dto: CategoryIcon = new CategoryIcon();
+      dto.id = id;
+      dto.icon = base64;
 
-    const mudemo: demo = new demo();
-    mudemo.id = parseInt(id);
-
-    this.readFileAsBase64(file).then(base64 => {alert('q'); mudemo.icon = base64 as string;});
-
-    alert('icon: ' + mudemo.icon);
-
-    this.http.put(this.controller + '/icon',
-      mudemo).subscribe({
-      next: () => {
-        alert('OK');
-      },
-      error: (err) => {
-        if (err.error.message === undefined) {
-          alert(err.message);
-        } else {
-          alert(err.error.message);
-        }
-      }
-    });
+      return this.http.put(this.controller + '/icon', dto) as Observable<string>;
+    }));
   }
-
-  readFileAsBase64(file: File): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        const base64 = (reader.result as string)!.split(',')[1];
-        resolve(base64);
-      };
-
-      reader.onerror = error => reject(error);
-
-      reader.readAsDataURL(file);
-    });
-  }
-}
-
-class demo {
-  public id?: number;
-  public icon?: string;
 }

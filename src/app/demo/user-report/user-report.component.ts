@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {AuthService} from "../service/auth.service";
-import {User} from "../entities/user";
-import {ProfileService} from "../service/profile.service";
+import {AuthService} from "../../service/auth.service";
+import {User} from "../../entities/user";
+import {ProfileService} from "../../service/profile.service";
 
 @Component({
   selector: 'app-user-report',
