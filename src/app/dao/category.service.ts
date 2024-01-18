@@ -38,8 +38,8 @@ export class CategoryService {
     return this.http.delete<string>(this.http + '/delete/' + id.toString());
   }
 
-  public search(dto: CategorySearchDto): Observable<Category[]> {
-    return this.http.post<Category[]>(this.controller + '/search', dto);
+  public search(dto: CategorySearchDto): Observable<ControllerResult<Category[]>> {
+    return this.http.post<ControllerResult<Category[]>>(this.controller + '/search', dto);
   }
 
   public getIconUrl(id: number): string {
