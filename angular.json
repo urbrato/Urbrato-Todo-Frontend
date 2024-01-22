@@ -67,13 +67,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Urbrato-Todo-Frontend:build:production"
+              "buildTarget": "Urbrato-Todo-Frontend:build:production"
             },
             "development": {
-              "browserTarget": "Urbrato-Todo-Frontend:build:development",
               "ssl": true,
               "sslCert": "src/assets/ssl/urbrato_local.cer",
-              "sslKey": "src/assets/ssl/urbrato_local.pkcs8"
+              "sslKey": "src/assets/ssl/urbrato_local.pkcs8",
+              "buildTarget": "Urbrato-Todo-Frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -81,7 +81,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Urbrato-Todo-Frontend:build"
+            "buildTarget": "Urbrato-Todo-Frontend:build"
           }
         },
         "test": {
