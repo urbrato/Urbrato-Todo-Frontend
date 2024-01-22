@@ -34,4 +34,8 @@ export class AuthService {
   public reactivate(dto: ReactivateDto): Observable<ControllerResult<User>> {
     return this.http.post<ControllerResult<User>>(this.authController + '/reactivate', dto);
   }
+
+  public logout() {
+    return this.http.post<string>(this.authController + '/logout', '');
+  }
 }

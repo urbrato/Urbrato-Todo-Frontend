@@ -3,6 +3,7 @@ import {AbstractControl, FormGroup, Validators} from "@angular/forms";
 import {FormBuilder} from "@angular/forms";
 import {AuthService} from "../../service/auth.service";
 import {LoginDto} from "../../dto/login-dto";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -40,10 +41,11 @@ export class LoginComponent implements OnInit{
         next: (result) => {
           this.isLoading = false;
           if (result.code === 'OK') {
-            window.location.href = 'main';
             this.controllerMessage = '';
-            if (result.payload !== undefined)
+            if (result.payload !== undefined) {
               this.authService.currentUser.next(result.payload!);
+              this.router.navigate(['main']).then(_ => {});
+            }
           } else {
             this.controllerMessage = result.message!;
           }
@@ -65,7 +67,8 @@ export class LoginComponent implements OnInit{
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private router: Router) {
 
     this.form = this.formBuilder.group({
       login: ['', Validators.required],
