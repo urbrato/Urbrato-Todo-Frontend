@@ -11,7 +11,7 @@
             <p>А не робот ли Вы?</p>
           </div>
           <div class="col-xl-8 col-lg-12">
-            <re-captcha (resolved)="resolved($event)" (errored)="errored()"></re-captcha>
+            <re-captcha (resolved)="resolved($event!)" (errored)="errored()"></re-captcha>
           </div>
         </div>
       </div>

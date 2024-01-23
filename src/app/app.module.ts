@@ -10,7 +10,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { MainComponent } from './main/main.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from "ng-recaptcha";
+import {RECAPTCHA_LOADER_OPTIONS, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from "ng-recaptcha";
 import { MustMatchDirective } from './directives/must-match.directive';
 import { InfoPageComponent } from './auth/info-page/info-page.component';
 import { ConfirmFromMailComponent } from './auth/confirm-from-mail/confirm-from-mail.component';
@@ -19,6 +19,9 @@ import { ResendActivityComponent } from './auth/resend-activity/resend-activity.
 import { UserReportComponent } from './demo/user-report/user-report.component';
 import {WithCredentialsInterceptor} from "./interceptors/with-credentials.interceptor";
 import { CategoryIconDemoComponent } from './demo/category-icon-demo/category-icon-demo.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatButton} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -41,7 +44,10 @@ import { CategoryIconDemoComponent } from './demo/category-icon-demo/category-ic
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RecaptchaModule
+    RecaptchaModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatButton
   ],
   providers: [
     {
@@ -49,8 +55,14 @@ import { CategoryIconDemoComponent } from './demo/category-icon-demo/category-ic
       useValue: {siteKey: '6Le9iEAkAAAAADUn4jwOXZ74kksw18JxYjFBGIYD' as RecaptchaSettings}
     },
     {
-      provide: RECAPTCHA_LANGUAGE,
-      useValue: 'ru'
+      provide: RECAPTCHA_LOADER_OPTIONS,
+      useValue: {
+        onBeforeLoad(url) {
+          (url as URL).searchParams.set("hl", "ru-RU")
+
+          return {url};
+        }
+      }
     },
     {
       provide: HTTP_INTERCEPTORS,
