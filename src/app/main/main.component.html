@@ -1,7 +1,6 @@
 <mat-drawer-container class="container-fluid h-100 d-flex align-items-center auth-background">
   <mat-drawer #drawer [mode]="'push'">Категории</mat-drawer>
   <mat-drawer-content>
-    <button mat-raised-button (click)="drawer.toggle()">&equiv;</button>
-    <h1>Трекер задач. Пользователь {{currentUser.name}}</h1>
+    <h1><button mat-raised-button (click)="drawer.toggle()">&equiv;</button>Трекер задач. Пользователь {{currentUser.name}}</h1>
   </mat-drawer-content>
 </mat-drawer-container>
