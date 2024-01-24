@@ -1,6 +1,15 @@
 <mat-drawer-container class="container-fluid h-100 d-flex align-items-center auth-background">
-  <mat-drawer #drawer [mode]="'push'">Категории</mat-drawer>
+  <mat-drawer #drawer [mode]="catsMode"  [opened]="catsOpened" >Категории
+    <dl>
+      <dt>isMobile</dt>
+      <dd>{{isMobile}}</dd>
+      <dt>isTablet</dt>
+      <dd>{{isTablet}}</dd>
+      <dt>isDesktop</dt>
+      <dd>{{isDesktop}}</dd>
+    </dl>
+  </mat-drawer>
   <mat-drawer-content>
-    <h1><button mat-raised-button (click)="drawer.toggle()">&equiv;</button>Трекер задач. Пользователь {{currentUser.name}}</h1>
+    <h6><button mat-raised-button (click)="drawer.toggle()">&equiv;</button>&nbsp;Трекер задач. Пользователь {{currentUser.name}}</h6>
   </mat-drawer-content>
 </mat-drawer-container>
