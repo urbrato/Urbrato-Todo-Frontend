@@ -1,13 +1,6 @@
 <mat-drawer-container class="container-fluid h-100 d-flex align-items-center">
   <mat-drawer #drawer [mode]="catsMode"  [opened]="catsOpened" >Категории
-    <dl>
-      <dt>isMobile</dt>
-      <dd>{{isMobile}}</dd>
-      <dt>isTablet</dt>
-      <dd>{{isTablet}}</dd>
-      <dt>isDesktop</dt>
-      <dd>{{isDesktop}}</dd>
-    </dl>
+    <app-categories-list [categories]="categories"></app-categories-list>
   </mat-drawer>
   <mat-drawer-content>
     <h6><button mat-raised-button (click)="drawer.toggle()">&equiv;</button>&nbsp;Трекер задач. Пользователь {{currentUser.name}}</h6>

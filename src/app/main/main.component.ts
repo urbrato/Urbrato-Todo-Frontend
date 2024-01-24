@@ -5,6 +5,12 @@ import {ProfileService} from "../service/profile.service";
 import {Router} from "@angular/router";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {MatDrawerMode} from "@angular/material/sidenav";
+import {TranslateService} from "@ngx-translate/core";
+import {Category} from "../entities/category";
+import {CategoryService} from "../dao/category.service";
+
+export const LANG_RU = 'ru';
+export const LANG_EO = 'eo';
 
 @Component({
   selector: 'app-main',
@@ -13,6 +19,7 @@ import {MatDrawerMode} from "@angular/material/sidenav";
 })
 export class MainComponent implements OnInit {
   currentUser: User | null = null;
+  categories: Category[] = [];
 
   // тип устройства
   isMobile: boolean = false;
@@ -26,11 +33,17 @@ export class MainComponent implements OnInit {
   constructor(
     private srvAuth: AuthService,
     private srvProfile: ProfileService,
+    private srvCategory: CategoryService,
     private router: Router,
-    private deviceDetector: DeviceDetectorService) {
+    private deviceDetector: DeviceDetectorService,
+    private translate: TranslateService) {
 
     srvAuth.currentUser.subscribe(user => {
       this.currentUser = user;
+      srvCategory.list().subscribe({
+        next: (categories) =>
+          this.categories = categories
+      })
     });
 
     this.currentUser = this.srvAuth.currentUser.value;
@@ -45,11 +58,15 @@ export class MainComponent implements OnInit {
         }
       });
     }
+
+    translate.addLangs([LANG_RU, LANG_EO]);
+    translate.setDefaultLang(LANG_RU);
   }
 
   ngOnInit(): void {
     this.detectDevice();
     this.initCatsDrawer();
+    this.translate.use(LANG_RU);
   }
 
   detectDevice() {

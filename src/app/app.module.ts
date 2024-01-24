@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from "@angular/common";
+import {CommonModule, registerLocaleData} from "@angular/common";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpBackend, HttpClient, HttpClientModule} from "@angular/common/http";
 import { MainComponent } from './main/main.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
@@ -22,6 +22,23 @@ import { CategoryIconDemoComponent } from './demo/category-icon-demo/category-ic
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatButton} from "@angular/material/button";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {MultiTranslateHttpLoader} from "ngx-translate-multi-http-loader";
+import {environment} from "../environments/environment";
+import localeRu from '@angular/common/locales/ru';
+import {CategoriesListComponent} from "./views/categories-list/categories-list.component";
+
+registerLocaleData(localeRu);
+
+function HttpLoaderFactory(http: HttpBackend): MultiTranslateHttpLoader {
+  let loader = new MultiTranslateHttpLoader(http, [
+    {
+      prefix: environment.frontendURL + '/assets/locales/',
+      suffix: '.json'
+    }
+  ]);
+  return loader;
+}
 
 @NgModule({
   declarations: [
@@ -47,7 +64,15 @@ import {MatButton} from "@angular/material/button";
     RecaptchaModule,
     BrowserAnimationsModule,
     MatSidenavModule,
-    MatButton
+    MatButton,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpBackend]
+      }
+    }),
+    CategoriesListComponent
   ],
   providers: [
     {

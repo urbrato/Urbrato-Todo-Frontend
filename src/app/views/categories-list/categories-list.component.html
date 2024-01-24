@@ -1,0 +1,19 @@
+<ul class="list-group">
+  <li class="nav-item">
+    <a class="nav-link">
+      <span class="categories-all">
+        {{'Category.All' | translate}}
+      </span>
+    </a>
+  </li>
+
+  <div class="line"></div>
+
+  <div *ngIf="!categories || categories.length === 0">
+    <p class="not-found">{{'Category.NotFound' | translate}}</p>
+  </div>
+
+  <li *ngFor="let category of categories" class="nav-item">
+    <app-category [category]="category"></app-category>
+  </li>
+</ul>

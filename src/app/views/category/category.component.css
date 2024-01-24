@@ -1,0 +1,47 @@
+span img {
+  vertical-align: middle;
+}
+
+.velocipadding {
+  padding-left: unset;
+  padding-right: unset;
+}
+
+.category-icon {
+  height: 1.5em;
+  width: 1.5em;
+  object-fit: scale-down;
+}
+
+.category-name {
+  padding: 5px;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.category-button {
+  width: 24px;
+}
+
+span.category-button {
+  display: inline-block;
+  align-items: center;
+  font-size: 13px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.category-count {
+  display: inline-block;
+  padding: 3px;
+  background-color: black;
+  border-radius: 3px;
+  color: #eaeaea;
+  text-align: center;
+}
+
+.col-maticon {
+  min-width: 24px;
+  max-width: 24px;
+  width: 24px;
+}
