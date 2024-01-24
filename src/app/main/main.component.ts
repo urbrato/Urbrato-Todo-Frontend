@@ -14,12 +14,14 @@ import {MatDrawerMode} from "@angular/material/sidenav";
 export class MainComponent implements OnInit {
   currentUser: User | null = null;
 
+  // тип устройства
   isMobile: boolean = false;
   isTablet: boolean = false;
   isDesktop: boolean = false;
 
-  catsOpened: boolean = false;
-  catsMode: MatDrawerMode = "side";
+  // настройки боковой панели
+  catsOpened: boolean = false; // открыто ли изначально
+  catsMode: MatDrawerMode = "side"; // режим открытия
 
   constructor(
     private srvAuth: AuthService,
