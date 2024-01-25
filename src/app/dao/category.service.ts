@@ -46,6 +46,10 @@ export class CategoryService {
     return `${this.controller}/icon?id=${id}`;
   }
 
+  public hasIcon(id: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.controller}/has-icon?id=${id}`);
+  }
+
   public setIcon(id: number, file: File): Observable<string> {
     return from(FileUtils.readFileAsBase64(file)).pipe(
       switchMap(base64 => {

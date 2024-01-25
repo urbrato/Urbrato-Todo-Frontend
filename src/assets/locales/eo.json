@@ -1,4 +1,8 @@
 {
+  "Main": {
+    "Title": "Taskspurilo",
+    "Categories": "Kategorioj"
+  },
   "Category": {
     "All": "Ĉiuj taskoj",
     "NotFound": "(ne ekzistas kategorioj)"

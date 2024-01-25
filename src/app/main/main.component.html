@@ -1,8 +1,9 @@
 <mat-drawer-container class="container-fluid h-100 d-flex align-items-center">
-  <mat-drawer #drawer [mode]="catsMode"  [opened]="catsOpened" >Категории
+  <mat-drawer #drawer class="cat-drawer" [mode]="catsMode"  [opened]="catsOpened" >
+    {{'Main.Categories' | translate}}
     <app-categories-list [categories]="categories"></app-categories-list>
   </mat-drawer>
   <mat-drawer-content>
-    <h6><button mat-raised-button (click)="drawer.toggle()">&equiv;</button>&nbsp;Трекер задач. Пользователь {{currentUser.name}}</h6>
+    <h6><button mat-raised-button (click)="drawer.toggle()">&equiv;</button>&nbsp;{{'Main.Title' | translate}} - {{currentUser.name}}</h6>
   </mat-drawer-content>
 </mat-drawer-container>

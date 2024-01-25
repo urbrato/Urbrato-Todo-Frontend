@@ -2,14 +2,22 @@ span img {
   vertical-align: middle;
 }
 
-.velocipadding {
-  padding-left: unset;
-  padding-right: unset;
+.border-box {
+  box-sizing: border-box;
+}
+
+.no-hor-margin {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.no-hor-padding {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .category-icon {
   height: 1.5em;
-  width: 1.5em;
   object-fit: scale-down;
 }
 
@@ -20,7 +28,6 @@ span img {
 }
 
 .category-button {
-  width: 24px;
 }
 
 span.category-button {
@@ -38,10 +45,4 @@ span.category-button {
   border-radius: 3px;
   color: #eaeaea;
   text-align: center;
-}
-
-.col-maticon {
-  min-width: 24px;
-  max-width: 24px;
-  width: 24px;
 }

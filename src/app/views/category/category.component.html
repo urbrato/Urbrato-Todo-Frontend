@@ -1,28 +1,28 @@
 <a class="nav-link">
-  <div class="container">
-    <div class="row">
-      <div class="col-1 velocipadding">
-        <img class="category-icon img-fluid" src="{{iconUrl}}" alt="">
+  <div class="container no-hor-padding border-box">
+    <div class="row no-hor-margin border-box">
+      <div class="col-1 no-hor-padding">
+        <img class="category-icon img-fluid" src="{{iconUrl}}" alt="" *ngIf="hasIcon">
       </div>
-      <div class="col-8 velocipadding">
-        <span class="category-name">
-          {{category.name}}
-        </span>
+      <div class="col-8 no-hor-padding">
+            <span class="category-name">
+              {{category.name}}
+            </span>
       </div>
-      <div class="col-1 velocipadding">
-        <span class="category-count">
-          {{category.nincomplete || 0}}
-        </span>
+      <div class="col-1 no-hor-padding">
+            <span class="category-count">
+              {{category.nincomplete || 0}}
+            </span>
       </div>
-      <div class="col-1 col-maticon offset-1 order-11 velocipadding">
-        <span class="category-button">
-          <mat-icon class="category-button img-thumbnail" (click)="msg('edit ' + category.name)">edit</mat-icon>
-        </span>
+      <div class="col-1 no-hor-padding">
+            <span class="category-button">
+              <mat-icon class="category-button" (click)="msg('edit ' + category.name)">edit</mat-icon>
+            </span>
       </div>
-      <div class="col-1 col-maticon offset-1 order-12 velocipadding">
-        <span class="category-button">
-          <mat-icon class="category-button img-thumbnail" (click)="msg('delete ' + category.name)">delete</mat-icon>
-        </span>
+      <div class="col-1 no-hor-padding">
+            <span class="category-button">
+              <mat-icon class="category-button" (click)="msg('delete ' + category.name)">delete</mat-icon>
+            </span>
       </div>
     </div>
   </div>
