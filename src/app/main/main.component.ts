@@ -40,10 +40,14 @@ export class MainComponent implements OnInit {
 
     srvAuth.currentUser.subscribe(user => {
       this.currentUser = user;
-      srvCategory.list().subscribe({
-        next: (categories) =>
-          this.categories = categories
-      })
+      if (user === null) {
+        this.categories = [];
+      } else {
+        srvCategory.list().subscribe({
+          next: (categories) =>
+            this.categories = categories
+        })
+      }
     });
 
     this.currentUser = this.srvAuth.currentUser.value;
