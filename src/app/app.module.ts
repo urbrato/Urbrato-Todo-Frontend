@@ -28,6 +28,7 @@ import {environment} from "../environments/environment";
 import localeRu from '@angular/common/locales/ru';
 import {CategoriesListComponent} from "./views/categories-list/categories-list.component";
 import {CategoryComponent} from "./views/category/category.component";
+import {CategoriesLogoComponent} from "./views/categories-logo/categories-logo.component";
 
 registerLocaleData(localeRu);
 
@@ -73,7 +74,8 @@ function HttpLoaderFactory(http: HttpBackend): MultiTranslateHttpLoader {
             }
         }),
         CategoriesListComponent,
-        CategoryComponent
+        CategoryComponent,
+        CategoriesLogoComponent
     ],
   providers: [
     {

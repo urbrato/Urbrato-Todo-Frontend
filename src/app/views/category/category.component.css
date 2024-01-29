@@ -27,7 +27,8 @@ span img {
   font-size: 16px;
 }
 
-.category-button {
+.category-button:hover {
+  border: solid 1px;
 }
 
 span.category-button {

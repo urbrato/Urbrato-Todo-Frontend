@@ -1,6 +1,6 @@
 <mat-drawer-container class="container-fluid h-100 d-flex align-items-center">
   <mat-drawer #drawer class="cat-drawer" [mode]="catsMode"  [opened]="catsOpened" >
-    {{'Main.Categories' | translate}}
+    <app-categories-logo></app-categories-logo>
     <app-categories-list [categories]="categories"></app-categories-list>
   </mat-drawer>
   <mat-drawer-content>
