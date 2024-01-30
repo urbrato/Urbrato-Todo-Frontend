@@ -4,7 +4,9 @@
       <h3 class="vertical-centered-text">{{'Category.Categories' | translate}}</h3>
     </div>
     <div class="col-sm-2 cat-logo-col no-padding">
-      <button mat-icon-button class="no-margin vertical-centered-text">
+      <button mat-icon-button class="no-margin vertical-centered-text"
+              (click)="addCategory()"
+      >
         <mat-icon>add</mat-icon>
       </button>
     </div>

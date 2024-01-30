@@ -25,3 +25,26 @@ body {
   color: rgba(74, 74, 74, 0.98);
   text-align: center;
 }
+
+.clear-icon {
+  margin-left: 10px;
+  font-size: 25px;
+}
+
+.padding-bottom-20 {
+  padding-bottom: 20px !important;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.vertical-centered-text {
+  vertical-align: middle;
+  display: inline-block;
+  line-height: normal;
+}

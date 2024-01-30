@@ -1,0 +1,47 @@
+<mat-dialog-content>
+  <p mat-dialog-title>{{'Category.CreateTitle' | translate}}</p>
+  <mat-form-field
+    style="width: 100%;"
+  >
+    <mat-label>{{'Category.Name' | translate}}</mat-label>
+    <input
+      #txtName
+      matInput
+      [(ngModel)]="category.name"
+      (keydown.enter)="confirm()"
+      style="width: 100%;"
+    />
+    <button
+      *ngIf="category.name.trim().length > 0"
+      class="clear-icon"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="category.name = ''"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions class="padding-bottom-20">
+  <div class="col-4"></div>
+  <div class="col-4 text-center no-padding">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="confirm()"
+      [disabled]="category.name.trim() === ''"
+    >
+      {{'Main.Save' | translate}}
+    </button>
+  </div>
+  <div class="col-4 text-center no-padding">
+    <button
+      mat-raised-button
+      color="secondary"
+      (click)="cancel()"
+    >
+      Cancel
+    </button>
+  </div>
+</mat-dialog-actions>

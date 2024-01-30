@@ -29,6 +29,8 @@ import localeRu from '@angular/common/locales/ru';
 import {CategoriesListComponent} from "./views/categories-list/categories-list.component";
 import {CategoryComponent} from "./views/category/category.component";
 import {CategoriesLogoComponent} from "./views/categories-logo/categories-logo.component";
+import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {CategoryCreateDto} from "./dto/category-create-dto";
 
 registerLocaleData(localeRu);
 
@@ -66,6 +68,7 @@ function HttpLoaderFactory(http: HttpBackend): MultiTranslateHttpLoader {
         BrowserAnimationsModule,
         MatSidenavModule,
         MatButton,
+        MatDialogModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -96,6 +99,14 @@ function HttpLoaderFactory(http: HttpBackend): MultiTranslateHttpLoader {
       provide: HTTP_INTERCEPTORS,
       useClass: WithCredentialsInterceptor,
       multi: true
+    },
+    {
+      provide: MatDialogRef,
+      useValue: {}
+    },
+    {
+      provide: CategoryCreateDto,
+      useValue: {}
     }
   ],
   bootstrap: [AppComponent]

@@ -1,10 +1,14 @@
 {
   "Main": {
-    "Title": "Taskspurilo"
+    "Title": "Taskspurilo",
+    "Save": "Konservi",
+    "Cancel": "Malfaru"
   },
   "Category": {
     "Categories": "Kategorioj",
     "All": "Ĉiuj taskoj",
-    "NotFound": "(ne ekzistas kategorioj)"
+    "NotFound": "(ne ekzistas kategorioj)",
+    "CreateTitle": "Nova kategorio",
+    "Name": "Titolo"
   }
 }
