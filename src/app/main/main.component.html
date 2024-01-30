@@ -1,9 +1,12 @@
 <mat-drawer-container class="container-fluid h-100 d-flex align-items-center">
   <mat-drawer #drawer class="cat-drawer" [mode]="catsMode"  [opened]="catsOpened" >
-    <app-categories-logo></app-categories-logo>
+    <app-categories-logo (addCategoryEvent)="addCategory($event)"></app-categories-logo>
     <app-categories-list [categories]="categories"></app-categories-list>
   </mat-drawer>
   <mat-drawer-content>
-    <h6><button mat-raised-button (click)="drawer.toggle()">&equiv;</button>&nbsp;{{'Main.Title' | translate}} - {{currentUser.name}}</h6>
+    <h6>
+      <button mat-raised-button (click)="drawer.toggle()">&equiv;</button>
+      nbsp;{{'Main.Title' | translate}} - {{currentUser.name}}
+    </h6>
   </mat-drawer-content>
 </mat-drawer-container>

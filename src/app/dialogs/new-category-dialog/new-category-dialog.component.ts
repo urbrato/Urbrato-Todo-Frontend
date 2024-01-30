@@ -45,12 +45,6 @@ export class NewCategoryDialogComponent {
     private dlg: MatDialogRef<NewCategoryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public category: CategoryCreateDto
   ) {
-    if (!category) {
-      alert('null');
-    } else
-    {
-      alert(category.name);
-    }
   }
 
   confirm() {

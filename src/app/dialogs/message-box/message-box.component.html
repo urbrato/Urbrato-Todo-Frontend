@@ -1,0 +1,30 @@
+<mat-dialog-content>
+  <p mat-dialog-title>{{title}}</p>
+  <div
+    style="width: 100%;"
+    class="container"
+  >
+    <div class="row">
+      <div *ngIf="hasIcon" class="col-4">
+        <img src="{{iconUrl}}" alt="">
+      </div>
+      <div class="col-8">
+        <p>{{message}}</p>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="padding-bottom-20">
+  <div *ngFor="let has of hasButton; let i = index"
+       class="col-4 text-center no-padding"
+  >
+    <button
+      *ngIf="has"
+      mat-raised-button
+      color="primary"
+      (click)="getResult(buttonResult[i])"
+    >
+      {{buttonText[i]}}
+    </button>
+  </div>
+</mat-dialog-actions>

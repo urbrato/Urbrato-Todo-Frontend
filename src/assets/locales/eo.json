@@ -2,13 +2,25 @@
   "Main": {
     "Title": "Taskspurilo",
     "Save": "Konservi",
-    "Cancel": "Malfaru"
+    "OK": "OK",
+    "Cancel": "Malfaru",
+    "Abort": "Ĉesigi",
+    "Retry": "Reprovi",
+    "Ignore": "Ignori",
+    "Yes": "Jes",
+    "No": "Ne",
+    "Error": "Eraro"
   },
   "Category": {
     "Categories": "Kategorioj",
     "All": "Ĉiuj taskoj",
     "NotFound": "(ne ekzistas kategorioj)",
     "CreateTitle": "Nova kategorio",
-    "Name": "Titolo"
+    "Name": "Titolo",
+    "ErrorCodes": {
+      "EmptyName": "Titolo de la kategorio ne povas esti malplena",
+      "NameAlreadyExists": "Estas jam kategorio kun ĉi tiu nomo",
+      "NotOwner": "Vi ne rajtas uzi ĉi tiun kategorion"
+    }
   }
 }

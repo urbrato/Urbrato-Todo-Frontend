@@ -8,6 +8,13 @@ import {MatDrawerMode} from "@angular/material/sidenav";
 import {TranslateService} from "@ngx-translate/core";
 import {Category} from "../entities/category";
 import {CategoryService} from "../dao/category.service";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MessageBoxComponent} from "../dialogs/message-box/message-box.component";
+import {MessageBoxData} from "../util/message-box-data";
+import {MessageBoxButtons} from "../util/message-box-buttons";
+import {MessageBoxIcon} from "../util/message-box-icon";
+import {Observable} from "rxjs";
+import {DialogResult} from "../util/dialog-result";
 
 export const LANG_RU = 'ru';
 export const LANG_EO = 'eo';
@@ -36,17 +43,16 @@ export class MainComponent implements OnInit {
     private srvCategory: CategoryService,
     private router: Router,
     private deviceDetector: DeviceDetectorService,
-    private translate: TranslateService) {
+    private translate: TranslateService,
+    private dlgMsg: MatDialogRef<MessageBoxComponent>,
+    private bldDlg: MatDialog) {
 
     srvAuth.currentUser.subscribe(user => {
       this.currentUser = user;
       if (user === null) {
         this.categories = [];
       } else {
-        srvCategory.list().subscribe({
-          next: (categories) =>
-            this.categories = categories
-        })
+        this.getCategories();
       }
     });
 
@@ -87,5 +93,58 @@ export class MainComponent implements OnInit {
       this.catsOpened = true;
       this.catsMode = "push";
     }
+  }
+
+  showMessageBox(
+    message: string,
+    title: string,
+    buttons: MessageBoxButtons,
+    icon: MessageBoxIcon
+  ): Observable<DialogResult> {
+    let data = new MessageBoxData(
+      message,
+      title,
+      buttons,
+      icon
+    );
+
+    this.dlgMsg = this.bldDlg.open(MessageBoxComponent, {
+      data: data,
+      width: '400px'
+    });
+
+    return this.dlgMsg.afterClosed();
+  }
+
+  getCategories() {
+    this.srvCategory.list().subscribe({
+      next: (categories) =>
+        this.categories = categories
+    })
+  }
+
+  addCategory(category) {
+    this.srvCategory.add(category).subscribe( {
+      next: _ =>  {
+        this.getCategories();
+      },
+      error: err => {
+        if (err.error.code) {
+          this.showMessageBox(
+            this.translate.instant(`Category.ErrorCodes.${err.error.code}`),
+            this.translate.instant('Main.Error'),
+            MessageBoxButtons.OK,
+            MessageBoxIcon.ERROR
+          )
+        } else {
+          this.showMessageBox(
+            this.translate.instant('Main.Error'),
+            this.translate.instant('Main.Error'),
+            MessageBoxButtons.OK,
+            MessageBoxIcon.ERROR
+          )
+        }
+      }
+    });
   }
 }
