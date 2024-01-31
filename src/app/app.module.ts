@@ -26,6 +26,7 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {MultiTranslateHttpLoader} from "ngx-translate-multi-http-loader";
 import {environment} from "../environments/environment";
 import localeRu from '@angular/common/locales/ru';
+import localeEo from '@angular/common/locales/eo';
 import {CategoriesListComponent} from "./views/categories-list/categories-list.component";
 import {CategoryComponent} from "./views/category/category.component";
 import {CategoriesLogoComponent} from "./views/categories-logo/categories-logo.component";
@@ -33,6 +34,7 @@ import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {CategoryCreateDto} from "./dto/category-create-dto";
 
 registerLocaleData(localeRu);
+registerLocaleData(localeEo);
 
 function HttpLoaderFactory(http: HttpBackend): MultiTranslateHttpLoader {
   return new MultiTranslateHttpLoader(http, [

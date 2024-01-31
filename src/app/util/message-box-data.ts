@@ -2,10 +2,10 @@ import {MessageBoxButtons} from "./message-box-buttons";
 import {MessageBoxIcon} from "./message-box-icon";
 
 export class MessageBoxData {
-  message: string;
-  title: string;
-  buttons: MessageBoxButtons;
-  icon: MessageBoxIcon;
+  message: string; // текст сообщения
+  title: string; // заголовок диалогового окна
+  buttons: MessageBoxButtons; // набор кнопок
+  icon: MessageBoxIcon; // значок
 
   constructor(
     message: string,
