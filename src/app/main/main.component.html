@@ -1,7 +1,7 @@
 <mat-drawer-container class="container-fluid h-100 d-flex align-items-center">
   <mat-drawer #drawer class="cat-drawer" [mode]="catsMode"  [opened]="catsOpened" >
     <app-categories-logo (addCategoryEvent)="addCategory($event)"></app-categories-logo>
-    <app-categories-list [categories]="categories"></app-categories-list>
+    <app-categories-list [categories]="categories" (editCategoryEvent)="editCategory($event)"></app-categories-list>
   </mat-drawer>
   <mat-drawer-content>
     <h6>

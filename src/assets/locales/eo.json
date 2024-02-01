@@ -16,7 +16,10 @@
     "All": "Ĉiuj taskoj",
     "NotFound": "(ne ekzistas kategorioj)",
     "CreateTitle": "Nova kategorio",
+    "EditTitle": "Propraĵoj de la kategorio",
+    "RemoveIcon": "Forigi la ikonon",
     "Name": "Titolo",
+    "ChooseIcon": "Elektu ikonon",
     "ErrorCodes": {
       "EmptyName": "Titolo de la kategorio ne povas esti malplena",
       "NameAlreadyExists": "Estas jam kategorio kun ĉi tiu nomo",

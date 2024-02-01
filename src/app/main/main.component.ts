@@ -15,6 +15,8 @@ import {MessageBoxButtons} from "../util/message-box-buttons";
 import {MessageBoxIcon} from "../util/message-box-icon";
 import {Observable} from "rxjs";
 import {DialogResult} from "../util/dialog-result";
+import {DeviceInfo} from "../util/device-info";
+import {EditCategoryDlgData} from "../dialogs/edit-category-dialog/edit-category-dlg-data";
 
 export const LANG_RU = 'ru';
 export const LANG_EO = 'eo';
@@ -27,11 +29,6 @@ export const LANG_EO = 'eo';
 export class MainComponent implements OnInit {
   currentUser: User | null = null;
   categories: Category[] = [];
-
-  // тип устройства
-  isMobile: boolean = false;
-  isTablet: boolean = false;
-  isDesktop: boolean = false;
 
   // настройки боковой панели
   catsOpened: boolean = false; // открыто ли изначально
@@ -80,13 +77,13 @@ export class MainComponent implements OnInit {
   }
 
   detectDevice() {
-    this.isMobile = this.deviceDetector.isMobile();
-    this.isTablet = this.deviceDetector.isTablet();
-    this.isDesktop = this.deviceDetector.isDesktop();
+    DeviceInfo.IsMobile = this.deviceDetector.isMobile();
+    DeviceInfo.IsTablet = this.deviceDetector.isTablet();
+    DeviceInfo.IsDesktop = this.deviceDetector.isDesktop();
   }
 
   initCatsDrawer() {
-    if (this.isMobile) {
+    if (DeviceInfo.IsMobile) {
       this.catsOpened = false;
       this.catsMode = "over";
     } else {
@@ -116,6 +113,24 @@ export class MainComponent implements OnInit {
     return this.dlgMsg.afterClosed();
   }
 
+  showError(err) {
+    if (err.error.code) {
+      this.showMessageBox(
+        this.translate.instant(`Category.ErrorCodes.${err.error.code}`),
+        this.translate.instant('Main.Error'),
+        MessageBoxButtons.OK,
+        MessageBoxIcon.ERROR
+      )
+    } else {
+      this.showMessageBox(
+        this.translate.instant('Main.Error'),
+        this.translate.instant('Main.Error'),
+        MessageBoxButtons.OK,
+        MessageBoxIcon.ERROR
+      )
+    }
+  }
+
   getCategories() {
     this.srvCategory.list().subscribe({
       next: (categories) =>
@@ -129,22 +144,39 @@ export class MainComponent implements OnInit {
         this.getCategories();
       },
       error: err => {
-        if (err.error.code) {
-          this.showMessageBox(
-            this.translate.instant(`Category.ErrorCodes.${err.error.code}`),
-            this.translate.instant('Main.Error'),
-            MessageBoxButtons.OK,
-            MessageBoxIcon.ERROR
-          )
-        } else {
-          this.showMessageBox(
-            this.translate.instant('Main.Error'),
-            this.translate.instant('Main.Error'),
-            MessageBoxButtons.OK,
-            MessageBoxIcon.ERROR
-          )
-        }
+        this.showError(err);
       }
     });
+  }
+
+  editCategory($event: EditCategoryDlgData) {
+    this.srvCategory.update($event.category).subscribe({
+      next: _ => {
+        if ($event.hasNullIcon) {
+          this.srvCategory.removeIcon($event.category.id).subscribe({
+            next: _ => {
+              this.getCategories();
+            },
+            error: err => {
+              this.showError(err);
+            }
+          })
+        } else if ($event.newIcon !== null) {
+          this.srvCategory.setIcon($event.category.id, $event.newIcon).subscribe({
+            next: _ => {
+              this.getCategories();
+            },
+            error: err => {
+              this.showError(err);
+            }
+          })
+        } else {
+          this.getCategories();
+        }
+      },
+      error: err => {
+        this.showError(err);
+      }
+    })
   }
 }

@@ -60,4 +60,12 @@ export class CategoryService {
       return this.http.put(this.controller + '/icon', dto) as Observable<string>;
     }));
   }
+
+  public removeIcon(id: number): Observable<string> {
+    const dto: CategoryIcon = new CategoryIcon();
+    dto.id = id;
+    dto.icon = null;
+
+    return this.http.put(this.controller + '/icon', dto) as Observable<string>;
+  }
 }

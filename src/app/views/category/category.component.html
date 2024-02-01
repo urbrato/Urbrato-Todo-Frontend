@@ -1,6 +1,10 @@
 <a class="nav-link">
   <div class="container no-hor-padding border-box">
-    <div class="row no-hor-margin border-box">
+    <div class="row no-hor-margin border-box"
+         style="height: 32px;"
+         (mouseenter)="onMouseEnter()"
+         (mouseleave)="onMouseLeave()"
+    >
       <div class="col-1 no-hor-padding">
         <img class="category-icon img-fluid" src="{{iconUrl}}" alt="" *ngIf="hasIcon">
       </div>
@@ -16,12 +20,16 @@
       </div>
       <div class="col-1 no-hor-padding">
             <span class="category-button">
-              <mat-icon class="category-button" (click)="msg('edit ' + category.name)">edit</mat-icon>
+              <mat-icon
+                class="category-button"
+                *ngIf="showButtons"
+                (click)="editCategory()"
+              >edit</mat-icon>
             </span>
       </div>
       <div class="col-1 no-hor-padding">
             <span class="category-button">
-              <mat-icon class="category-button" (click)="msg('delete ' + category.name)">delete</mat-icon>
+              <mat-icon class="category-button" *ngIf="showButtons">delete</mat-icon>
             </span>
       </div>
     </div>

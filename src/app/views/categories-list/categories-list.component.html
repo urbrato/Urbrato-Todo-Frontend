@@ -14,6 +14,6 @@
   </div>
 
   <li *ngFor="let category of categories" class="nav-item">
-    <app-category [category]="category"></app-category>
+    <app-category [category]="category" (editCategoryEvent)="editCategory($event)"></app-category>
   </li>
 </ul>
