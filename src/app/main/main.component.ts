@@ -179,4 +179,15 @@ export class MainComponent implements OnInit {
       }
     })
   }
+
+  deleteCategory($event: number) {
+    this.srvCategory.delete($event).subscribe({
+      next: _ => {
+        this.getCategories();
+      },
+      error: err => {
+        this.showError(err, "Category");
+      }
+    })
+  }
 }

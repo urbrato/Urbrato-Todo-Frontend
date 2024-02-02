@@ -35,7 +35,7 @@ export class CategoryService {
   }
 
   public delete(id: number): Observable<string> {
-    return this.http.delete<string>(this.http + '/delete/' + id.toString());
+    return this.http.delete<string>(`${this.controller}/delete/${id}`);
   }
 
   public search(dto: CategorySearchDto): Observable<ControllerResult<Category[]>> {

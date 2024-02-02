@@ -29,7 +29,14 @@ export class CategoriesListComponent {
   @Output()
   editCategoryEvent = new EventEmitter<EditCategoryDlgData>;
 
+  @Output()
+  deleteCategoryEvent = new EventEmitter<number>;
+
   editCategory($event: EditCategoryDlgData) {
     this.editCategoryEvent.emit($event);
+  }
+
+  deleteCategory($event: number) {
+    this.deleteCategoryEvent.emit($event);
   }
 }

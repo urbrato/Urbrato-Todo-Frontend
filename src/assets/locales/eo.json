@@ -17,7 +17,9 @@
     "NotFound": "(ne ekzistas kategorioj)",
     "CreateTitle": "Nova kategorio",
     "EditTitle": "Propraĵoj de la kategorio",
-    "RemoveIcon": "Forigi la ikonon",
+    "DeleteTitle": "Viŝi la kategorion",
+    "DeleteConfirm": "Ĉu vi vere volas viŝi la kategorion \"{{name}}\"? Taskoj en ĉi tiu kategorio fariĝos taskoj sen kategorio",
+    "RemoveIcon": "Viŝi la ikonon",
     "Name": "Titolo",
     "ChooseIcon": "Elektu ikonon",
     "ErrorCodes": {

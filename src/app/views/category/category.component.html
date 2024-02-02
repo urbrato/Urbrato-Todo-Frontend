@@ -29,7 +29,11 @@
       </div>
       <div class="col-1 no-hor-padding">
             <span class="category-button">
-              <mat-icon class="category-button" *ngIf="showButtons">delete</mat-icon>
+              <mat-icon
+                class="category-button"
+                *ngIf="showButtons"
+                (click)="$event.stopPropagation(); deleteCategory()"
+              >delete</mat-icon>
             </span>
       </div>
     </div>
