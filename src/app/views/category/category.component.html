@@ -23,7 +23,7 @@
               <mat-icon
                 class="category-button"
                 *ngIf="showButtons"
-                (click)="editCategory()"
+                (click)="$event.stopPropagation(); editCategory()"
               >edit</mat-icon>
             </span>
       </div>
