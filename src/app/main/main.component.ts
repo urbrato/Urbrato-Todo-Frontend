@@ -113,10 +113,10 @@ export class MainComponent implements OnInit {
     return this.dlgMsg.afterClosed();
   }
 
-  showError(err) {
+  showError(err, controller) {
     if (err.error.code) {
       this.showMessageBox(
-        this.translate.instant(`Category.ErrorCodes.${err.error.code}`),
+        this.translate.instant(`${controller}.ErrorCodes.${err.error.code}`),
         this.translate.instant('Main.Error'),
         MessageBoxButtons.OK,
         MessageBoxIcon.ERROR
@@ -144,7 +144,7 @@ export class MainComponent implements OnInit {
         this.getCategories();
       },
       error: err => {
-        this.showError(err);
+        this.showError(err, "Category");
       }
     });
   }
@@ -158,7 +158,7 @@ export class MainComponent implements OnInit {
               this.getCategories();
             },
             error: err => {
-              this.showError(err);
+              this.showError(err, "Category");
             }
           })
         } else if ($event.newIcon !== null) {
@@ -167,7 +167,7 @@ export class MainComponent implements OnInit {
               this.getCategories();
             },
             error: err => {
-              this.showError(err);
+              this.showError(err, "Category");
             }
           })
         } else {
@@ -175,7 +175,7 @@ export class MainComponent implements OnInit {
         }
       },
       error: err => {
-        this.showError(err);
+        this.showError(err, "Category");
       }
     })
   }

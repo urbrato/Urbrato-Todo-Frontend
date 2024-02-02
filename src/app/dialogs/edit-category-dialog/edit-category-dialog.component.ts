@@ -12,7 +12,6 @@ import {DialogResult} from "../../util/dialog-result";
 import {TranslateModule} from "@ngx-translate/core";
 import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
-import {MatChip, MatChipSet} from "@angular/material/chips";
 import {NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
