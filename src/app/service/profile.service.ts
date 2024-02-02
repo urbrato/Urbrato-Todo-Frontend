@@ -42,4 +42,12 @@ export class ProfileService {
         return this.http.put(this.profileController + '/avatar', dto) as Observable<string>;
       }));
   }
+
+  public removeAvatar(id: number): Observable<string> {
+    const dto: UserAvatar = new UserAvatar();
+    dto.id = id;
+    dto.avatar = null;
+
+    return this.http.put(this.profileController + '/avatar', dto) as Observable<string>;
+  }
 }

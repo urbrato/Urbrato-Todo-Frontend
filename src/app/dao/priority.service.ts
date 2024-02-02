@@ -56,4 +56,12 @@ export class PriorityService {
         return this.http.put(this.controller + '/icon', dto) as Observable<string>;
       }));
   }
+
+  public removeIcon(id: number): Observable<string> {
+    const dto: PriorityIcon = new PriorityIcon();
+    dto.id = id;
+    dto.icon = null;
+
+    return this.http.put(this.controller + '/icon', dto) as Observable<string>;
+  }
 }
