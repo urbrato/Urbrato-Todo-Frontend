@@ -22,6 +22,7 @@
     "RemoveIcon": "Viŝi la ikonon",
     "Name": "Titolo",
     "ChooseIcon": "Elektu ikonon",
+    "Search": "Filtrilo de kategorioj",
     "ErrorCodes": {
       "EmptyName": "Titolo de la kategorio ne povas esti malplena",
       "NameAlreadyExists": "Estas jam kategorio kun ĉi tiu nomo",

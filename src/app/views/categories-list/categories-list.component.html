@@ -1,4 +1,12 @@
 <ul class="list-group">
+  <li >
+    <app-category-search
+      [search]="filter"
+      (searchEvent)="searchCategories($event)"
+    >
+    </app-category-search>
+  </li>
+
   <li class="nav-item">
     <a class="nav-link">
       <span class="categories-all">

@@ -3,15 +3,17 @@
     <app-categories-logo (addCategoryEvent)="addCategory($event)"></app-categories-logo>
     <app-categories-list
       [categories]="categories"
+      [search]="categoriesFilter"
       (editCategoryEvent)="editCategory($event)"
       (deleteCategoryEvent)="deleteCategory($event)"
+      (searchCategoriesEvent)="searchCategories($event)"
     >
     </app-categories-list>
   </mat-drawer>
   <mat-drawer-content>
     <h6>
       <button mat-raised-button (click)="drawer.toggle()">&equiv;</button>
-      &nbsp;{{'Main.Title' | translate}} - {{currentUser.name}}
+      &nbsp;{{'Main.Title' | translate}} - {{currentUser === null ? '' : currentUser.name}}
     </h6>
   </mat-drawer-content>
 </mat-drawer-container>

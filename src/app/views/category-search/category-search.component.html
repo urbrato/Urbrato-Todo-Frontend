@@ -1,0 +1,34 @@
+<div>
+  <mat-form-field style="width: 100%;">
+    <input
+      matInput
+      placeholder="{{'Category.Search' | translate}}"
+      [(ngModel)]="name"
+      (ngModelChange)="checkChanged()"
+      (keydown.enter)="search()"
+      (keyup.backspace)="searchIfEmpty()"
+      (keyup.delete)="searchIfEmpty()"
+      (keyup.space)="searchIfEmpty()"
+      (keydown.escape)="clearAndSearch()"
+    />
+
+    <button
+      *ngIf="name && name.trim().length > 0"
+      matSuffix
+      mat-icon-button
+      (click)="clearAndSearch()"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+
+    <button
+      *ngIf="name && name.trim().length > 0"
+      matSuffix
+      mat-icon-button
+      class="blink-button"
+      (click)="search()"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+</div>

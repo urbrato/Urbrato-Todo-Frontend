@@ -17,6 +17,7 @@ import {Observable} from "rxjs";
 import {DialogResult} from "../util/dialog-result";
 import {DeviceInfo} from "../util/device-info";
 import {EditCategoryDlgData} from "../dialogs/edit-category-dialog/edit-category-dlg-data";
+import {CategorySearchDto} from "../dto/category-search-dto";
 
 export const LANG_RU = 'ru';
 export const LANG_EO = 'eo';
@@ -29,6 +30,7 @@ export const LANG_EO = 'eo';
 export class MainComponent implements OnInit {
   currentUser: User | null = null;
   categories: Category[] = [];
+  categoriesFilter: CategorySearchDto;
 
   // настройки боковой панели
   catsOpened: boolean = false; // открыто ли изначально
@@ -65,6 +67,9 @@ export class MainComponent implements OnInit {
         }
       });
     }
+
+    this.categoriesFilter = new CategorySearchDto();
+    this.categoriesFilter.name = '';
 
     translate.addLangs([LANG_RU, LANG_EO]);
     translate.setDefaultLang(LANG_RU);
@@ -132,10 +137,23 @@ export class MainComponent implements OnInit {
   }
 
   getCategories() {
-    this.srvCategory.list().subscribe({
-      next: (categories) =>
-        this.categories = categories
-    })
+    if (this.categoriesFilter &&
+      this.categoriesFilter.name &&
+      this.categoriesFilter.name.trim().length > 0) {
+      this.srvCategory.search(this.categoriesFilter).subscribe({
+        next: (categories) => {
+          this.categories = categories.payload;
+        },
+        error: (err) => {
+          this.showError(err, 'Category');
+        }
+      })
+    } else {
+      this.srvCategory.list().subscribe({
+        next: (categories) =>
+          this.categories = categories
+      })
+    }
   }
 
   addCategory(category) {
@@ -189,5 +207,9 @@ export class MainComponent implements OnInit {
         this.showError(err, "Category");
       }
     })
+  }
+
+  searchCategories($event: CategorySearchDto) {
+    this.getCategories();
   }
 }
