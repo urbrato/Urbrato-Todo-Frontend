@@ -5,7 +5,7 @@ import {MatInput} from "@angular/material/input";
 import {TranslateModule} from "@ngx-translate/core";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 
 @Component({
@@ -19,7 +19,8 @@ import {FormsModule} from "@angular/forms";
     MatSuffix,
     MatIconButton,
     FormsModule,
-    NgIf
+    NgIf,
+    NgClass
   ],
   templateUrl: './category-search.component.html',
   styleUrl: './category-search.component.css'

@@ -48,3 +48,7 @@ body {
   display: inline-block;
   line-height: normal;
 }
+
+.hinted-field {
+  box-shadow: 0px 0px 10px 20px lightpink;
+}
