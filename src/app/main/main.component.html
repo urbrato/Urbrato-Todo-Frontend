@@ -8,6 +8,7 @@
       (editCategoryEvent)="editCategory($event)"
       (deleteCategoryEvent)="deleteCategory($event)"
       (searchCategoriesEvent)="searchCategories($event)"
+      (selectCategoryEvent)="selectCategory($event)"
     >
     </app-categories-list>
   </mat-drawer>
@@ -16,5 +17,8 @@
       <button mat-raised-button (click)="drawer.toggle()">&equiv;</button>
       &nbsp;{{'Main.Title' | translate}} - {{currentUser === null ? '' : currentUser.name}}
     </h6>
+    <p>Категория: {{selectedCategory === null ?
+      ('Category.All' | translate) :
+      selectedCategory.name}}</p>
   </mat-drawer-content>
 </mat-drawer-container>

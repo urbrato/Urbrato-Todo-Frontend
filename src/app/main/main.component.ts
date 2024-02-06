@@ -172,6 +172,9 @@ export class MainComponent implements OnInit {
   editCategory($event: EditCategoryDlgData) {
     this.srvCategory.update($event.category).subscribe({
       next: _ => {
+        if (this.selectedCategory !== null && this.selectedCategory.id === $event.category.id) {
+          this.selectCategory($event.category);
+        }
         if ($event.hasNullIcon) {
           this.srvCategory.removeIcon($event.category.id).subscribe({
             next: _ => {
@@ -201,6 +204,9 @@ export class MainComponent implements OnInit {
   }
 
   deleteCategory($event: number) {
+    if (this.selectedCategory !== null && this.selectedCategory.id === $event) {
+      this.selectedCategory = null;
+    }
     this.srvCategory.delete($event).subscribe({
       next: _ => {
         this.getCategories();
@@ -213,5 +219,9 @@ export class MainComponent implements OnInit {
 
   searchCategories($event: CategorySearchDto) {
     this.getCategories();
+  }
+
+  selectCategory(category: Category) {
+    this.selectedCategory = category;
   }
 }
