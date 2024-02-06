@@ -35,7 +35,7 @@ export class AuthService {
     return this.http.post<ControllerResult<User>>(this.authController + '/reactivate', dto);
   }
 
-  public logout() {
-    return this.http.post<string>(this.authController + '/logout', '');
+  public logout(): Observable<string> {
+    return this.http.post(this.authController + '/logout', '', {responseType: 'text'});
   }
 }

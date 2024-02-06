@@ -8,6 +8,7 @@ import {NgIf} from "@angular/common";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {FormsModule} from "@angular/forms";
 import {AuthService} from "../../service/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -40,7 +41,8 @@ export class HeaderComponent {
 
   constructor(
     private translate: TranslateService,
-    private srvAuth: AuthService
+    private srvAuth: AuthService,
+    private router: Router
   ) {
   }
 
@@ -56,7 +58,11 @@ export class HeaderComponent {
   }
 
   logout() {
-    this.srvAuth.logout();
-    this.srvAuth.currentUser = null;
+    this.srvAuth.logout().subscribe({
+      next: _ => {
+        this.srvAuth.currentUser.next(null);
+        this.router.navigate(['']).then(_ => {});
+      }
+    });
   }
 }
