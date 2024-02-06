@@ -1,6 +1,16 @@
 <mat-drawer-container class="container-fluid h-100 d-flex align-items-center">
-  <mat-drawer #drawer class="cat-drawer" [mode]="catsMode"  [opened]="catsOpened" >
-    <app-categories-logo (addCategoryEvent)="addCategory($event)"></app-categories-logo>
+  <mat-drawer
+    #drawer
+    class="cat-drawer"
+    [mode]="catsMode"
+    [opened]="catsOpened"
+    (closed)="catsOpened = false"
+  >
+    <app-categories-logo
+      (addCategoryEvent)="addCategory($event)"
+      (closeDrawerEvent)="toggleDrawer()"
+    >
+    </app-categories-logo>
     <app-categories-list
       [categories]="categories"
       [search]="categoriesFilter"
@@ -14,7 +24,7 @@
   </mat-drawer>
   <mat-drawer-content>
     <h6>
-      <button mat-raised-button (click)="drawer.toggle()">&equiv;</button>
+      <button mat-raised-button (click)="toggleDrawer()">&equiv;</button>
       &nbsp;{{'Main.Title' | translate}} - {{currentUser === null ? '' : currentUser.name}}
     </h6>
     <p>Категория: {{selectedCategory === null ?

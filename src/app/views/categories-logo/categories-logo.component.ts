@@ -23,6 +23,9 @@ export class CategoriesLogoComponent {
   @Output()
   addCategoryEvent = new EventEmitter<CategoryCreateDto>();
 
+  @Output()
+  closeDrawerEvent = new EventEmitter();
+
   constructor(
     private dlgAdd: MatDialogRef<NewCategoryDialogComponent>,
     private bldDlg: MatDialog
@@ -45,5 +48,9 @@ export class CategoriesLogoComponent {
         }
       }
     })
+  }
+
+  closeDrawer() {
+    this.closeDrawerEvent.emit();
   }
 }

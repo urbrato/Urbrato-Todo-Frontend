@@ -224,4 +224,8 @@ export class MainComponent implements OnInit {
   selectCategory(category: Category) {
     this.selectedCategory = category;
   }
+
+  toggleDrawer() {
+    this.catsOpened = !this.catsOpened;
+  }
 }

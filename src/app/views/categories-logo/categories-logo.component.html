@@ -1,11 +1,22 @@
 <div class="container">
   <div class="row cat-logo-row">
-    <div class="col-sm-10 cat-logo-col">
+    <div class="col-sm-2 cat-logo-col no-padding">
+      <button
+        mat-icon-button
+        class="no-margin vertical-centered-text"
+        (click)="closeDrawer()"
+      >
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+    </div>
+    <div class="col-sm-8 cat-logo-col">
       <h3 class="vertical-centered-text">{{'Category.Categories' | translate}}</h3>
     </div>
     <div class="col-sm-2 cat-logo-col no-padding">
-      <button mat-icon-button class="no-margin vertical-centered-text"
-              (click)="addCategory()"
+      <button
+        mat-icon-button
+        class="no-margin vertical-centered-text"
+        (click)="addCategory()"
       >
         <mat-icon>add</mat-icon>
       </button>
