@@ -28,7 +28,7 @@
             <mat-icon>account_box</mat-icon>
             <span>{{'Menu.Profile' | translate}}</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item *ngIf="isAdmin()">
             <mat-icon>supervisor_account</mat-icon>
             <span>{{'Menu.Admin' | translate}}</span>
           </button>

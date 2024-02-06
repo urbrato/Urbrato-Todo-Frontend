@@ -9,6 +9,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {FormsModule} from "@angular/forms";
 import {AuthService} from "../../service/auth.service";
 import {Router} from "@angular/router";
+import {ROLE_ADMIN} from "../../entities/role";
 
 @Component({
   selector: 'app-header',
@@ -51,6 +52,13 @@ export class HeaderComponent {
       return this.translate.instant('Category.All');
     else
       return this.category.name;
+  }
+
+  isAdmin(): boolean {
+    if (this.user === null)
+      return false;
+    else
+      return this.user.roles.some(role => role.id === ROLE_ADMIN);
   }
 
   toggleDrawer() {
