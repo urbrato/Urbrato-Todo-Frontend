@@ -1,0 +1,49 @@
+<div class="container no-margin" style="width: 100%; max-width: unset;">
+  <div class="row align-items-center">
+    <div class="col-sm-1 text-left align-top no-padding">
+      <button
+        *ngIf="showMenuButton"
+        mat-icon-button
+        type="button"
+        class="no-margin"
+        (click)="toggleDrawer()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <div class="col-sm-8 text-center align-bottom align-text-bottom no-padding">
+      <p class="navbar-brand no-padding no-margin vertical-centered-text text-wrap">
+        {{'Main.Title' | translate}} - {{user === null ? '' : user.name}} ({{getCategoryName()}})
+      </p>
+    </div>
+    <div class="col-sm-3 text-right align-top no-padding">
+      <div>
+        <button mat-icon-button
+                [matMenuTriggerFor]="menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>account_box</mat-icon>
+            <span>{{'Menu.Profile' | translate}}</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>supervisor_account</mat-icon>
+            <span>{{'Menu.Admin' | translate}}</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>settings</mat-icon>
+            <span>{{'Menu.Settings' | translate}}</span>
+          </button>
+          <button mat-menu-item
+                  (click)="logout()"
+          >
+            <mat-icon>login</mat-icon>
+            <span>{{'Menu.Logout' | translate}}</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</div>

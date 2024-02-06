@@ -28,5 +28,11 @@
       "NameAlreadyExists": "Estas jam kategorio kun ĉi tiu nomo",
       "NotOwner": "Vi ne rajtas uzi ĉi tiun kategorion"
     }
+  },
+  "Menu": {
+    "Profile": "Profilo",
+    "Admin": "Administrado",
+    "Settings": "Agordoj",
+    "Logout":"Adiaŭo"
   }
 }

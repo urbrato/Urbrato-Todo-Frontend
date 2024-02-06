@@ -32,6 +32,7 @@ import {CategoryComponent} from "./views/category/category.component";
 import {CategoriesLogoComponent} from "./views/categories-logo/categories-logo.component";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {CategoryCreateDto} from "./dto/category-create-dto";
+import {HeaderComponent} from "./views/header/header.component";
 
 registerLocaleData(localeRu);
 registerLocaleData(localeEo);
@@ -80,7 +81,8 @@ function HttpLoaderFactory(http: HttpBackend): MultiTranslateHttpLoader {
         }),
         CategoriesListComponent,
         CategoryComponent,
-        CategoriesLogoComponent
+        CategoriesLogoComponent,
+        HeaderComponent
     ],
   providers: [
     {

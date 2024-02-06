@@ -22,13 +22,12 @@
     >
     </app-categories-list>
   </mat-drawer>
-  <mat-drawer-content>
-    <h6>
-      <button mat-raised-button (click)="toggleDrawer()">&equiv;</button>
-      &nbsp;{{'Main.Title' | translate}} - {{currentUser === null ? '' : currentUser.name}}
-    </h6>
-    <p>Категория: {{selectedCategory === null ?
-      ('Category.All' | translate) :
-      selectedCategory.name}}</p>
+  <mat-drawer-content class="container-fluid h-100 d-flex">
+    <app-header style="width: 100%;"
+      [category]="selectedCategory"
+      [user]="currentUser"
+      [showMenuButton]="!catsOpened"
+      (toggleDrawerEvent)="toggleDrawer()"
+    ></app-header>
   </mat-drawer-content>
 </mat-drawer-container>
