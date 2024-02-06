@@ -171,9 +171,9 @@ export class MainComponent implements OnInit {
 
   editCategory($event: EditCategoryDlgData) {
     this.srvCategory.update($event.category).subscribe({
-      next: _ => {
+      next: (category) => {
         if (this.selectedCategory !== null && this.selectedCategory.id === $event.category.id) {
-          this.selectCategory($event.category);
+          this.selectCategory(category.payload);
         }
         if ($event.hasNullIcon) {
           this.srvCategory.removeIcon($event.category.id).subscribe({
