@@ -24,6 +24,7 @@ import {CategorySearchComponent} from "../category-search/category-search.compon
 export class CategoriesListComponent {
   categories: Category[];
   filter: CategorySearchDto;
+  selectedCategory: Category;
 
   @Input("categories")
   set setCategories(categories: Category[]) {
@@ -35,6 +36,11 @@ export class CategoriesListComponent {
     this.filter = search;
   }
 
+  @Input('selectedCategory')
+  set setSelectedCategory(category: Category) {
+    this.selectedCategory = category;
+  }
+
   @Output()
   editCategoryEvent = new EventEmitter<EditCategoryDlgData>;
 
@@ -43,6 +49,9 @@ export class CategoriesListComponent {
 
   @Output()
   searchCategoriesEvent = new EventEmitter<CategorySearchDto>;
+
+  @Output()
+  selectCategoryEvent = new EventEmitter<Category>;
 
   editCategory($event: EditCategoryDlgData) {
     this.editCategoryEvent.emit($event);
@@ -54,5 +63,12 @@ export class CategoriesListComponent {
 
   searchCategories($event: CategorySearchDto) {
     this.searchCategoriesEvent.emit($event);
+  }
+
+  selectCategory(category: Category) {
+    if (this.selectedCategory !== category) {
+      this.selectedCategory = category;
+      this.selectCategoryEvent.emit(category);
+    }
   }
 }

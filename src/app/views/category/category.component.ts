@@ -48,6 +48,9 @@ export class CategoryComponent {
   @Output()
   deleteCategoryEvent = new EventEmitter<number>();
 
+  @Output()
+  selectCategoryEvent = new EventEmitter<Category>();
+
   constructor(
     private srvCategory: CategoryService,
     private translate: TranslateService,
@@ -110,5 +113,9 @@ export class CategoryComponent {
         }
       }
     })
+  }
+
+  selectCategory() {
+    this.selectCategoryEvent.emit(this.category);
   }
 }

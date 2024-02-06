@@ -4,6 +4,7 @@
     <app-categories-list
       [categories]="categories"
       [search]="categoriesFilter"
+      [selectedCategory]="selectedCategory"
       (editCategoryEvent)="editCategory($event)"
       (deleteCategoryEvent)="deleteCategory($event)"
       (searchCategoriesEvent)="searchCategories($event)"

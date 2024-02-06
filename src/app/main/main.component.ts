@@ -32,6 +32,8 @@ export class MainComponent implements OnInit {
   categories: Category[] = [];
   categoriesFilter: CategorySearchDto;
 
+  selectedCategory: Category = null;
+
   // настройки боковой панели
   catsOpened: boolean = false; // открыто ли изначально
   catsMode: MatDrawerMode = "side"; // режим открытия

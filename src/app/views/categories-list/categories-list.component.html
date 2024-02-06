@@ -7,8 +7,10 @@
     </app-category-search>
   </li>
 
-  <li class="nav-item">
-    <a class="nav-link">
+  <li class="nav-item" [class.active]="selectedCategory === null">
+    <a class="nav-link"
+       (click)="selectCategory(null)"
+    >
       <span class="categories-all">
         {{'Category.All' | translate}}
       </span>
@@ -21,11 +23,15 @@
     <p class="not-found">{{'Category.NotFound' | translate}}</p>
   </div>
 
-  <li *ngFor="let category of categories" class="nav-item">
+  <li *ngFor="let category of categories"
+      class="nav-item"
+      [class.active]="selectedCategory !== null
+      && selectedCategory.id === category.id">
     <app-category
       [category]="category"
       (editCategoryEvent)="editCategory($event)"
       (deleteCategoryEvent)="deleteCategory($event)"
+      (selectCategoryEvent)="selectCategory($event)"
     ></app-category>
   </li>
 </ul>
