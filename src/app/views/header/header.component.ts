@@ -34,9 +34,6 @@ export class HeaderComponent {
   @Input()
   user: User;
 
-  @Input()
-  showMenuButton: boolean;
-
   @Output()
   toggleDrawerEvent = new EventEmitter();
 
