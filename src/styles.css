@@ -43,6 +43,11 @@ body {
   margin: 0;
 }
 
+.full-width {
+  width: 100%;
+  max-width: unset;
+}
+
 .vertical-centered-text {
   vertical-align: middle;
   display: inline-block;

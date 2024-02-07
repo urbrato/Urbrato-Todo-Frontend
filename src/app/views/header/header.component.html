@@ -1,6 +1,6 @@
-<div class="container no-margin" style="width: 100%; max-width: unset;">
+<div class="container no-margin full-width">
   <div class="row align-items-center">
-    <div class="col-1 text-left align-top no-padding">
+    <div class="col-2 text-left align-top no-padding">
       <button
         *ngIf="showMenuButton"
         mat-icon-button
@@ -16,7 +16,7 @@
         {{'Main.Title' | translate}} - {{user === null ? '' : user.name}} ({{getCategoryName()}})
       </p>
     </div>
-    <div class="col-3 text-right align-top no-padding">
+    <div class="col-2 text-right align-top no-padding">
       <div>
         <button mat-icon-button
                 [matMenuTriggerFor]="menu"

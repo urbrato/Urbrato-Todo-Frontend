@@ -33,6 +33,8 @@ import {CategoriesLogoComponent} from "./views/categories-logo/categories-logo.c
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {CategoryCreateDto} from "./dto/category-create-dto";
 import {HeaderComponent} from "./views/header/header.component";
+import {StatCardComponent} from "./views/stat-card/stat-card.component";
+import {StatComponent} from "./views/stat/stat.component";
 
 registerLocaleData(localeRu);
 registerLocaleData(localeEo);
@@ -61,29 +63,31 @@ function HttpLoaderFactory(http: HttpBackend): MultiTranslateHttpLoader {
     UserReportComponent,
     CategoryIconDemoComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        CommonModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        RecaptchaModule,
-        BrowserAnimationsModule,
-        MatSidenavModule,
-        MatButton,
-        MatDialogModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpBackend]
-            }
-        }),
-        CategoriesListComponent,
-        CategoryComponent,
-        CategoriesLogoComponent,
-        HeaderComponent
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    CommonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    RecaptchaModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatButton,
+    MatDialogModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpBackend]
+      }
+    }),
+    CategoriesListComponent,
+    CategoryComponent,
+    CategoriesLogoComponent,
+    HeaderComponent,
+    StatCardComponent,
+    StatComponent
+  ],
   providers: [
     {
       provide: RECAPTCHA_SETTINGS,

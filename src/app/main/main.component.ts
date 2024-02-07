@@ -18,6 +18,8 @@ import {DialogResult} from "../util/dialog-result";
 import {DeviceInfo} from "../util/device-info";
 import {EditCategoryDlgData} from "../dialogs/edit-category-dialog/edit-category-dlg-data";
 import {CategorySearchDto} from "../dto/category-search-dto";
+import {StatService} from "../dao/stat.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 export const LANG_RU = 'ru';
 export const LANG_EO = 'eo';
@@ -38,10 +40,15 @@ export class MainComponent implements OnInit {
   catsOpened: boolean = false; // открыто ли изначально
   catsMode: MatDrawerMode = "side"; // режим открытия
 
+  // статистика
+  completed: number = 0;
+  uncompleted: number = 0;
+
   constructor(
     private srvAuth: AuthService,
     private srvProfile: ProfileService,
     private srvCategory: CategoryService,
+    private srvStat: StatService,
     private router: Router,
     private deviceDetector: DeviceDetectorService,
     private translate: TranslateService,
@@ -54,6 +61,7 @@ export class MainComponent implements OnInit {
         this.categories = [];
       } else {
         this.getCategories();
+        this.updateStats();
       }
     });
 
@@ -128,6 +136,8 @@ export class MainComponent implements OnInit {
         MessageBoxButtons.OK,
         MessageBoxIcon.ERROR
       )
+    } else if (err.status == 401) {
+      this.router.navigate(['']).then(_ => {});
     } else {
       this.showMessageBox(
         this.translate.instant('Main.Error'),
@@ -155,6 +165,25 @@ export class MainComponent implements OnInit {
         next: (categories) =>
           this.categories = categories
       })
+    }
+    this.selectCategory(this.selectedCategory);
+  }
+
+  getStats() {
+    this.srvStat.getStat(this.currentUser.id).subscribe({
+      next: (stat) => {
+        this.completed = stat.ncomplete;
+        this.uncompleted = stat.nincomplete;
+      }
+    })
+  }
+
+  updateStats() {
+    if (this.selectedCategory == null) {
+      this.getStats();
+    } else {
+      this.completed = this.selectedCategory.ncomplete;
+      this.uncompleted = this.selectedCategory.nincomplete;
     }
   }
 
@@ -222,7 +251,15 @@ export class MainComponent implements OnInit {
   }
 
   selectCategory(category: Category) {
+    const changed =
+      ((category === null) !== (this.selectedCategory === null)) ||
+      (category !== null && category.id !== this.selectedCategory.id);
+
     this.selectedCategory = category;
+
+    if (changed) {
+      this.updateStats();
+    }
   }
 
   toggleDrawer() {

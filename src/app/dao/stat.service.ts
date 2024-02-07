@@ -7,7 +7,7 @@ import {HttpClient} from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
-export class StatServiceService {
+export class StatService {
   private controller = environment.backendURL + '/stat';
 
   constructor(private http: HttpClient) { }

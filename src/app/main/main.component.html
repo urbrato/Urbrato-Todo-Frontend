@@ -23,11 +23,15 @@
     </app-categories-list>
   </mat-drawer>
   <mat-drawer-content class="container-fluid h-100">
-    <app-header style="width: 100%;"
+    <app-header class="full-width"
       [category]="selectedCategory"
       [user]="currentUser"
       [showMenuButton]="!catsOpened"
       (toggleDrawerEvent)="toggleDrawer()"
     ></app-header>
+    <app-stat
+      [completed]="completed"
+      [uncompleted]="uncompleted"
+    ></app-stat>
   </mat-drawer-content>
 </mat-drawer-container>

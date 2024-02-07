@@ -1,12 +1,12 @@
 {
   "Main": {
     "Title": "Taskspurilo",
-    "Save": "Konservi",
+    "Save": "Konservu",
     "OK": "OK",
     "Cancel": "Malfaru",
-    "Abort": "Ĉesigi",
-    "Retry": "Reprovi",
-    "Ignore": "Ignori",
+    "Abort": "Ĉesigu",
+    "Retry": "Reprovu",
+    "Ignore": "Ignoru",
     "Yes": "Jes",
     "No": "Ne",
     "Error": "Eraro"
@@ -17,9 +17,9 @@
     "NotFound": "(ne ekzistas kategorioj)",
     "CreateTitle": "Nova kategorio",
     "EditTitle": "Propraĵoj de la kategorio",
-    "DeleteTitle": "Viŝi la kategorion",
+    "DeleteTitle": "Viŝu la kategorion",
     "DeleteConfirm": "Ĉu vi vere volas viŝi la kategorion \"{{name}}\"? Taskoj en ĉi tiu kategorio fariĝos taskoj sen kategorio",
-    "RemoveIcon": "Viŝi la ikonon",
+    "RemoveIcon": "Viŝu la ikonon",
     "Name": "Titolo",
     "ChooseIcon": "Elektu ikonon",
     "Search": "Filtrilo de kategorioj",
@@ -34,5 +34,11 @@
     "Admin": "Administrado",
     "Settings": "Agordoj",
     "Logout":"Adiaŭo"
+  },
+  "Stat": {
+    "CompletedTasks": "Finitaj taskoj",
+    "UncompletedTasks": "Nefinitaj taskoj",
+    "CompletedPerCent": "% de finitaj taskoj",
+    "ShowHide": "montru / kaŝu statistikojn"
   }
 }
