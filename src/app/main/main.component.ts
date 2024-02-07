@@ -166,7 +166,6 @@ export class MainComponent implements OnInit {
           this.categories = categories
       })
     }
-    this.selectCategory(this.selectedCategory);
   }
 
   getStats() {
@@ -234,7 +233,7 @@ export class MainComponent implements OnInit {
 
   deleteCategory($event: number) {
     if (this.selectedCategory !== null && this.selectedCategory.id === $event) {
-      this.selectedCategory = null;
+      this.selectCategory(null);
     }
     this.srvCategory.delete($event).subscribe({
       next: _ => {
