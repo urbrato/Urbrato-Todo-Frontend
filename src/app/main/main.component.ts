@@ -103,7 +103,7 @@ export class MainComponent implements OnInit {
       this.catsMode = "over";
     } else {
       this.catsOpened = true;
-      this.catsMode = "push";
+      this.catsMode = "side";
     }
   }
 
