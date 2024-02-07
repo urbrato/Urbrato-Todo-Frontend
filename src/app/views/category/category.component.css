@@ -42,8 +42,7 @@ span.category-button {
 .category-count {
   display: inline-block;
   padding: 3px;
-  background-color: dimgray;
+  background-color: lightgoldenrodyellow;
   border-radius: 3px;
-  color: #eaeaea;
   text-align: center;
 }
