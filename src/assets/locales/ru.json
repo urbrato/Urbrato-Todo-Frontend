@@ -40,5 +40,16 @@
     "UncompletedTasks": "Незавершённых задач",
     "CompletedPerCent": "% завершённых задач",
     "ShowHide": "показать / спрятать статистику"
+  },
+  "Task": {
+    "WithoutCategory": "(без категории)",
+    "WithoutPriority": "(без приоритета)",
+    "WithoutDueDate": "(без срока)",
+    "NotFound": "(не найдено)",
+    "Name": "Название",
+    "CreatedDate": "Создана",
+    "DueDate": "Срок",
+    "Category": "Категория",
+    "Priority": "Приоритет"
   }
 }

@@ -28,6 +28,10 @@ export class ProfileService {
     return this.http.post<User>(this.profileController + '/current', '');
   }
 
+  public hasAvatar(id: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.profileController}/has-avatar?id=${id}`);
+  }
+
   public getAvatarUrl(id: number): string {
     return `${this.profileController}/avatar?id=${id}`;
   }

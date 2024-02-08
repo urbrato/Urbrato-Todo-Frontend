@@ -1,0 +1,124 @@
+<div class="container no-padding no-margin">
+  <div class="row no-padding no-margin">
+    <div class="col-12 no-padding no-margin">
+      <div class="no-padding" *ngIf="!isMobile">
+        <div class="card" *ngIf="tasks">
+          <div class="card-body">
+            <div class="table-responsive">
+              <div class="card" *ngIf="tasks.content.length === 0">
+                <p>{{'Task.NotFound' | translate}}</p>
+              </div>
+              <table *ngIf="tasks.content.length > 0"
+                     mat-table
+                     [dataSource]="dataSource"
+                     matSort
+              >
+                <ng-container matColumnDef="#">
+                  <th mat-header-cell *matHeaderCellDef>#</th>
+                  <td mat-cell
+                      *matCellDef="let task; let index = index;"
+                      [style.background-color]="getPriorityBackColor(task)"
+                      [style.color]="getPriorityForeColor(task)"
+                      [class.strikeout]="task.complete"
+                  >
+                    {{index + 1 + filter.pageNumber * filter.pageSize}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'Title.Name' | translate}}
+                  </th>
+                  <td mat-cell
+                      *matCellDef="let task;"
+                      [style.background-color]="getPriorityBackColor(task)"
+                      [style.color]="getPriorityForeColor(task)"
+                      [class.strikeout]="task.complete"
+                  >
+                    {{task.name}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="created">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'Title.CreatedDate' | translate}}
+                  </th>
+                  <td mat-cell
+                      *matCellDef="let task;"
+                      [style.background-color]="getPriorityBackColor(task)"
+                      [style.color]="getPriorityForeColor(task)"
+                      [class.strikeout]="task.complete"
+                  >
+                    {{task.created | date : 'dd.MM.yyyy'}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="dueDate">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'Title.DueDate' | translate}}
+                  </th>
+                  <td mat-cell
+                      *matCellDef="let task;"
+                      [style.background-color]="getPriorityBackColor(task)"
+                      [style.color]="getPriorityForeColor(task)"
+                      [class.strikeout]="task.complete"
+                  >
+                    {{task.dueDate | date : 'dd.MM.yyyy'}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="category">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'Title.Category' | translate}}
+                  </th>
+                  <td mat-cell
+                      *matCellDef="let task;"
+                      [style.background-color]="getPriorityBackColor(task)"
+                      [style.color]="getPriorityForeColor(task)"
+                      [class.strikeout]="task.complete"
+                  >
+                    <img *ngIf="getHasCategoryIcon(task)"
+                         src="{{getCategoryIconUrl(task)}}"
+                         alt="">
+                    {{getCategoryName(task)}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="priority">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'Title.Priority' | translate}}
+                  </th>
+                  <td mat-cell
+                      *matCellDef="let task;"
+                      [style.background-color]="getPriorityBackColor(task)"
+                      [style.color]="getPriorityForeColor(task)"
+                      [class.strikeout]="task.complete"
+                  >
+                    <img *ngIf="getHasPriorityIcon(task)"
+                         src="{{getPriorityIconUrl(task)}}"
+                         alt="">
+                    {{getPriorityName(task)}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let task">
+                    <button mat-icon-button
+                            class="no-padding no-margin">
+                      <mat-icon aria-hidden="false">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button
+                            class="no-padding no-margin">
+                      <mat-icon aria-hidden="false">delete</mat-icon>
+                    </button>
+                    <mat-checkbox class="no-padding no-margin"
+                                  [checked]="task.complete"
+                    >
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; "></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

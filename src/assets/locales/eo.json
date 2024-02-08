@@ -40,5 +40,16 @@
     "UncompletedTasks": "Nefinitaj taskoj",
     "CompletedPerCent": "% de finitaj taskoj",
     "ShowHide": "montru / kaŝu statistikojn"
+  },
+  "Task": {
+    "WithoutCategory": "(sin kategorio)",
+    "WithoutPriority": "(sin prioritato)",
+    "WithoutDueDate": "(sin limdato)",
+    "NotFound": "(nenio trovita)",
+    "Name": "Titolo",
+    "CreatedDate": "Kreita",
+    "DueDate": "Limdato",
+    "Category": "Kategorio",
+    "Priority": "Prioritato"
   }
 }

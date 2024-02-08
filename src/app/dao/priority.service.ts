@@ -42,6 +42,10 @@ export class PriorityService {
     return this.http.post<ControllerResult<Priority[]>>(this.controller + '/search', dto);
   }
 
+  public hasIcon(id: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.controller}/has-icon?id=${id}`);
+  }
+
   public getIconUrl(id: number): string {
     return `${this.controller}/icon?id=${id}`;
   }
