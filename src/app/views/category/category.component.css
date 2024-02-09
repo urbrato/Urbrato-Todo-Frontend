@@ -16,11 +16,6 @@ span img {
   padding-right: 0;
 }
 
-.category-icon {
-  height: 1.5em;
-  object-fit: scale-down;
-}
-
 .category-name {
   padding: 5px;
   display: inline-block;

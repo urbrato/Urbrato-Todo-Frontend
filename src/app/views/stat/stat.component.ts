@@ -16,14 +16,14 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
     trigger('statArea', [
       state(
         'show', style({
-          overflow: 'hidden',
+          // overflow: 'hidden',
           height: '*',
           opacity: '1'
         })
       ),
       state(
         'hide', style({
-          overflow: 'hidden',
+          // overflow: 'hidden',
           height: '0',
           opacity: '0'
         })

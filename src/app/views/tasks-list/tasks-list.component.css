@@ -4,6 +4,7 @@ th {
 
 td {
   position: relative;
+  padding: 3px;
 }
 
 td.strikeout:before {
@@ -13,4 +14,16 @@ td.strikeout:before {
   left: 0;
   border-bottom: 1px solid black;
   width: 100%;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table td, table th {
+  border: 1px solid black;
 }

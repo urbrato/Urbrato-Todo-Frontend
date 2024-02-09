@@ -43,6 +43,11 @@ body {
   margin: 0;
 }
 
+.category-icon {
+  height: 1.5em;
+  object-fit: scale-down;
+}
+
 .full-width {
   width: 100%;
   max-width: unset;

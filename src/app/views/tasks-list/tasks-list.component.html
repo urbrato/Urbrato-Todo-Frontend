@@ -1,18 +1,27 @@
-<div class="container no-padding no-margin">
-  <div class="row no-padding no-margin">
-    <div class="col-12 no-padding no-margin">
-      <div class="no-padding" *ngIf="!isMobile">
-        <div class="card" *ngIf="tasks">
-          <div class="card-body">
-            <div class="table-responsive">
-              <div class="card" *ngIf="tasks.content.length === 0">
-                <p>{{'Task.NotFound' | translate}}</p>
+<div class="container no-padding no-margin full-width">
+  <div class="row no-padding no-margin full-width">
+    <div class="col-12 no-padding no-margin full-width">
+      <div class="no-padding full-width" *ngIf="!isMobile">
+        <div class="card full-width" *ngIf="tasks">
+          <div class="card-body full-width">
+            <div class="table-responsive full-width">
+              <div class="card full-width" *ngIf="tasks.content.length === 0">
+                <h3>{{'Task.NotFound' | translate}}</h3>
               </div>
               <table *ngIf="tasks.content.length > 0"
                      style="width: 100%;"
               >
-                <caption>{{'Task.Tasks' | translate}}</caption>
+                <colgroup>
+                  <col span="1" style="width: 3rem;">
+                  <col span="1">
+                  <col span="1" style="width: 7rem;">
+                  <col span="1" style="width: 7rem;">
+                  <col span="1">
+                  <col span="1">
+                  <col span="1" style="width: 120px;">
+                </colgroup>
                 <thead>
+                  <caption>{{'Task.Tasks' | translate}}</caption>
                   <tr>
                     <th>#</th>
                     <th>{{'Task.Name' | translate}}</th>
@@ -26,22 +35,66 @@
                 <tbody>
                   <tr *ngFor="let task of tasks.content; let i = index">
                     <td
+                      class="text-right"
                       [style.background-color]="getPriorityBackColor(task)"
                       [style.color]="getPriorityForeColor(task)"
                       [class.strikeout]="task.complete"
                     >{{i + 1 + tasks.pageable.pageNumber * tasks.pageable.pageSize}}</td>
-                    <td>{{task.name}}</td>
-                    <td>{{task.created | date: 'dd.MM.yyyy'}}</td>
-                    <td>{{getDueDateFormat(task)}}</td>
-                    <td>{{getCategoryName(task)}}</td>
-                    <td>{{getPriorityName(task)}}</td>
-                    <td>
+                    <td
+                      [style.background-color]="getPriorityBackColor(task)"
+                      [style.color]="getPriorityForeColor(task)"
+                      [class.strikeout]="task.complete"
+                    >{{task.name}}</td>
+                    <td
+                      class="text-center"
+                      [style.background-color]="getPriorityBackColor(task)"
+                      [style.color]="getPriorityForeColor(task)"
+                      [class.strikeout]="task.complete"
+                    >{{task.created | date: 'dd.MM.yyyy'}}</td>
+                    <td
+                      class="text-center"
+                      [style.background-color]="getPriorityBackColor(task)"
+                      [style.color]="getPriorityForeColor(task)"
+                      [class.strikeout]="task.complete"
+                    >{{getDueDateFormat(task)}}</td>
+                    <td
+                      [style.background-color]="getPriorityBackColor(task)"
+                      [style.color]="getPriorityForeColor(task)"
+                      [class.strikeout]="task.complete"
+                    >
+                      <img *ngIf="hasCategoryIcon[task.id]"
+                           class="category-icon"
+                           src="{{getCategoryIconUrl(task)}}"
+                           alt="">
+                      {{getCategoryName(task)}}
+                    </td>
+                    <td
+                      [style.background-color]="getPriorityBackColor(task)"
+                      [style.color]="getPriorityForeColor(task)"
+                      [class.strikeout]="task.complete"
+                    >
+                      <img *ngIf="hasPriorityIcon[task.id]"
+                           class="category-icon"
+                           src="{{getPriorityIconUrl(task)}}"
+                           alt="">
+                      {{getPriorityName(task)}}
+                    </td>
+                    <td
+                      class="text-center"
+                      [style.background-color]="getPriorityBackColor(task)"
+                      [style.color]="getPriorityForeColor(task)"
+                      [class.strikeout]="task.complete"
+                    >
                       <mat-icon>edit</mat-icon>
                       <mat-icon>delete</mat-icon>
-                      <mat-checkbox></mat-checkbox>
+                      <mat-checkbox
+                        [(ngModel)]="task.complete"
+                      ></mat-checkbox>
                     </td>
                   </tr>
                 </tbody>
+                <tfoot>
+                </tfoot>
               </table>
             </div>
           </div>
