@@ -12,6 +12,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {DeviceInfo} from "../../util/device-info";
 import {FormsModule} from "@angular/forms";
+import {PaginationComponent} from "../../pagination/pagination.component";
 
 @Component({
   selector: 'app-tasks-list',
@@ -25,7 +26,8 @@ import {FormsModule} from "@angular/forms";
     MatIconButton,
     MatIcon,
     MatCheckbox,
-    FormsModule
+    FormsModule,
+    PaginationComponent
   ],
   templateUrl: './tasks-list.component.html',
   styleUrl: './tasks-list.component.css'
@@ -169,5 +171,9 @@ export class TasksListComponent implements OnInit{
     else
       return formatDate(task.dueDate, 'dd.MM.yyyy',
         this.translate.instant('Locale'));
+  }
+
+  changePage($event: number) {
+    console.log($event);
   }
 }

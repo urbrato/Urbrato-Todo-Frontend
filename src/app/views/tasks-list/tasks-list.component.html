@@ -93,9 +93,12 @@
                     </td>
                   </tr>
                 </tbody>
-                <tfoot>
-                </tfoot>
               </table>
+              <app-pagination
+                class="full-width"
+                [totalPages]="tasks.totalPages"
+                (changePageEvent)="changePage($event)"
+              ></app-pagination>
             </div>
           </div>
         </div>

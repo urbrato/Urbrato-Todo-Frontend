@@ -1,0 +1,49 @@
+<div class="container full-width no-padding">
+  <div class="row full-width no-margin">
+    <div class="col-2 text-left">
+      <button mat-icon-button
+              [disabled]="currentPage < 1"
+              (click)="firstPage()"
+      >
+        <mat-icon>first_page</mat-icon>
+      </button>
+    </div>
+    <div class="col-2 text-center">
+      <button mat-icon-button
+        [disabled]="currentPage < 1"
+        (click)="prevPage()"
+      >
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+    </div>
+    <div class="col-4 text-center">
+      <div style="height: 100%; display: flex; align-items: center;">
+        <div class="full-width no-padding">
+          <input type="number"
+                 class="no-margin"
+                 id="pageSetter"
+                 min="1" max="{{_totalPages}}"
+                 (input)="setPage($event)"
+                 [value]="currentPage">
+          <label for="pageSetter"> / {{_totalPages}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-2 text-center">
+      <button mat-icon-button
+        [disabled]="currentPage >= _totalPages - 1"
+        (click)="nextPage()"
+      >
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+    <div class="col-2 text-right">
+      <button mat-icon-button
+        [disabled]="currentPage >= _totalPages - 1"
+        (click)="nextPage()"
+      >
+        <mat-icon>last_page</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
