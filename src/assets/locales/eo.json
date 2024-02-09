@@ -1,4 +1,5 @@
 {
+  "Locale": "eo",
   "Main": {
     "Title": "Taskspurilo",
     "Save": "Konservu",
@@ -42,6 +43,7 @@
     "ShowHide": "montru / kaŝu statistikojn"
   },
   "Task": {
+    "Tasks": "Taskoj",
     "WithoutCategory": "(sin kategorio)",
     "WithoutPriority": "(sin prioritato)",
     "WithoutDueDate": "(sin limdato)",
@@ -50,6 +52,14 @@
     "CreatedDate": "Kreita",
     "DueDate": "Limdato",
     "Category": "Kategorio",
-    "Priority": "Prioritato"
+    "Priority": "Prioritato",
+    "ErrorCodes": {
+      "EmptyName": "Titolo de la tasko ne povas esti malplena",
+      "NoSuchPriority": "La prioritato ne ekzistas",
+      "NoSuchCategory": "La kategorio ne ekzistas",
+      "NoSuchTask": "La tasko ne ekzistas",
+      "UserConstraints": "La kategorio, la prioritato kaj la tasko apartenas al malsamaj uzantoj",
+      "NotOwner": "Vi ne rajtas labori kun ĉi tiun taskon"
+    }
   }
 }

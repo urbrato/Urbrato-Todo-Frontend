@@ -36,10 +36,12 @@ export class CategoryComponent {
   set setCategory(category: Category) {
     this.category = category;
     this.iconUrl = this.srvCategory.getIconUrl(category.id);
-    this.srvCategory.hasIcon(category.id).subscribe({
-      next: (has) => this.hasIcon = has,
-      error: (_) => this.hasIcon = false
-    });
+    if (category) {
+      this.srvCategory.hasIcon(category.id).subscribe({
+        next: (has) => this.hasIcon = has,
+        error: (_) => this.hasIcon = false
+      });
+    }
   }
 
   @Output()

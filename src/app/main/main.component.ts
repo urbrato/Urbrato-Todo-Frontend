@@ -19,7 +19,10 @@ import {DeviceInfo} from "../util/device-info";
 import {EditCategoryDlgData} from "../dialogs/edit-category-dialog/edit-category-dlg-data";
 import {CategorySearchDto} from "../dto/category-search-dto";
 import {StatService} from "../dao/stat.service";
-import {HttpErrorResponse} from "@angular/common/http";
+import {Page} from "../dto/page";
+import {TaskService} from "../dao/task.service";
+import {Task} from "../entities/task";
+import {TaskSearchDto} from "../dto/task-search-dto";
 
 export const LANG_RU = 'ru';
 export const LANG_EO = 'eo';
@@ -31,9 +34,10 @@ export const LANG_EO = 'eo';
 })
 export class MainComponent implements OnInit {
   currentUser: User | null = null;
+
+  // категории
   categories: Category[] = [];
   categoriesFilter: CategorySearchDto;
-
   selectedCategory: Category = null;
 
   // настройки боковой панели
@@ -44,11 +48,18 @@ export class MainComponent implements OnInit {
   completed: number = 0;
   uncompleted: number = 0;
 
+  // задачи
+  tasks: Page<Task>;
+  fltTasks: TaskSearchDto;
+  dfltPageSize = 3;
+  dfltPageNumber = 0;
+
   constructor(
     private srvAuth: AuthService,
     private srvProfile: ProfileService,
     private srvCategory: CategoryService,
     private srvStat: StatService,
+    private srvTask: TaskService,
     private router: Router,
     private deviceDetector: DeviceDetectorService,
     private translate: TranslateService,
@@ -62,6 +73,9 @@ export class MainComponent implements OnInit {
       } else {
         this.getCategories();
         this.updateStats();
+
+        this.fltTasks = new TaskSearchDto();
+        this.initTaskFilter(null);
       }
     });
 
@@ -177,6 +191,31 @@ export class MainComponent implements OnInit {
     })
   }
 
+  getTasks() {
+    if (this.fltTasks) {
+      this.srvTask.search(this.fltTasks).subscribe({
+        next: (tasks) => {
+          this.tasks = tasks.payload;
+        },
+        error: (err) => {
+          this.showError(err, 'Task');
+        }
+      })
+    }
+  }
+
+  initTaskFilter(category: Category) {
+    if (category === null)
+      this.fltTasks.categoryId = null;
+    else
+      this.fltTasks.categoryId = category.id;
+
+    this.fltTasks.pageSize = this.dfltPageSize;
+    this.fltTasks.pageNumber = this.dfltPageNumber;
+
+    this.getTasks();
+  }
+
   updateStats() {
     if (this.selectedCategory == null) {
       this.getStats();
@@ -258,6 +297,7 @@ export class MainComponent implements OnInit {
 
     if (changed) {
       this.updateStats();
+      this.initTaskFilter(category);
     }
   }
 

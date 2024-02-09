@@ -35,6 +35,8 @@ import {CategoryCreateDto} from "./dto/category-create-dto";
 import {HeaderComponent} from "./views/header/header.component";
 import {StatCardComponent} from "./views/stat-card/stat-card.component";
 import {StatComponent} from "./views/stat/stat.component";
+import {TasksListComponent} from "./views/tasks-list/tasks-list.component";
+import {MatSortModule} from "@angular/material/sort";
 
 registerLocaleData(localeRu);
 registerLocaleData(localeEo);
@@ -74,6 +76,7 @@ function HttpLoaderFactory(http: HttpBackend): MultiTranslateHttpLoader {
     MatSidenavModule,
     MatButton,
     MatDialogModule,
+    MatSortModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -86,7 +89,8 @@ function HttpLoaderFactory(http: HttpBackend): MultiTranslateHttpLoader {
     CategoriesLogoComponent,
     HeaderComponent,
     StatCardComponent,
-    StatComponent
+    StatComponent,
+    TasksListComponent
   ],
   providers: [
     {

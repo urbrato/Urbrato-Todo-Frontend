@@ -1,52 +1,41 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Page} from "../../dto/page";
 import {Task} from "../../entities/task";
 import {TaskSearchDto} from "../../dto/task-search-dto";
-import {
-  MatCell,
-  MatColumnDef,
-  MatHeaderCell,
-  MatHeaderRow, MatRow,
-  MatTable,
-  MatTableDataSource
-} from "@angular/material/table";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {DatePipe, NgIf} from "@angular/common";
+import {DatePipe, formatDate, NgFor, NgIf} from "@angular/common";
 import {MatSort} from "@angular/material/sort";
 import {CategoryService} from "../../dao/category.service";
 import {PriorityService} from "../../dao/priority.service";
-import {retry} from "rxjs";
 import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatCheckbox} from "@angular/material/checkbox";
+import {DeviceInfo} from "../../util/device-info";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-tasks-list',
   standalone: true,
   imports: [
     NgIf,
+    NgFor,
     TranslateModule,
-    MatTable,
     MatSort,
-    MatColumnDef,
-    MatHeaderCell,
-    MatCell,
     DatePipe,
     MatIconButton,
     MatIcon,
     MatCheckbox,
-    MatHeaderRow,
-    MatRow
+    FormsModule
   ],
   templateUrl: './tasks-list.component.html',
   styleUrl: './tasks-list.component.css'
 })
-export class TasksListComponent {
+export class TasksListComponent implements OnInit{
   tasks: Page<Task>;
   filter: TaskSearchDto;
 
-  displayedColumns: string[] = ['#', 'name', 'created', 'dueDate', 'priority', 'category', 'actions'];
-  dataSource: MatTableDataSource<Task> = new MatTableDataSource<Task>();
+  hasPriorityIcon = { };
+  hasCategoryIcon = { };
 
   txtNoCategory: string;
   txtNoPriority: string;
@@ -56,13 +45,21 @@ export class TasksListComponent {
   clrCompleteBack = 'lightgray';
   clrCompleteTxt = 'darkgray';
 
-  @Input()
   isMobile: boolean;
 
   @Input('tasks')
   set setTasks(tasks: Page<Task>) {
     this.tasks = tasks;
-    this.assignTableSource();
+
+    this.hasPriorityIcon = {};
+    this.hasCategoryIcon = {};
+
+    if (tasks && tasks.content) {
+      tasks.content.forEach((t: Task) => {
+        this.getHasCategoryIcon(t);
+        this.getHasPriorityIcon(t);
+      });
+    }
   }
 
   @Input('filter')
@@ -78,15 +75,13 @@ export class TasksListComponent {
     this.initTranslations();
   }
 
+  ngOnInit() {
+    this.isMobile = DeviceInfo.IsMobile;
+  }
+
   initTranslations() {
     this.txtNoCategory = this.translate.instant("Task.WithoutCategory");
     this.txtNoPriority = this.translate.instant("Task.WithoutPriority");
-  }
-
-  assignTableSource() {
-    if (!this.dataSource) return;
-
-    this.dataSource.data = this.tasks.content;
   }
 
   getPriorityBackColor(task: Task): string {
@@ -123,16 +118,13 @@ export class TasksListComponent {
       return task.priority.name;
   }
 
-  getHasPriorityIcon(task: Task): boolean {
+  getHasPriorityIcon(task: Task) {
     if (task.priority === null)
-      return false;
+      this.hasPriorityIcon[task.id] = false;
     else {
       this.srvPriority.hasIcon(task.priority.id).subscribe({
         next: result => {
-          return result;
-        },
-        error: _ => {
-          return false;
+          this.hasPriorityIcon[task.id] = result;
         }
       })
     }
@@ -152,16 +144,13 @@ export class TasksListComponent {
       return task.category.name;
   }
 
-  getHasCategoryIcon(task: Task): boolean {
+  getHasCategoryIcon(task: Task) {
     if (task.category === null)
-      return false;
+      this.hasCategoryIcon[task.id] = false;
     else {
       this.srvCategory.hasIcon(task.category.id).subscribe({
         next: result => {
-          return result;
-        },
-        error: _ => {
-          return false;
+          this.hasCategoryIcon[task.id] = true;
         }
       })
     }
@@ -172,5 +161,13 @@ export class TasksListComponent {
       return '';
     else
       return this.srvCategory.getIconUrl(task.category.id);
+  }
+
+  getDueDateFormat(task: Task): string {
+    if (task.dueDate === null)
+      return this.translate.instant('Task.WithoutDueDate');
+    else
+      return formatDate(task.dueDate, 'dd.MM.yyyy',
+        this.translate.instant('Locale'));
   }
 }

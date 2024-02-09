@@ -35,7 +35,7 @@ export class PriorityService {
   }
 
   public delete(id: number): Observable<string> {
-    return this.http.delete(`${this.controller}/delete/${id}`);
+    return this.http.delete<string>(`${this.controller}/delete/${id}`);
   }
 
   public search(dto: PrioritySearchDto): Observable<ControllerResult<Priority[]>> {
