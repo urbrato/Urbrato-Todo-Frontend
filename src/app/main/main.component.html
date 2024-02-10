@@ -36,6 +36,7 @@
       class="full-width"
       [tasks]="tasks"
       [filter]="fltTasks"
+      (changePageEvent)="changeTaskPage($event)"
     ></app-tasks-list>
   </mat-drawer-content>
 </mat-drawer-container>

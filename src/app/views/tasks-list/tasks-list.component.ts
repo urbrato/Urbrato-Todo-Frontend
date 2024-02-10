@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Page} from "../../dto/page";
 import {Task} from "../../entities/task";
 import {TaskSearchDto} from "../../dto/task-search-dto";
@@ -68,6 +68,9 @@ export class TasksListComponent implements OnInit{
   set setFilter(filter: TaskSearchDto) {
     this.filter = filter;
   }
+
+  @Output()
+  changePageEvent = new EventEmitter<number>();
 
   constructor(
     private srvCategory: CategoryService,
@@ -174,6 +177,6 @@ export class TasksListComponent implements OnInit{
   }
 
   changePage($event: number) {
-    console.log($event);
+    this.changePageEvent.emit($event);
   }
 }

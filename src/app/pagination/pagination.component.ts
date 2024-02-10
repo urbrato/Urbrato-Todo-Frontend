@@ -58,7 +58,7 @@ export class PaginationComponent {
   }
 
   setPage($event) {
-    this.currentPage = $event - 1;
+    this.currentPage = $event.target.value - 1;
   }
 
   nextPage() {

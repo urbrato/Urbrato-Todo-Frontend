@@ -205,13 +205,17 @@ export class MainComponent implements OnInit {
   }
 
   initTaskFilter(category: Category) {
+    this.fltTasks.pageSize = this.dfltPageSize;
+    this.fltTasks.pageNumber = this.dfltPageNumber;
+
+    this.updateTaskFilter(category);
+  }
+
+  updateTaskFilter(category: Category) {
     if (category === null)
       this.fltTasks.categoryId = null;
     else
       this.fltTasks.categoryId = category.id;
-
-    this.fltTasks.pageSize = this.dfltPageSize;
-    this.fltTasks.pageNumber = this.dfltPageNumber;
 
     this.getTasks();
   }
@@ -297,8 +301,13 @@ export class MainComponent implements OnInit {
 
     if (changed) {
       this.updateStats();
-      this.initTaskFilter(category);
+      this.updateTaskFilter(category);
     }
+  }
+
+  changeTaskPage($event: number) {
+    this.fltTasks.pageNumber = $event;
+    this.getTasks();
   }
 
   toggleDrawer() {

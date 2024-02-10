@@ -17,15 +17,16 @@
       </button>
     </div>
     <div class="col-4 text-center">
-      <div style="height: 100%; display: flex; align-items: center;">
+      <div style="height: 100%; display: flex; align-items: center; border: solid 1px black">
         <div class="full-width no-padding">
           <input type="number"
                  class="no-margin"
                  id="pageSetter"
                  min="1" max="{{_totalPages}}"
+                 style="width: 90%;"
                  (input)="setPage($event)"
-                 [value]="currentPage">
-          <label for="pageSetter"> / {{_totalPages}}</label>
+                 [value]="currentPage + 1">
+          <label for="pageSetter">&nbsp;/ {{_totalPages}}</label>
         </div>
       </div>
     </div>
@@ -40,7 +41,7 @@
     <div class="col-2 text-right">
       <button mat-icon-button
         [disabled]="currentPage >= _totalPages - 1"
-        (click)="nextPage()"
+        (click)="lastPage()"
       >
         <mat-icon>last_page</mat-icon>
       </button>
