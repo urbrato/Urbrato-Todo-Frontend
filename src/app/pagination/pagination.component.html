@@ -19,14 +19,27 @@
     <div class="col-4 text-center">
       <div style="height: 100%; display: flex; align-items: center; border: solid 1px black">
         <div class="full-width no-padding">
-          <input type="number"
-                 class="no-margin"
-                 id="pageSetter"
-                 min="1" max="{{_totalPages}}"
-                 style="width: 90%;"
-                 (input)="setPage($event)"
-                 [value]="currentPage + 1">
-          <label for="pageSetter">&nbsp;/ {{_totalPages}}</label>
+          <table class="full-width no-margin no-padding">
+            <colgroup>
+              <col span="1" style="width: 100%;">
+              <col span="1" style="white-space: nowrap;" class="center-content">
+            </colgroup>
+            <tbody>
+            <td>
+              <input type="number"
+                     class="no-margin full-width"
+                     id="pageSetter"
+                     min="1" max="{{_totalPages}}"
+                     (input)="setPage($event)"
+                     [value]="currentPage + 1">
+            </td>
+            <td>
+              <div class="center-content">
+                <span>&nbsp;/&nbsp;{{_totalPages}}&nbsp;</span>
+              </div>
+            </td>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

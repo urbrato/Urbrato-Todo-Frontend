@@ -1,7 +1,7 @@
 <div class="container no-padding no-margin full-width">
   <div class="row no-padding no-margin full-width">
     <div class="col-12 no-padding no-margin full-width">
-      <div class="no-padding full-width" *ngIf="!isMobile">
+      <div class="no-padding full-width">
         <div class="card full-width" *ngIf="tasks">
           <div class="card-body full-width">
             <div class="table-responsive full-width">
@@ -14,21 +14,22 @@
                 <colgroup>
                   <col span="1" style="width: 3rem;">
                   <col span="1">
+                  <col *ngIf="!isMobile" span="1" style="width: 7rem;">
                   <col span="1" style="width: 7rem;">
-                  <col span="1" style="width: 7rem;">
-                  <col span="1">
-                  <col span="1">
-                  <col span="1" style="width: 120px;">
+                  <col *ngIf="!isMobile" span="1">
+                  <col *ngIf="!isMobile" span="1">
+                  <col *ngIf="!isMobile" span="1" style="width: 120px;">
+                  <col *ngIf="isMobile" span="1" style="width: 40px;">
                 </colgroup>
                 <thead>
                   <caption>{{'Task.Tasks' | translate}}</caption>
                   <tr>
                     <th>#</th>
                     <th>{{'Task.Name' | translate}}</th>
-                    <th>{{'Task.CreatedDate' | translate}}</th>
+                    <th *ngIf="!isMobile">{{'Task.CreatedDate' | translate}}</th>
                     <th>{{'Task.DueDate' | translate}}</th>
-                    <th>{{'Task.Category' | translate}}</th>
-                    <th>{{'Task.Priority' | translate}}</th>
+                    <th *ngIf="!isMobile">{{'Task.Category' | translate}}</th>
+                    <th *ngIf="!isMobile">{{'Task.Priority' | translate}}</th>
                     <th><mat-icon>library_add_check</mat-icon></th>
                   </tr>
                 </thead>
@@ -45,7 +46,7 @@
                       [style.color]="getPriorityForeColor(task)"
                       [class.strikeout]="task.complete"
                     >{{task.name}}</td>
-                    <td
+                    <td *ngIf="!isMobile"
                       class="text-center"
                       [style.background-color]="getPriorityBackColor(task)"
                       [style.color]="getPriorityForeColor(task)"
@@ -57,7 +58,7 @@
                       [style.color]="getPriorityForeColor(task)"
                       [class.strikeout]="task.complete"
                     >{{getDueDateFormat(task)}}</td>
-                    <td
+                    <td *ngIf="!isMobile"
                       [style.background-color]="getPriorityBackColor(task)"
                       [style.color]="getPriorityForeColor(task)"
                       [class.strikeout]="task.complete"
@@ -68,7 +69,7 @@
                            alt="">
                       {{getCategoryName(task)}}
                     </td>
-                    <td
+                    <td *ngIf="!isMobile"
                       [style.background-color]="getPriorityBackColor(task)"
                       [style.color]="getPriorityForeColor(task)"
                       [class.strikeout]="task.complete"
@@ -95,6 +96,7 @@
                 </tbody>
               </table>
               <app-pagination
+                *ngIf="tasks.content.length > 0"
                 class="full-width"
                 [totalPages]="tasks.totalPages"
                 (changePageEvent)="changePage($event)"
