@@ -103,6 +103,11 @@ export class MainComponent implements OnInit {
     this.detectDevice();
     this.initCatsDrawer();
     this.translate.use(LANG_RU);
+
+    if (DeviceInfo.IsMobile)
+      this.dfltPageSize = 5;
+    else
+      this.dfltPageSize = 10;
   }
 
   detectDevice() {
