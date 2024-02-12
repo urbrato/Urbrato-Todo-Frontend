@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Page} from "../../dto/page";
 import {Task} from "../../entities/task";
-import {TaskSearchDto} from "../../dto/task-search-dto";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DatePipe, formatDate, NgFor, NgIf} from "@angular/common";
 import {MatSort} from "@angular/material/sort";
@@ -34,7 +33,6 @@ import {PaginationComponent} from "../../pagination/pagination.component";
 })
 export class TasksListComponent implements OnInit{
   tasks: Page<Task>;
-  filter: TaskSearchDto;
 
   hasPriorityIcon = { };
   hasCategoryIcon = { };
@@ -62,11 +60,6 @@ export class TasksListComponent implements OnInit{
         this.getHasPriorityIcon(t);
       });
     }
-  }
-
-  @Input('filter')
-  set setFilter(filter: TaskSearchDto) {
-    this.filter = filter;
   }
 
   @Output()
@@ -118,7 +111,7 @@ export class TasksListComponent implements OnInit{
 
   getPriorityName(task: Task): string {
     if (task.priority === null)
-      return '';
+      return this.txtNoPriority;
     else
       return task.priority.name;
   }
@@ -144,7 +137,7 @@ export class TasksListComponent implements OnInit{
 
   getCategoryName(task: Task): string {
     if (task.category === null)
-      return '';
+      return this.txtNoCategory;
     else
       return task.category.name;
   }
@@ -155,7 +148,7 @@ export class TasksListComponent implements OnInit{
     else {
       this.srvCategory.hasIcon(task.category.id).subscribe({
         next: result => {
-          this.hasCategoryIcon[task.id] = true;
+          this.hasCategoryIcon[task.id] = result;
         }
       })
     }
