@@ -11,9 +11,20 @@
     <a class="nav-link"
        (click)="selectCategory(null)"
     >
-      <span class="categories-all">
-        {{'Category.All' | translate}}
-      </span>
+      <div class="container no-margin no-padding">
+        <div class="row no-margin no-padding">
+          <div class="col-10">
+            <span class="categories-all">
+              {{'Category.All' | translate}}
+            </span>
+          </div>
+          <div class="col-2">
+            <span class="category-count">
+              {{stat ? stat.nincomplete : 0}}
+            </span>
+          </div>
+        </div>
+      </div>
     </a>
   </li>
 

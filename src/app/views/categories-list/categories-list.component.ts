@@ -6,6 +6,7 @@ import {CategoryComponent} from "../category/category.component";
 import {EditCategoryDlgData} from "../../dialogs/edit-category-dialog/edit-category-dlg-data";
 import {CategorySearchDto} from "../../dto/category-search-dto";
 import {CategorySearchComponent} from "../category-search/category-search.component";
+import {Stat} from "../../entities/stat";
 
 @Component({
   selector: 'app-categories-list',
@@ -25,6 +26,9 @@ export class CategoriesListComponent {
   categories: Category[];
   filter: CategorySearchDto;
   selectedCategory: Category;
+
+  @Input()
+  stat: Stat;
 
   @Input("categories")
   set setCategories(categories: Category[]) {

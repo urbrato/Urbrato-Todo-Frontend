@@ -34,10 +34,3 @@ span.category-button {
   overflow: hidden;
 }
 
-.category-count {
-  display: inline-block;
-  padding: 3px;
-  background-color: lightgoldenrodyellow;
-  border-radius: 3px;
-  text-align: center;
-}

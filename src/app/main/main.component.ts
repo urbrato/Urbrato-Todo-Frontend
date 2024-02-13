@@ -23,6 +23,7 @@ import {Page} from "../dto/page";
 import {TaskService} from "../dao/task.service";
 import {Task} from "../entities/task";
 import {TaskSearchDto} from "../dto/task-search-dto";
+import {Stat} from "../entities/stat";
 
 export const LANG_RU = 'ru';
 export const LANG_EO = 'eo';
@@ -45,6 +46,7 @@ export class MainComponent implements OnInit {
   catsMode: MatDrawerMode = "side"; // режим открытия
 
   // статистика
+  stat: Stat;
   completed: number = 0;
   uncompleted: number = 0;
 
@@ -190,8 +192,11 @@ export class MainComponent implements OnInit {
   getStats() {
     this.srvStat.getStat(this.currentUser.id).subscribe({
       next: (stat) => {
-        this.completed = stat.ncomplete;
-        this.uncompleted = stat.nincomplete;
+        this.stat = stat;
+        if (this.selectedCategory === null) {
+          this.completed = stat.ncomplete;
+          this.uncompleted = stat.nincomplete;
+        }
       }
     })
   }
