@@ -89,6 +89,7 @@
                       <mat-icon>edit</mat-icon>
                       <mat-icon>delete</mat-icon>
                       <mat-checkbox
+                        (change)="onToggleComplete(task)"
                         [(ngModel)]="task.complete"
                       ></mat-checkbox>
                     </td>

@@ -37,6 +37,7 @@
       class="full-width"
       [tasks]="tasks"
       (changePageEvent)="changeTaskPage($event)"
+      (updateTaskEvent)="editTask($event)"
     ></app-tasks-list>
   </mat-drawer-content>
 </mat-drawer-container>

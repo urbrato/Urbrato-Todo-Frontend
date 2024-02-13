@@ -12,6 +12,7 @@ import {MatCheckbox} from "@angular/material/checkbox";
 import {DeviceInfo} from "../../util/device-info";
 import {FormsModule} from "@angular/forms";
 import {PaginationComponent} from "../../pagination/pagination.component";
+import {TaskUpdateDto} from "../../dto/task-update-dto";
 
 @Component({
   selector: 'app-tasks-list',
@@ -65,6 +66,9 @@ export class TasksListComponent implements OnInit{
 
   @Output()
   changePageEvent = new EventEmitter<number>();
+
+  @Output()
+  updateTaskEvent = new EventEmitter<TaskUpdateDto>();
 
   constructor(
     private srvCategory: CategoryService,
@@ -175,5 +179,12 @@ export class TasksListComponent implements OnInit{
 
   changePage($event: number) {
     this.changePageEvent.emit($event);
+  }
+
+  onToggleComplete($event: Task) {
+    const dto = new TaskUpdateDto();
+    dto.id = $event.id;
+    dto.complete = $event.complete;
+    this.updateTaskEvent.emit(dto);
   }
 }

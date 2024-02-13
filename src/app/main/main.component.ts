@@ -24,6 +24,7 @@ import {TaskService} from "../dao/task.service";
 import {Task} from "../entities/task";
 import {TaskSearchDto} from "../dto/task-search-dto";
 import {Stat} from "../entities/stat";
+import {TaskUpdateDto} from "../dto/task-update-dto";
 
 export const LANG_RU = 'ru';
 export const LANG_EO = 'eo';
@@ -169,6 +170,7 @@ export class MainComponent {
       this.srvCategory.search(this.categoriesFilter).subscribe({
         next: (categories) => {
           this.categories = categories.payload;
+          this.updateSelectedCategory();
         },
         error: (err) => {
           this.showError(err, 'Category');
@@ -176,8 +178,10 @@ export class MainComponent {
       })
     } else {
       this.srvCategory.list().subscribe({
-        next: (categories) =>
-          this.categories = categories
+        next: (categories) => {
+          this.categories = categories;
+          this.updateSelectedCategory();
+        }
       })
     }
   }
@@ -229,12 +233,18 @@ export class MainComponent {
   }
 
   updateStats() {
-    if (this.selectedCategory == null) {
-      this.getStats();
-    } else {
+    this.getStats();
+    if (this.selectedCategory !== null) {
       this.completed = this.selectedCategory.ncomplete;
       this.uncompleted = this.selectedCategory.nincomplete;
     }
+  }
+
+  updateSelectedCategory() {
+    if (this.selectedCategory !== null) {
+      this.selectedCategory = this.categories.find(cat => cat.id === this.selectedCategory.id) ?? null;
+    }
+    this.updateStats();
   }
 
   addCategory(category) {
@@ -274,6 +284,9 @@ export class MainComponent {
           })
         } else {
           this.getCategories();
+        }
+        if (this.selectedCategory === null || this.selectedCategory.id === this.fltTasks.categoryId) {
+          this.getTasks();
         }
       },
       error: err => {
@@ -316,6 +329,18 @@ export class MainComponent {
   changeTaskPage($event: number) {
     this.fltTasks.pageNumber = $event;
     this.getTasks();
+  }
+
+  editTask($event: TaskUpdateDto) {
+    this.srvTask.update($event).subscribe({
+      next: _ => {
+        this.getCategories();
+        this.getTasks();
+      },
+      error: (err) => {
+        this.showError(err, 'Task');
+      }
+    })
   }
 
   toggleDrawer() {
