@@ -37,8 +37,9 @@ export class TasksListComponent implements OnInit{
   hasPriorityIcon = { };
   hasCategoryIcon = { };
 
-  txtNoCategory: string;
-  txtNoPriority: string;
+  txtNoCategory: string = '';
+  txtNoPriority: string = '';
+  txtNoDueDate: string = '';
 
   clrDefaultBack = 'white';
   clrDefaultTxt = 'black';
@@ -70,16 +71,10 @@ export class TasksListComponent implements OnInit{
     private srvPriority: PriorityService,
     private translate: TranslateService
   ) {
-    this.initTranslations();
   }
 
   ngOnInit() {
     this.isMobile = DeviceInfo.IsMobile;
-  }
-
-  initTranslations() {
-    this.txtNoCategory = this.translate.instant("Task.WithoutCategory");
-    this.txtNoPriority = this.translate.instant("Task.WithoutPriority");
   }
 
   getPriorityBackColor(task: Task): string {
@@ -110,8 +105,11 @@ export class TasksListComponent implements OnInit{
   }
 
   getPriorityName(task: Task): string {
-    if (task.priority === null)
+    if (task.priority === null) {
+      if (this.txtNoPriority === '')
+        this.txtNoPriority = this.translate.instant('Task.WithoutPriority');
       return this.txtNoPriority;
+    }
     else
       return task.priority.name;
   }
@@ -136,8 +134,11 @@ export class TasksListComponent implements OnInit{
   }
 
   getCategoryName(task: Task): string {
-    if (task.category === null)
+    if (task.category === null) {
+      if (this.txtNoCategory === '')
+        this.txtNoCategory = this.translate.instant('Task.WithoutCategory');
       return this.txtNoCategory;
+    }
     else
       return task.category.name;
   }
@@ -162,8 +163,11 @@ export class TasksListComponent implements OnInit{
   }
 
   getDueDateFormat(task: Task): string {
-    if (task.dueDate === null)
-      return this.translate.instant('Task.WithoutDueDate');
+    if (task.dueDate === null) {
+      if (this.txtNoDueDate === '')
+        this.txtNoDueDate = this.translate.instant('Task.WithoutDueDate');
+      return this.txtNoDueDate;
+    }
     else
       return formatDate(task.dueDate, 'dd.MM.yyyy',
         this.translate.instant('Locale'));

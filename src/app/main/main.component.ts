@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {User} from "../entities/user";
 import {AuthService} from "../service/auth.service";
 import {ProfileService} from "../service/profile.service";
@@ -33,7 +33,7 @@ export const LANG_EO = 'eo';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit {
+export class MainComponent {
   currentUser: User | null = null;
 
   // категории
@@ -68,6 +68,10 @@ export class MainComponent implements OnInit {
     private dlgMsg: MatDialogRef<MessageBoxComponent>,
     private bldDlg: MatDialog) {
 
+    this.detectDevice();
+    this.translate.use(LANG_RU);
+    this.initCatsDrawer();
+
     srvAuth.currentUser.subscribe(user => {
       this.currentUser = user;
       if (user === null) {
@@ -99,17 +103,6 @@ export class MainComponent implements OnInit {
 
     translate.addLangs([LANG_RU, LANG_EO]);
     translate.setDefaultLang(LANG_RU);
-  }
-
-  ngOnInit(): void {
-    this.detectDevice();
-    this.initCatsDrawer();
-    this.translate.use(LANG_RU);
-
-    if (DeviceInfo.IsMobile)
-      this.dfltPageSize = 5;
-    else
-      this.dfltPageSize = 10;
   }
 
   detectDevice() {
@@ -215,6 +208,11 @@ export class MainComponent implements OnInit {
   }
 
   initTaskFilter(category: Category) {
+    if (DeviceInfo.IsMobile)
+      this.dfltPageSize = 5;
+    else
+      this.dfltPageSize = 10;
+
     this.fltTasks.pageSize = this.dfltPageSize;
     this.fltTasks.pageNumber = this.dfltPageNumber;
 
