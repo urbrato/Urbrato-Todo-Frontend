@@ -16,16 +16,16 @@ td.strikeout:before {
   width: 100%;
 }
 
-.mat-icon {
-  vertical-align: middle;
-}
-
 table {
   border-collapse: collapse;
 }
 
 table td, table th {
   border: 1px solid black;
+}
+
+.mat-icon {
+  vertical-align: middle;
 }
 
 .mat-icon:hover {
