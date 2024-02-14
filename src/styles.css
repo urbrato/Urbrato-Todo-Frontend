@@ -75,3 +75,11 @@ body {
   border-radius: 3px;
   text-align: center;
 }
+
+.active-span {
+  border-bottom: 1px dashed #3879d6;
+  color: #3879d6;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}

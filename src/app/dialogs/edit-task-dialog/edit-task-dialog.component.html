@@ -1,0 +1,136 @@
+<mat-dialog-content>
+  <p mat-dialog-title>{{data.dlgTitle}}</p>
+
+  <mat-form-field class="full-width">
+    <mat-label>{{'Task.Name' | translate}}</mat-label>
+    <input
+      matInput
+      class="full-width"
+      [(ngModel)]="data.dto.name"
+    />
+    <button
+      *ngIf="data.dto.name.trim().length > 0"
+      class="clear-icon"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="data.dto.name = ''"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>{{'Task.Category' | translate}}</mat-label>
+    <mat-select [(ngModel)]="data.dto.categoryId">
+      <mat-option [value]="null">{{'Task.WithoutCategory' | translate}}</mat-option>
+      <mat-option *ngFor="let category of data.categories"
+                  [value]="category.id"
+      >
+        <img *ngIf="iconCategory[category.id] !== null"
+             src="{{iconCategory[category.id]}}" alt=""
+             class="category-icon"
+        >
+        {{category.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>{{'Task.Priority' | translate}}</mat-label>
+    <mat-select [(ngModel)]="data.dto.priorityId">
+      <mat-option [value]="null">{{'Task.WithoutPriority' | translate}}</mat-option>
+      <mat-option *ngFor="let priority of data.priorities"
+                  [value]="priority.id"
+                  [style.background-color]="'#' + priority.backcolor"
+                  [style.color]="'#' + priority.forecolor"
+      >
+        <img *ngIf="iconPriority[priority.id] !== null"
+             src="{{iconPriority[priority.id]}}" alt=""
+             class="category-icon"
+        >
+        {{priority.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>{{'Task.DueDate' | translate}}</mat-label>
+    <input
+      matInput readonly #dueInput
+      placeholder="{{'Task.DueDate' | translate}}"
+      [matDatepicker]="picker"
+      [(ngModel)]="data.dto.dueDate"
+      (click)="picker.open()"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <button
+      *ngIf="dueInput.value.trim().length > 0"
+      matSuffix mat-icon-button
+      class="clear-icon"
+      (click)="data.dto.dueDate = null"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <div class="full-width">
+    <span class="active-span"
+          (click)="setDueDateFromNow(0)"
+    >
+      {{'Task.SetDueDate.Today' | translate}}
+    </span>
+    <span class="active-span"
+          (click)="setDueDateFromNow(1)"
+    >
+      {{'Task.SetDueDate.Tomorrow' | translate}}
+    </span>
+    <span class="active-span"
+          (click)="setDueDateFromNow(2)"
+    >
+      {{'Task.SetDueDate.AfterTomorrow' | translate}}
+    </span>
+    <span class="active-span"
+          (click)="setDueDateFromNow(7)"
+    >
+      {{'Task.SetDueDate.AfterWeek' | translate}}
+    </span>
+  </div>
+
+  <div class="mat-mdc-form-field-subscript-wrapper mat-mdc-form-field-bottom-align"></div>
+
+  <mat-form-field class="full-width">
+    <mat-label>{{'Task.RepeatAfterDays' | translate}}</mat-label>
+    <input
+      matInput
+      type="number"
+      class="full-width"
+      min="1" max="1000"
+      [(ngModel)]="data.dto.repeatAfterDays"
+    />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions class="padding-bottom-20">
+  <div class="col-4"></div>
+  <div class="col-4 text-center no-padding">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="confirm()"
+      [disabled]="data.dto.name.trim() === ''"
+    >
+      {{'Main.Save' | translate}}
+    </button>
+  </div>
+  <div class="col-4 text-center no-padding">
+    <button
+      mat-raised-button
+      color="secondary"
+      (click)="cancel()"
+    >
+      {{'Main.Cancel' | translate}}
+    </button>
+  </div>
+</mat-dialog-actions>

@@ -19,6 +19,10 @@ import {MessageBoxData} from "../../util/message-box-data";
 import {MessageBoxButtons} from "../../util/message-box-buttons";
 import {MessageBoxIcon} from "../../util/message-box-icon";
 import {DialogResult} from "../../util/dialog-result";
+import {EditTaskDialogComponent} from "../../dialogs/edit-task-dialog/edit-task-dialog.component";
+import {EditTaskDlgData} from "../../dialogs/edit-task-dialog/edit-task-dlg-data";
+import {DialogReturn} from "../../util/dialog-return";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-tasks-list',
@@ -84,7 +88,9 @@ export class TasksListComponent implements OnInit{
     private srvPriority: PriorityService,
     private translate: TranslateService,
     private bldDlg: MatDialog,
-    private dlgMsg: MatDialogRef<MessageBoxComponent>
+    private dlgMsg: MatDialogRef<MessageBoxComponent>,
+    private dlgEditTask: MatDialogRef<EditTaskDialogComponent>,
+    private router: Router
   ) {
   }
 
@@ -197,6 +203,86 @@ export class TasksListComponent implements OnInit{
     dto.id = $event.id;
     dto.complete = $event.complete;
     this.updateTaskEvent.emit(dto);
+  }
+
+  onEdit($event: Task) {
+    const dlgData = new EditTaskDlgData();
+    dlgData.dlgTitle = this.translate.instant('Task.EditTitle');
+
+    this.srvCategory.list().subscribe({
+      next: result => {
+        dlgData.categories = result;
+
+        this.srvPriority.list().subscribe({
+          next: result => {
+            dlgData.priorities = result;
+
+            const dtoDlg = new TaskUpdateDto();
+            dtoDlg.id = $event.id;
+            dtoDlg.name = $event.name;
+            dtoDlg.complete = $event.complete;
+            dtoDlg.dueDate = $event.dueDate;
+            dtoDlg.categoryId = $event.category === null ? null : $event.category.id;
+            dtoDlg.priorityId = $event.priority === null ? null : $event.priority.id;
+            dtoDlg.repeatAfterDays = $event.repeatAfterDays;
+
+            dlgData.dto = structuredClone(dtoDlg);
+
+            this.dlgEditTask = this.bldDlg.open(EditTaskDialogComponent, {
+              data: dlgData,
+              width: '600px',
+              maxHeight: '95vh;'
+            });
+
+            this.dlgEditTask.afterClosed().subscribe({
+              next: (result: DialogReturn<TaskUpdateDto>) => {
+                if (result && result.result === DialogResult.OK) {
+                  const dto = new TaskUpdateDto();
+                  dto.id = dtoDlg.id;
+
+                  if (dtoDlg.name !== result.data.name) {
+                    dto.name = result.data.name;
+                  }
+
+                  if (dtoDlg.complete !== result.data.complete) {
+                    dto.complete = result.data.complete;
+                  }
+
+                  if (dtoDlg.repeatAfterDays !== result.data.repeatAfterDays) {
+                    dto.repeatAfterDays = result.data.repeatAfterDays;
+                  }
+
+                  if (dtoDlg.priorityId !== result.data.priorityId) {
+                    dto.priorityId = result.data.priorityId ?? 0;
+                  }
+
+                  if (dtoDlg.categoryId !== result.data.categoryId) {
+                    dto.categoryId = result.data.categoryId ?? 0;
+                  }
+
+                  if (dtoDlg.dueDate !== result.data.dueDate) {
+                    dto.dueDate = result.data.dueDate;
+                  }
+
+                  this.updateTaskEvent.emit(dto);
+                }
+              },
+              error: err => {
+                if (err.code === 401) {
+                  this.router.navigate(['']).then(_ => {});
+                }
+              }
+            })
+          },
+          error: err => {
+            if (err.code === 401) {
+              this.router.navigate(['']).then(_ => {
+              });
+            }
+          }
+        })
+      }
+    })
   }
 
   onDelete($event: Task) {

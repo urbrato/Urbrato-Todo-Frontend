@@ -37,6 +37,8 @@ import {StatCardComponent} from "./views/stat-card/stat-card.component";
 import {StatComponent} from "./views/stat/stat.component";
 import {TasksListComponent} from "./views/tasks-list/tasks-list.component";
 import {MatSortModule} from "@angular/material/sort";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 registerLocaleData(localeRu);
 registerLocaleData(localeEo);
@@ -77,6 +79,8 @@ function HttpLoaderFactory(http: HttpBackend): MultiTranslateHttpLoader {
     MatButton,
     MatDialogModule,
     MatSortModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -93,6 +97,7 @@ function HttpLoaderFactory(http: HttpBackend): MultiTranslateHttpLoader {
     TasksListComponent
   ],
   providers: [
+    MatDatepickerModule,
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {siteKey: '6Le9iEAkAAAAADUn4jwOXZ74kksw18JxYjFBGIYD' as RecaptchaSettings}

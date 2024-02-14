@@ -53,6 +53,15 @@
     "DueDate": "Срок",
     "Category": "Категория",
     "Priority": "Приоритет",
+    "RepeatAfterDays": "Периодичность повтора в днях",
+    "CreateTitle": "Создание задачи",
+    "EditTitle": "Свойства задачи",
+    "SetDueDate": {
+      "Today": "сегодня",
+      "Tomorrow": "завтра",
+      "AfterTomorrow": "послезавтра",
+      "AfterWeek": "через неделю"
+    },
     "DeleteTitle": "Удаление задачи",
     "DeleteConfirm": "Вы действительно хотите удалить задачу \"{{name}}\"?",
     "ErrorCodes": {

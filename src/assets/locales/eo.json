@@ -53,6 +53,15 @@
     "DueDate": "Limdato",
     "Category": "Kategorio",
     "Priority": "Prioritato",
+    "RepeatAfterDays": "Post kiom da tagoj ripeti",
+    "CreateTitle": "Nova tasko",
+    "EditTitle": "Propraĵoj de la tasko",
+    "SetDueDate": {
+      "Today": "hodiaŭ",
+      "Tomorrow": "morgaŭ",
+      "AfterTomorrow": "postmorgaŭ",
+      "AfterWeek": "post semajno"
+    },
     "DeleteTitle": "Viŝu la taskon",
     "DeleteConfirm": "Ĉu vi vere volas viŝi la taskon \"{{name}}\"?",
     "ErrorCodes": {
