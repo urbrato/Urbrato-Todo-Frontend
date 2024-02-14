@@ -53,6 +53,8 @@
     "DueDate": "Limdato",
     "Category": "Kategorio",
     "Priority": "Prioritato",
+    "DeleteTitle": "Viŝu la taskon",
+    "DeleteConfirm": "Ĉu vi vere volas viŝi la taskon \"{{name}}\"?",
     "ErrorCodes": {
       "EmptyName": "Titolo de la tasko ne povas esti malplena",
       "NoSuchPriority": "La prioritato ne ekzistas",

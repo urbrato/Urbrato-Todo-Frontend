@@ -13,6 +13,12 @@ import {DeviceInfo} from "../../util/device-info";
 import {FormsModule} from "@angular/forms";
 import {PaginationComponent} from "../../pagination/pagination.component";
 import {TaskUpdateDto} from "../../dto/task-update-dto";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MessageBoxComponent} from "../../dialogs/message-box/message-box.component";
+import {MessageBoxData} from "../../util/message-box-data";
+import {MessageBoxButtons} from "../../util/message-box-buttons";
+import {MessageBoxIcon} from "../../util/message-box-icon";
+import {DialogResult} from "../../util/dialog-result";
 
 @Component({
   selector: 'app-tasks-list',
@@ -70,10 +76,15 @@ export class TasksListComponent implements OnInit{
   @Output()
   updateTaskEvent = new EventEmitter<TaskUpdateDto>();
 
+  @Output()
+  deleteTaskEvent = new EventEmitter<number>();
+
   constructor(
     private srvCategory: CategoryService,
     private srvPriority: PriorityService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private bldDlg: MatDialog,
+    private dlgMsg: MatDialogRef<MessageBoxComponent>
   ) {
   }
 
@@ -186,5 +197,27 @@ export class TasksListComponent implements OnInit{
     dto.id = $event.id;
     dto.complete = $event.complete;
     this.updateTaskEvent.emit(dto);
+  }
+
+  onDelete($event: Task) {
+    const msgData = new MessageBoxData(
+      this.translate.instant('Task.DeleteConfirm', {name: $event.name}),
+      this.translate.instant('Task.DeleteTitle'),
+      MessageBoxButtons.YesNo,
+      MessageBoxIcon.QUESTION
+    )
+
+    this.dlgMsg = this.bldDlg.open(MessageBoxComponent, {
+      data: msgData,
+      width: '400px'
+    })
+
+    this.dlgMsg.afterClosed().subscribe({
+      next: (retVal: DialogResult) => {
+        if (retVal && retVal === DialogResult.YES) {
+          this.deleteTaskEvent.emit($event.id);
+        }
+      }
+    })
   }
 }

@@ -343,6 +343,18 @@ export class MainComponent {
     })
   }
 
+  deleteTask($event: number) {
+    this.srvTask.delete($event).subscribe({
+      next: _ => {
+        this.getCategories();
+        this.getTasks();
+      },
+      error: (err) => {
+        this.showError(err, 'Task');
+      }
+    })
+  }
+
   toggleDrawer() {
     this.catsOpened = !this.catsOpened;
   }

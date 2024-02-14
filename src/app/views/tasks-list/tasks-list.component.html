@@ -87,7 +87,9 @@
                       [class.strikeout]="task.complete"
                     >
                       <mat-icon>edit</mat-icon>
-                      <mat-icon>delete</mat-icon>
+                      <mat-icon
+                        (click)="$event.stopPropagation(); onDelete(task);"
+                      >delete</mat-icon>
                       <mat-checkbox
                         (change)="onToggleComplete(task)"
                         [(ngModel)]="task.complete"

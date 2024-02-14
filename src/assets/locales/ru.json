@@ -53,6 +53,8 @@
     "DueDate": "Срок",
     "Category": "Категория",
     "Priority": "Приоритет",
+    "DeleteTitle": "Удаление задачи",
+    "DeleteConfirm": "Вы действительно хотите удалить задачу \"{{name}}\"?",
     "ErrorCodes": {
       "EmptyName": "Название задачи не может быть пустым",
       "NoSuchPriority": "Нет такого приоритета",
