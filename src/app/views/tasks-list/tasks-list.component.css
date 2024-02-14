@@ -27,3 +27,7 @@ table {
 table td, table th {
   border: 1px solid black;
 }
+
+.mat-icon:hover {
+  background-color: antiquewhite;
+}
