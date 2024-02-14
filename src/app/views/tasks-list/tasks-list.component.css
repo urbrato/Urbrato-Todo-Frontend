@@ -30,4 +30,6 @@ table td, table th {
 
 .mat-icon:hover {
   background-color: antiquewhite;
+  border-radius: 12px;
+  border: solid 1px darkcyan;
 }
