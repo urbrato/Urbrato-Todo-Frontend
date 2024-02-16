@@ -36,7 +36,11 @@
     <app-tasks-list
       class="full-width"
       [tasks]="tasks"
+      [categories]="allCategories"
+      [priorities]="priorities"
+      [selectedCategory]="selectedCategory"
       (changePageEvent)="changeTaskPage($event)"
+      (createTaskEvent)="addTask($event)"
       (updateTaskEvent)="editTask($event)"
       (deleteTaskEvent)="deleteTask($event)"
     ></app-tasks-list>

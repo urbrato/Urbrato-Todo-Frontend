@@ -1,5 +1,22 @@
 <div class="container no-padding no-margin full-width">
   <div class="row no-padding no-margin full-width">
+    <div class="col-md-2">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onAdd()"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div class="col-md-4">
+      show/hide
+    </div>
+    <div class="col-md-6">
+      Total
+    </div>
+  </div>
+  <div class="row no-padding no-margin full-width">
     <div class="col-12 no-padding no-margin full-width">
       <div class="no-padding full-width">
         <div class="card full-width" *ngIf="tasks">

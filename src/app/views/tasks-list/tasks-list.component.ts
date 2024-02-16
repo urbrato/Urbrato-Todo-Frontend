@@ -6,7 +6,7 @@ import {DatePipe, formatDate, NgFor, NgIf} from "@angular/common";
 import {MatSort} from "@angular/material/sort";
 import {CategoryService} from "../../dao/category.service";
 import {PriorityService} from "../../dao/priority.service";
-import {MatIconButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {DeviceInfo} from "../../util/device-info";
@@ -23,6 +23,9 @@ import {EditTaskDialogComponent} from "../../dialogs/edit-task-dialog/edit-task-
 import {EditTaskDlgData} from "../../dialogs/edit-task-dialog/edit-task-dlg-data";
 import {DialogReturn} from "../../util/dialog-return";
 import {Router} from "@angular/router";
+import {Category} from "../../entities/category";
+import {Priority} from "../../entities/priority";
+import {TaskCreateDto} from "../../dto/task-create-dto";
 
 @Component({
   selector: 'app-tasks-list',
@@ -37,7 +40,8 @@ import {Router} from "@angular/router";
     MatIcon,
     MatCheckbox,
     FormsModule,
-    PaginationComponent
+    PaginationComponent,
+    MatButton
   ],
   templateUrl: './tasks-list.component.html',
   styleUrl: './tasks-list.component.css'
@@ -74,8 +78,20 @@ export class TasksListComponent implements OnInit{
     }
   }
 
+  @Input()
+  categories: Category[];
+
+  @Input()
+  priorities: Priority[];
+
+  @Input()
+  selectedCategory: Category;
+
   @Output()
   changePageEvent = new EventEmitter<number>();
+
+  @Output()
+  createTaskEvent = new EventEmitter<TaskCreateDto>();
 
   @Output()
   updateTaskEvent = new EventEmitter<TaskUpdateDto>();
@@ -205,82 +221,91 @@ export class TasksListComponent implements OnInit{
     this.updateTaskEvent.emit(dto);
   }
 
+  onAdd() {
+    const dlgData = new EditTaskDlgData();
+    dlgData.dlgTitle = this.translate.instant('Task.CreateTitle');
+    dlgData.categories = this.categories;
+    dlgData.priorities = this.priorities;
+
+    dlgData.dto = new TaskCreateDto();
+    dlgData.dto.name = '';
+    dlgData.dto.complete = false;
+    dlgData.dto.dueDate = null;
+    if (this.selectedCategory !== null)
+      dlgData.dto.categoryId = this.selectedCategory.id;
+    dlgData.dto.priorityId = null;
+    dlgData.dto.repeatAfterDays = null;
+
+    this.dlgEditTask = this.bldDlg.open(EditTaskDialogComponent, {
+      data: dlgData,
+      width: '600px',
+      maxHeight: '95vh;'
+    });
+
+    this.dlgEditTask.afterClosed().subscribe({
+      next: (result: DialogReturn<TaskCreateDto>) => {
+        if (result && result.result === DialogResult.OK) {
+          this.createTaskEvent.emit(result.data);
+        }
+      }
+    })
+  }
+
   onEdit($event: Task) {
     const dlgData = new EditTaskDlgData();
     dlgData.dlgTitle = this.translate.instant('Task.EditTitle');
+    dlgData.categories = this.categories;
+    dlgData.priorities = this.priorities;
 
-    this.srvCategory.list().subscribe({
-      next: result => {
-        dlgData.categories = result;
+    const dtoDlg = new TaskUpdateDto();
+    dtoDlg.id = $event.id;
+    dtoDlg.name = $event.name;
+    dtoDlg.complete = $event.complete;
+    dtoDlg.dueDate = $event.dueDate;
+    dtoDlg.categoryId = $event.category === null ? null : $event.category.id;
+    dtoDlg.priorityId = $event.priority === null ? null : $event.priority.id;
+    dtoDlg.repeatAfterDays = $event.repeatAfterDays;
 
-        this.srvPriority.list().subscribe({
-          next: result => {
-            dlgData.priorities = result;
+    dlgData.dto = structuredClone(dtoDlg);
 
-            const dtoDlg = new TaskUpdateDto();
-            dtoDlg.id = $event.id;
-            dtoDlg.name = $event.name;
-            dtoDlg.complete = $event.complete;
-            dtoDlg.dueDate = $event.dueDate;
-            dtoDlg.categoryId = $event.category === null ? null : $event.category.id;
-            dtoDlg.priorityId = $event.priority === null ? null : $event.priority.id;
-            dtoDlg.repeatAfterDays = $event.repeatAfterDays;
+    this.dlgEditTask = this.bldDlg.open(EditTaskDialogComponent, {
+      data: dlgData,
+      width: '600px',
+      maxHeight: '95vh;'
+    });
 
-            dlgData.dto = structuredClone(dtoDlg);
+    this.dlgEditTask.afterClosed().subscribe({
+      next: (result: DialogReturn<TaskUpdateDto>) => {
+        if (result && result.result === DialogResult.OK) {
+          const dto = new TaskUpdateDto();
+          dto.id = dtoDlg.id;
 
-            this.dlgEditTask = this.bldDlg.open(EditTaskDialogComponent, {
-              data: dlgData,
-              width: '600px',
-              maxHeight: '95vh;'
-            });
-
-            this.dlgEditTask.afterClosed().subscribe({
-              next: (result: DialogReturn<TaskUpdateDto>) => {
-                if (result && result.result === DialogResult.OK) {
-                  const dto = new TaskUpdateDto();
-                  dto.id = dtoDlg.id;
-
-                  if (dtoDlg.name !== result.data.name) {
-                    dto.name = result.data.name;
-                  }
-
-                  if (dtoDlg.complete !== result.data.complete) {
-                    dto.complete = result.data.complete;
-                  }
-
-                  if (dtoDlg.repeatAfterDays !== result.data.repeatAfterDays) {
-                    dto.repeatAfterDays = result.data.repeatAfterDays;
-                  }
-
-                  if (dtoDlg.priorityId !== result.data.priorityId) {
-                    dto.priorityId = result.data.priorityId ?? 0;
-                  }
-
-                  if (dtoDlg.categoryId !== result.data.categoryId) {
-                    dto.categoryId = result.data.categoryId ?? 0;
-                  }
-
-                  if (dtoDlg.dueDate !== result.data.dueDate) {
-                    dto.dueDate = result.data.dueDate;
-                  }
-
-                  this.updateTaskEvent.emit(dto);
-                }
-              },
-              error: err => {
-                if (err.code === 401) {
-                  this.router.navigate(['']).then(_ => {});
-                }
-              }
-            })
-          },
-          error: err => {
-            if (err.code === 401) {
-              this.router.navigate(['']).then(_ => {
-              });
-            }
+          if (dtoDlg.name !== result.data.name) {
+            dto.name = result.data.name;
           }
-        })
+
+          if (dtoDlg.complete !== result.data.complete) {
+            dto.complete = result.data.complete;
+          }
+
+          if (dtoDlg.repeatAfterDays !== result.data.repeatAfterDays) {
+            dto.repeatAfterDays = result.data.repeatAfterDays;
+          }
+
+          if (dtoDlg.priorityId !== result.data.priorityId) {
+            dto.priorityId = result.data.priorityId ?? 0;
+          }
+
+          if (dtoDlg.categoryId !== result.data.categoryId) {
+            dto.categoryId = result.data.categoryId ?? 0;
+          }
+
+          if (dtoDlg.dueDate !== result.data.dueDate) {
+            dto.dueDate = result.data.dueDate;
+          }
+
+          this.updateTaskEvent.emit(dto);
+        }
       }
     })
   }

@@ -25,6 +25,9 @@ import {Task} from "../entities/task";
 import {TaskSearchDto} from "../dto/task-search-dto";
 import {Stat} from "../entities/stat";
 import {TaskUpdateDto} from "../dto/task-update-dto";
+import {Priority} from "../entities/priority";
+import {PriorityService} from "../dao/priority.service";
+import {TaskCreateDto} from "../dto/task-create-dto";
 
 export const LANG_RU = 'ru';
 export const LANG_EO = 'eo';
@@ -39,8 +42,12 @@ export class MainComponent {
 
   // категории
   categories: Category[] = [];
+  allCategories: Category[] = [];
   categoriesFilter: CategorySearchDto;
   selectedCategory: Category = null;
+
+  // приоритеты
+  priorities: Priority[] = [];
 
   // настройки боковой панели
   catsOpened: boolean = false; // открыто ли изначально
@@ -61,6 +68,7 @@ export class MainComponent {
     private srvAuth: AuthService,
     private srvProfile: ProfileService,
     private srvCategory: CategoryService,
+    private srvPriority: PriorityService,
     private srvStat: StatService,
     private srvTask: TaskService,
     private router: Router,
@@ -79,6 +87,7 @@ export class MainComponent {
         this.categories = [];
       } else {
         this.getCategories();
+        this.getPriorities();
         this.updateStats();
 
         this.fltTasks = new TaskSearchDto();
@@ -163,7 +172,7 @@ export class MainComponent {
     }
   }
 
-  getCategories() {
+  getFilteredCategories() {
     if (this.categoriesFilter &&
       this.categoriesFilter.name &&
       this.categoriesFilter.name.trim().length > 0) {
@@ -177,13 +186,30 @@ export class MainComponent {
         }
       })
     } else {
+      this.categories = this.allCategories;
+      this.updateSelectedCategory();
+    }
+  }
+
+  getCategories(filteredOnly: Boolean = false) {
+    if (filteredOnly) {
+      this.getFilteredCategories();
+    } else {
       this.srvCategory.list().subscribe({
         next: (categories) => {
-          this.categories = categories;
-          this.updateSelectedCategory();
+          this.allCategories = categories;
+          this.getFilteredCategories();
         }
       })
     }
+  }
+
+  getPriorities() {
+    this.srvPriority.list().subscribe({
+      next: (priorities) => {
+        this.priorities = priorities;
+      }
+    })
   }
 
   getStats() {
@@ -310,7 +336,7 @@ export class MainComponent {
   }
 
   searchCategories($event: CategorySearchDto) {
-    this.getCategories();
+    this.getCategories(true);
   }
 
   selectCategory(category: Category) {
@@ -329,6 +355,18 @@ export class MainComponent {
   changeTaskPage($event: number) {
     this.fltTasks.pageNumber = $event;
     this.getTasks();
+  }
+
+  addTask($event: TaskCreateDto) {
+    this.srvTask.add($event).subscribe({
+      next: _ => {
+        this.getCategories();
+        this.getTasks();
+      },
+      error: (err) => {
+        this.showError(err, 'Task');
+      }
+    })
   }
 
   editTask($event: TaskUpdateDto) {
