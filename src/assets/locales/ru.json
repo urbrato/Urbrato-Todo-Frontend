@@ -64,6 +64,8 @@
     },
     "DeleteTitle": "Удаление задачи",
     "DeleteConfirm": "Вы действительно хотите удалить задачу \"{{name}}\"?",
+    "ShowHideFilter": "показать / спрятать фильтр",
+    "TotalTasksFound": "Всего найдено {{count}} задач",
     "ErrorCodes": {
       "EmptyName": "Название задачи не может быть пустым",
       "NoSuchPriority": "Нет такого приоритета",

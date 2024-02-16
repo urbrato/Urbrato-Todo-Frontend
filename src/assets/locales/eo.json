@@ -64,6 +64,8 @@
     },
     "DeleteTitle": "Viŝu la taskon",
     "DeleteConfirm": "Ĉu vi vere volas viŝi la taskon \"{{name}}\"?",
+    "ShowHideFilter": "montru / kaŝu la filtrilon",
+    "TotalTasksFound": "Entute {{count}} taskoj estis trovitaj",
     "ErrorCodes": {
       "EmptyName": "Titolo de la tasko ne povas esti malplena",
       "NoSuchPriority": "La prioritato ne ekzistas",
