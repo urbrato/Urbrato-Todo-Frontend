@@ -324,6 +324,7 @@ export class MainComponent {
     this.srvCategory.delete($event).subscribe({
       next: _ => {
         this.getAllCategories();
+        this.getTasks();
       },
       error: err => {
         this.showError(err, "Category");
