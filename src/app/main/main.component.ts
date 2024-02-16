@@ -86,7 +86,7 @@ export class MainComponent {
       if (user === null) {
         this.categories = [];
       } else {
-        this.getCategories();
+        this.getAllCategories();
         this.getPriorities();
         this.updateStats();
 
@@ -191,17 +191,13 @@ export class MainComponent {
     }
   }
 
-  getCategories(filteredOnly: Boolean = false) {
-    if (filteredOnly) {
-      this.getFilteredCategories();
-    } else {
-      this.srvCategory.list().subscribe({
-        next: (categories) => {
-          this.allCategories = categories;
-          this.getFilteredCategories();
-        }
-      })
-    }
+  getAllCategories() {
+    this.srvCategory.list().subscribe({
+      next: (categories) => {
+        this.allCategories = categories;
+        this.getFilteredCategories();
+      }
+    })
   }
 
   getPriorities() {
@@ -276,7 +272,7 @@ export class MainComponent {
   addCategory(category) {
     this.srvCategory.add(category).subscribe( {
       next: _ =>  {
-        this.getCategories();
+        this.getAllCategories();
       },
       error: err => {
         this.showError(err, "Category");
@@ -293,7 +289,7 @@ export class MainComponent {
         if ($event.hasNullIcon) {
           this.srvCategory.removeIcon($event.category.id).subscribe({
             next: _ => {
-              this.getCategories();
+              this.getAllCategories();
             },
             error: err => {
               this.showError(err, "Category");
@@ -302,14 +298,14 @@ export class MainComponent {
         } else if ($event.newIcon !== null) {
           this.srvCategory.setIcon($event.category.id, $event.newIcon).subscribe({
             next: _ => {
-              this.getCategories();
+              this.getAllCategories();
             },
             error: err => {
               this.showError(err, "Category");
             }
           })
         } else {
-          this.getCategories();
+          this.getAllCategories();
         }
         if (this.selectedCategory === null || this.selectedCategory.id === this.fltTasks.categoryId) {
           this.getTasks();
@@ -327,7 +323,7 @@ export class MainComponent {
     }
     this.srvCategory.delete($event).subscribe({
       next: _ => {
-        this.getCategories();
+        this.getAllCategories();
       },
       error: err => {
         this.showError(err, "Category");
@@ -336,7 +332,7 @@ export class MainComponent {
   }
 
   searchCategories($event: CategorySearchDto) {
-    this.getCategories(true);
+    this.getFilteredCategories();
   }
 
   selectCategory(category: Category) {
@@ -360,7 +356,7 @@ export class MainComponent {
   addTask($event: TaskCreateDto) {
     this.srvTask.add($event).subscribe({
       next: _ => {
-        this.getCategories();
+        this.getAllCategories();
         this.getTasks();
       },
       error: (err) => {
@@ -372,7 +368,7 @@ export class MainComponent {
   editTask($event: TaskUpdateDto) {
     this.srvTask.update($event).subscribe({
       next: _ => {
-        this.getCategories();
+        this.getAllCategories();
         this.getTasks();
       },
       error: (err) => {
@@ -384,7 +380,7 @@ export class MainComponent {
   deleteTask($event: number) {
     this.srvTask.delete($event).subscribe({
       next: _ => {
-        this.getCategories();
+        this.getAllCategories();
         this.getTasks();
       },
       error: (err) => {
