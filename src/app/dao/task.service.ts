@@ -18,7 +18,7 @@ export class TaskService {
   constructor(private http: HttpClient) { }
 
   public findById(id: number): Observable<Task> {
-    return this.http.get<Task>(this.controller + '/find', {params: {id: id}});
+    return this.http.get<Task>(this.controller + '/find-view', {params: {id: id}});
   }
 
   public add(dto: TaskCreateDto): Observable<ControllerResult<Task>> {
@@ -34,6 +34,6 @@ export class TaskService {
   }
 
   public search(dto: TaskSearchDto): Observable<ControllerResult<Page<Task>>> {
-    return this.http.post<ControllerResult<Page<Task>>>(this.controller + '/search', dto);
+    return this.http.post<ControllerResult<Page<Task>>>(this.controller + '/search-views', dto);
   }
 }

@@ -49,9 +49,6 @@ import {TaskCreateDto} from "../../dto/task-create-dto";
 export class TasksListComponent implements OnInit{
   tasks: Page<Task>;
 
-  hasPriorityIcon = { };
-  hasCategoryIcon = { };
-
   txtNoCategory: string = '';
   txtNoPriority: string = '';
   txtNoDueDate: string = '';
@@ -66,16 +63,6 @@ export class TasksListComponent implements OnInit{
   @Input('tasks')
   set setTasks(tasks: Page<Task>) {
     this.tasks = tasks;
-
-    this.hasPriorityIcon = {};
-    this.hasCategoryIcon = {};
-
-    if (tasks && tasks.content) {
-      tasks.content.forEach((t: Task) => {
-        this.getHasCategoryIcon(t);
-        this.getHasPriorityIcon(t);
-      });
-    }
   }
 
   @Input()
@@ -105,8 +92,7 @@ export class TasksListComponent implements OnInit{
     private translate: TranslateService,
     private bldDlg: MatDialog,
     private dlgMsg: MatDialogRef<MessageBoxComponent>,
-    private dlgEditTask: MatDialogRef<EditTaskDialogComponent>,
-    private router: Router
+    private dlgEditTask: MatDialogRef<EditTaskDialogComponent>
   ) {
   }
 
@@ -117,86 +103,49 @@ export class TasksListComponent implements OnInit{
   getPriorityBackColor(task: Task): string {
     if (task.complete) {
       return this.clrCompleteBack;
-    } else if (task.priority !== null) {
-      return '#' + task.priority.backcolor;
     } else {
-      return this.clrDefaultBack;
+      return task.backcolor ?? this.clrDefaultBack;
     }
   }
 
   getPriorityForeColor(task: Task): string {
     if (task.complete) {
       return this.clrCompleteTxt;
-    } else if (task.priority !== null) {
-      return '#' + task.priority.forecolor;
     } else {
-      return this.clrDefaultTxt;
+      return task.forecolor ?? this.clrDefaultTxt;
     }
   }
 
   getPriorityValue(task: Task): number {
-    if (task.priority === null)
-      return 0;
-    else
-      return task.priority.importance;
+    return task.importance ?? 0;
   }
 
   getPriorityName(task: Task): string {
-    if (task.priority === null) {
+    if (task.priorityName === null) {
       if (this.txtNoPriority === '')
         this.txtNoPriority = this.translate.instant('Task.WithoutPriority');
       return this.txtNoPriority;
     }
     else
-      return task.priority.name;
-  }
-
-  getHasPriorityIcon(task: Task) {
-    if (task.priority === null)
-      this.hasPriorityIcon[task.id] = false;
-    else {
-      this.srvPriority.hasIcon(task.priority.id).subscribe({
-        next: result => {
-          this.hasPriorityIcon[task.id] = result;
-        }
-      })
-    }
+      return task.priorityName;
   }
 
   getPriorityIconUrl(task: Task): string {
-    if (task.priority === null)
-      return '';
-    else
-      return this.srvPriority.getIconUrl(task.priority.id);
+    return this.srvPriority.getIconUrl(task.priorityId);
   }
 
   getCategoryName(task: Task): string {
-    if (task.category === null) {
+    if (task.categoryName === null) {
       if (this.txtNoCategory === '')
         this.txtNoCategory = this.translate.instant('Task.WithoutCategory');
       return this.txtNoCategory;
     }
     else
-      return task.category.name;
-  }
-
-  getHasCategoryIcon(task: Task) {
-    if (task.category === null)
-      this.hasCategoryIcon[task.id] = false;
-    else {
-      this.srvCategory.hasIcon(task.category.id).subscribe({
-        next: result => {
-          this.hasCategoryIcon[task.id] = result;
-        }
-      })
-    }
+      return task.categoryName;
   }
 
   getCategoryIconUrl(task: Task): string {
-    if (task.category === null)
-      return '';
-    else
-      return this.srvCategory.getIconUrl(task.category.id);
+    return this.srvCategory.getIconUrl(task.categoryId);
   }
 
   getDueDateFormat(task: Task): string {
@@ -262,8 +211,8 @@ export class TasksListComponent implements OnInit{
     dtoDlg.name = $event.name;
     dtoDlg.complete = $event.complete;
     dtoDlg.dueDate = $event.dueDate;
-    dtoDlg.categoryId = $event.category === null ? null : $event.category.id;
-    dtoDlg.priorityId = $event.priority === null ? null : $event.priority.id;
+    dtoDlg.categoryId = $event.categoryId;
+    dtoDlg.priorityId = $event.priorityId;
     dtoDlg.repeatAfterDays = $event.repeatAfterDays;
 
     dlgData.dto = structuredClone(dtoDlg);

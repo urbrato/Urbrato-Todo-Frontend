@@ -4,4 +4,5 @@ export class Priority {
   public importance?: number;
   public backcolor?: string;
   public forecolor?: string;
+  public hasIcon?: boolean;
 }

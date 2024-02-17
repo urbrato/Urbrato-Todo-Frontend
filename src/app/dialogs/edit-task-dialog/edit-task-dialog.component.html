@@ -27,8 +27,8 @@
       <mat-option *ngFor="let category of data.categories"
                   [value]="category.id"
       >
-        <img *ngIf="iconCategory[category.id] !== null"
-             src="{{iconCategory[category.id]}}" alt=""
+        <img *ngIf="category.hasIcon"
+             src="{{srvCategory.getIconUrl(category.id)}}" alt=""
              class="category-icon"
         >
         {{category.name}}
@@ -42,11 +42,11 @@
       <mat-option [value]="null">{{'Task.WithoutPriority' | translate}}</mat-option>
       <mat-option *ngFor="let priority of data.priorities"
                   [value]="priority.id"
-                  [style.background-color]="'#' + priority.backcolor"
-                  [style.color]="'#' + priority.forecolor"
+                  [style.background-color]="priority.backcolor"
+                  [style.color]="priority.forecolor"
       >
-        <img *ngIf="iconPriority[priority.id] !== null"
-             src="{{iconPriority[priority.id]}}" alt=""
+        <img *ngIf="priority.hasIcon"
+             src="{{srvPriority.getIconUrl(priority.id)}}" alt=""
              class="category-icon"
         >
         {{priority.name}}

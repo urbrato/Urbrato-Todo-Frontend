@@ -19,11 +19,11 @@ export class PriorityService {
   constructor(private http: HttpClient) { }
 
   public findById(id: number): Observable<Priority> {
-    return this.http.get<Priority>(this.controller + '/find', {params: {id: id}});
+    return this.http.get<Priority>(this.controller + '/find-view', {params: {id: id}});
   }
 
   public list(): Observable<Priority[]> {
-    return this.http.get<Priority[]>(this.controller + '/list');
+    return this.http.get<Priority[]>(this.controller + '/list-views');
   }
 
   public add(dto: PriorityCreateDto): Observable<ControllerResult<Priority>> {
@@ -39,11 +39,7 @@ export class PriorityService {
   }
 
   public search(dto: PrioritySearchDto): Observable<ControllerResult<Priority[]>> {
-    return this.http.post<ControllerResult<Priority[]>>(this.controller + '/search', dto);
-  }
-
-  public hasIcon(id: number): Observable<boolean> {
-    return this.http.get<boolean>(`${this.controller}/has-icon?id=${id}`);
+    return this.http.post<ControllerResult<Priority[]>>(this.controller + '/search-views', dto);
   }
 
   public getIconUrl(id: number): string {

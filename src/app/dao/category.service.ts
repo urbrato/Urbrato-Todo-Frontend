@@ -19,11 +19,11 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
   public findById(id: number): Observable<Category> {
-    return this.http.get<Category>(this.controller + '/find', {params: {id: id}});
+    return this.http.get<Category>(this.controller + '/find-view', {params: {id: id}});
   }
 
   public list(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.controller + '/list');
+    return this.http.get<Category[]>(this.controller + '/list-views');
   }
 
   public add(dto: CategoryCreateDto): Observable<ControllerResult<Category>> {
@@ -39,7 +39,7 @@ export class CategoryService {
   }
 
   public search(dto: CategorySearchDto): Observable<ControllerResult<Category[]>> {
-    return this.http.post<ControllerResult<Category[]>>(this.controller + '/search', dto);
+    return this.http.post<ControllerResult<Category[]>>(this.controller + '/search-views', dto);
   }
 
   public getIconUrl(id: number): string {

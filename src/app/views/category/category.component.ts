@@ -29,19 +29,12 @@ import {MessageBoxIcon} from "../../util/message-box-icon";
 export class CategoryComponent {
   category: Category;
   iconUrl: string;
-  hasIcon: boolean;
   showButtons: boolean = !DeviceInfo.IsDesktop;
 
   @Input('category')
   set setCategory(category: Category) {
     this.category = category;
     this.iconUrl = this.srvCategory.getIconUrl(category.id);
-    if (category) {
-      this.srvCategory.hasIcon(category.id).subscribe({
-        next: (has) => this.hasIcon = has,
-        error: (_) => this.hasIcon = false
-      });
-    }
   }
 
   @Output()

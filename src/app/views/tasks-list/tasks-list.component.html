@@ -81,7 +81,7 @@
                       [style.color]="getPriorityForeColor(task)"
                       [class.strikeout]="task.complete"
                     >
-                      <img *ngIf="hasCategoryIcon[task.id]"
+                      <img *ngIf="task.hasCategoryIcon"
                            class="category-icon"
                            src="{{getCategoryIconUrl(task)}}"
                            alt="">
@@ -92,7 +92,7 @@
                       [style.color]="getPriorityForeColor(task)"
                       [class.strikeout]="task.complete"
                     >
-                      <img *ngIf="hasPriorityIcon[task.id]"
+                      <img *ngIf="task.hasPriorityIcon"
                            class="category-icon"
                            src="{{getPriorityIconUrl(task)}}"
                            alt="">

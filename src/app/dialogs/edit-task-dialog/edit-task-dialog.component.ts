@@ -51,41 +51,15 @@ import {DateAdapter, MatNativeDateModule} from "@angular/material/core";
   styleUrl: './edit-task-dialog.component.css'
 })
 export class EditTaskDialogComponent {
-  iconCategory = {};
-  iconPriority = {};
-
   constructor(
     private dlg: MatDialogRef<EditTaskDialogComponent>,
-    private srvCategory: CategoryService,
-    private srvPriority: PriorityService,
+    public srvCategory: CategoryService,
+    public srvPriority: PriorityService,
     private translate: TranslateService,
     private dateAdapter: DateAdapter<any>,
     @Inject(MAT_DIALOG_DATA) public data: EditTaskDlgData
   ) {
     this.dateAdapter.setLocale(this.translate.instant('Locale'));
-
-    this.iconCategory = {};
-    this.iconPriority = {};
-
-    data.categories.forEach((category) => {
-      srvCategory.hasIcon(category.id).subscribe({
-        next: result => {
-          this.iconCategory[category.id] =
-            result ? srvCategory.getIconUrl(category.id) : null;
-        },
-        error: _ => this.iconCategory[category.id] = null
-      })
-    });
-
-    data.priorities.forEach((priority) => {
-      srvPriority.hasIcon(priority.id).subscribe({
-        next: result => {
-          this.iconPriority[priority.id] =
-            result ? srvPriority.getIconUrl(priority.id) : null;
-        },
-        error: _ => this.iconPriority[priority.id] = null
-      })
-    })
   }
 
   setDueDateFromNow(days: number) {
