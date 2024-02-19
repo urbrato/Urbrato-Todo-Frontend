@@ -25,7 +25,7 @@ import {DialogReturn} from "../../util/dialog-return";
 import {Category} from "../../entities/category";
 import {Priority} from "../../entities/priority";
 import {TaskCreateDto} from "../../dto/task-create-dto";
-import {DueDatePipePipe} from "../../pipes/due-date-pipe.pipe";
+import {DueDatePipe} from "../../pipes/due-date.pipe";
 
 @Component({
   selector: 'app-tasks-list',
@@ -42,7 +42,7 @@ import {DueDatePipePipe} from "../../pipes/due-date-pipe.pipe";
     FormsModule,
     PaginationComponent,
     MatButton,
-    DueDatePipePipe
+    DueDatePipe
   ],
   templateUrl: './tasks-list.component.html',
   styleUrl: './tasks-list.component.css'

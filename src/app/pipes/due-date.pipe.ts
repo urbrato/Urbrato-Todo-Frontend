@@ -7,7 +7,7 @@ import {DatePipe} from "@angular/common";
   name: 'dueDatePipe',
   standalone: true
 })
-export class DueDatePipePipe implements PipeTransform {
+export class DueDatePipe implements PipeTransform {
   constructor(private translate: TranslateService) {
   }
 

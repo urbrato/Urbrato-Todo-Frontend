@@ -23,7 +23,6 @@ import {MatDatepicker, MatDatepickerModule, MatDatepickerToggle} from "@angular/
 import {DateAdapter, MatNativeDateModule} from "@angular/material/core";
 import {DeviceInfo} from "../../util/device-info";
 import {addDays} from "date-fns";
-import {DueDatePipePipe} from "../../pipes/due-date-pipe.pipe";
 
 @Component({
   selector: 'app-edit-task-dialog',
@@ -49,8 +48,7 @@ import {DueDatePipePipe} from "../../pipes/due-date-pipe.pipe";
     MatNativeDateModule,
     MatButton,
     MatDialogActions,
-    NgClass,
-    DueDatePipePipe
+    NgClass
   ],
   templateUrl: './edit-task-dialog.component.html',
   styleUrl: './edit-task-dialog.component.css'
