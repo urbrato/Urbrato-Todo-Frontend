@@ -22,7 +22,6 @@ import {DialogResult} from "../../util/dialog-result";
 import {EditTaskDialogComponent} from "../../dialogs/edit-task-dialog/edit-task-dialog.component";
 import {EditTaskDlgData} from "../../dialogs/edit-task-dialog/edit-task-dlg-data";
 import {DialogReturn} from "../../util/dialog-return";
-import {Router} from "@angular/router";
 import {Category} from "../../entities/category";
 import {Priority} from "../../entities/priority";
 import {TaskCreateDto} from "../../dto/task-create-dto";
@@ -47,8 +46,6 @@ import {TaskCreateDto} from "../../dto/task-create-dto";
   styleUrl: './tasks-list.component.css'
 })
 export class TasksListComponent implements OnInit{
-  tasks: Page<Task>;
-
   txtNoCategory: string = '';
   txtNoPriority: string = '';
   txtNoDueDate: string = '';
@@ -60,10 +57,8 @@ export class TasksListComponent implements OnInit{
 
   isMobile: boolean;
 
-  @Input('tasks')
-  set setTasks(tasks: Page<Task>) {
-    this.tasks = tasks;
-  }
+  @Input()
+  tasks: Page<Task>;
 
   @Input()
   categories: Category[];
