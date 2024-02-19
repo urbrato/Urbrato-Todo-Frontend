@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Page} from "../../dto/page";
 import {Task} from "../../entities/task";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {DatePipe, formatDate, NgFor, NgIf} from "@angular/common";
+import {DatePipe, NgFor, NgIf} from "@angular/common";
 import {MatSort} from "@angular/material/sort";
 import {CategoryService} from "../../dao/category.service";
 import {PriorityService} from "../../dao/priority.service";
@@ -25,6 +25,7 @@ import {DialogReturn} from "../../util/dialog-return";
 import {Category} from "../../entities/category";
 import {Priority} from "../../entities/priority";
 import {TaskCreateDto} from "../../dto/task-create-dto";
+import {DueDatePipePipe} from "../../pipes/due-date-pipe.pipe";
 
 @Component({
   selector: 'app-tasks-list',
@@ -40,7 +41,8 @@ import {TaskCreateDto} from "../../dto/task-create-dto";
     MatCheckbox,
     FormsModule,
     PaginationComponent,
-    MatButton
+    MatButton,
+    DueDatePipePipe
   ],
   templateUrl: './tasks-list.component.html',
   styleUrl: './tasks-list.component.css'
@@ -141,17 +143,6 @@ export class TasksListComponent implements OnInit{
 
   getCategoryIconUrl(task: Task): string {
     return this.srvCategory.getIconUrl(task.categoryId);
-  }
-
-  getDueDateFormat(task: Task): string {
-    if (task.dueDate === null) {
-      if (this.txtNoDueDate === '')
-        this.txtNoDueDate = this.translate.instant('Task.WithoutDueDate');
-      return this.txtNoDueDate;
-    }
-    else
-      return formatDate(task.dueDate, 'dd.MM.yyyy',
-        this.translate.instant('Locale'));
   }
 
   changePage($event: number) {

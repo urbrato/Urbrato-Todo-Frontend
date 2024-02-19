@@ -75,7 +75,7 @@
                       [style.background-color]="getPriorityBackColor(task)"
                       [style.color]="getPriorityForeColor(task)"
                       [class.strikeout]="task.complete"
-                    >{{getDueDateFormat(task)}}</td>
+                    >{{task.dueDate | dueDatePipe}}</td>
                     <td *ngIf="!isMobile"
                       [style.background-color]="getPriorityBackColor(task)"
                       [style.color]="getPriorityForeColor(task)"

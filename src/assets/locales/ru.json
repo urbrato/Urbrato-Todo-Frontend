@@ -58,8 +58,10 @@
     "EditTitle": "Свойства задачи",
     "SetDueDate": {
       "Today": "сегодня",
+      "Yesterday": "вчера",
       "Tomorrow": "завтра",
       "AfterTomorrow": "послезавтра",
+      "BeforeYesterday": "antaŭhieraŭ",
       "AfterWeek": "через неделю"
     },
     "DeleteTitle": "Удаление задачи",

@@ -22,6 +22,8 @@ import {PriorityService} from "../../dao/priority.service";
 import {MatDatepicker, MatDatepickerModule, MatDatepickerToggle} from "@angular/material/datepicker";
 import {DateAdapter, MatNativeDateModule} from "@angular/material/core";
 import {DeviceInfo} from "../../util/device-info";
+import {addDays} from "date-fns";
+import {DueDatePipePipe} from "../../pipes/due-date-pipe.pipe";
 
 @Component({
   selector: 'app-edit-task-dialog',
@@ -47,7 +49,8 @@ import {DeviceInfo} from "../../util/device-info";
     MatNativeDateModule,
     MatButton,
     MatDialogActions,
-    NgClass
+    NgClass,
+    DueDatePipePipe
   ],
   templateUrl: './edit-task-dialog.component.html',
   styleUrl: './edit-task-dialog.component.css'
@@ -67,7 +70,7 @@ export class EditTaskDialogComponent {
   }
 
   setDueDateFromNow(days: number) {
-    this.data.dto.dueDate = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+    this.data.dto.dueDate = addDays(new Date(), days);
   }
 
   confirm() {
