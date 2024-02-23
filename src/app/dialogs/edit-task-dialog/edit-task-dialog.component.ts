@@ -14,13 +14,15 @@ import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {MatInput} from "@angular/material/input";
 import {MatIcon} from "@angular/material/icon";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {CategoryService} from "../../dao/category.service";
 import {PriorityService} from "../../dao/priority.service";
 import {MatDatepicker, MatDatepickerModule, MatDatepickerToggle} from "@angular/material/datepicker";
 import {DateAdapter, MatNativeDateModule} from "@angular/material/core";
+import {DeviceInfo} from "../../util/device-info";
+import {addDays} from "date-fns";
 
 @Component({
   selector: 'app-edit-task-dialog',
@@ -45,12 +47,15 @@ import {DateAdapter, MatNativeDateModule} from "@angular/material/core";
     MatDatepickerModule,
     MatNativeDateModule,
     MatButton,
-    MatDialogActions
+    MatDialogActions,
+    NgClass
   ],
   templateUrl: './edit-task-dialog.component.html',
   styleUrl: './edit-task-dialog.component.css'
 })
 export class EditTaskDialogComponent {
+  isMobile = DeviceInfo.IsMobile;
+
   constructor(
     private dlg: MatDialogRef<EditTaskDialogComponent>,
     public srvCategory: CategoryService,
@@ -63,7 +68,7 @@ export class EditTaskDialogComponent {
   }
 
   setDueDateFromNow(days: number) {
-    this.data.dto.dueDate = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+    this.data.dto.dueDate = addDays(new Date(), days);
   }
 
   confirm() {

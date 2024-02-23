@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Page} from "../../dto/page";
 import {Task} from "../../entities/task";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {DatePipe, formatDate, NgFor, NgIf} from "@angular/common";
+import {DatePipe, NgFor, NgIf} from "@angular/common";
 import {MatSort} from "@angular/material/sort";
 import {CategoryService} from "../../dao/category.service";
 import {PriorityService} from "../../dao/priority.service";
@@ -22,10 +22,10 @@ import {DialogResult} from "../../util/dialog-result";
 import {EditTaskDialogComponent} from "../../dialogs/edit-task-dialog/edit-task-dialog.component";
 import {EditTaskDlgData} from "../../dialogs/edit-task-dialog/edit-task-dlg-data";
 import {DialogReturn} from "../../util/dialog-return";
-import {Router} from "@angular/router";
 import {Category} from "../../entities/category";
 import {Priority} from "../../entities/priority";
 import {TaskCreateDto} from "../../dto/task-create-dto";
+import {DueDatePipe} from "../../pipes/due-date.pipe";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
@@ -42,7 +42,8 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
     MatCheckbox,
     FormsModule,
     PaginationComponent,
-    MatButton
+    MatButton,
+    DueDatePipe
   ],
   templateUrl: './tasks-list.component.html',
   styleUrl: './tasks-list.component.css',
@@ -64,8 +65,6 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
     ])
   ]})
 export class TasksListComponent implements OnInit{
-  tasks: Page<Task>;
-
   txtNoCategory: string = '';
   txtNoPriority: string = '';
   txtNoDueDate: string = '';
@@ -77,10 +76,8 @@ export class TasksListComponent implements OnInit{
 
   isMobile: boolean;
 
-  @Input('tasks')
-  set setTasks(tasks: Page<Task>) {
-    this.tasks = tasks;
-  }
+  @Input()
+  tasks: Page<Task>;
 
   @Input()
   categories: Category[];
@@ -163,17 +160,6 @@ export class TasksListComponent implements OnInit{
 
   getCategoryIconUrl(task: Task): string {
     return this.srvCategory.getIconUrl(task.categoryId);
-  }
-
-  getDueDateFormat(task: Task): string {
-    if (task.dueDate === null) {
-      if (this.txtNoDueDate === '')
-        this.txtNoDueDate = this.translate.instant('Task.WithoutDueDate');
-      return this.txtNoDueDate;
-    }
-    else
-      return formatDate(task.dueDate, 'dd.MM.yyyy',
-        this.translate.instant('Locale'));
   }
 
   changePage($event: number) {

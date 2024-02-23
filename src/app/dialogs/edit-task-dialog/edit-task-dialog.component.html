@@ -113,8 +113,10 @@
 </mat-dialog-content>
 
 <mat-dialog-actions class="padding-bottom-20">
-  <div class="col-4"></div>
-  <div class="col-4 text-center no-padding">
+  <div class="col-4" *ngIf="!isMobile"></div>
+  <div class="text-center no-padding"
+       [ngClass]="isMobile ? 'col-6' : 'col-4'"
+  >
     <button
       mat-raised-button
       color="primary"
@@ -124,7 +126,9 @@
       {{'Main.Save' | translate}}
     </button>
   </div>
-  <div class="col-4 text-center no-padding">
+  <div class="text-center no-padding"
+       [ngClass]="isMobile ? 'col-6' : 'col-4'"
+  >
     <button
       mat-raised-button
       color="secondary"

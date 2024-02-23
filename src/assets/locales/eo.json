@@ -58,8 +58,10 @@
     "EditTitle": "Propraĵoj de la tasko",
     "SetDueDate": {
       "Today": "hodiaŭ",
+      "Yesterday": "hieraŭ",
       "Tomorrow": "morgaŭ",
       "AfterTomorrow": "postmorgaŭ",
+      "BeforeYesterday": "antaŭhieraŭ",
       "AfterWeek": "post semajno"
     },
     "DeleteTitle": "Viŝu la taskon",
