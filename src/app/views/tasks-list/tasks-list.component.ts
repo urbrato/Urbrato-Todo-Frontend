@@ -403,4 +403,10 @@ export class TasksListComponent implements OnInit{
       }
     })
   }
+
+  onSearch() {
+    this.gotFilter = structuredClone(this.curFilter);
+    this.filterChanged = false;
+    this.searchEvent.emit(this.curFilter);
+  }
 }
