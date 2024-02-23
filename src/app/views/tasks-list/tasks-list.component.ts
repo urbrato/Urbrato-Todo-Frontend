@@ -26,6 +26,7 @@ import {Router} from "@angular/router";
 import {Category} from "../../entities/category";
 import {Priority} from "../../entities/priority";
 import {TaskCreateDto} from "../../dto/task-create-dto";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-tasks-list',
@@ -44,8 +45,24 @@ import {TaskCreateDto} from "../../dto/task-create-dto";
     MatButton
   ],
   templateUrl: './tasks-list.component.html',
-  styleUrl: './tasks-list.component.css'
-})
+  styleUrl: './tasks-list.component.css',
+  animations: [
+    trigger('statArea', [
+      state(
+        'show', style({
+          height: '*',
+          opacity: '1'
+        })
+      ),
+      state(
+        'hide', style({
+          height: '0',
+          opacity: '0'
+        })
+      ),
+      transition('* => *', animate('300ms ease-in-out'))
+    ])
+  ]})
 export class TasksListComponent implements OnInit{
   tasks: Page<Task>;
 
