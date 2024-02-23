@@ -10,7 +10,7 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {DeviceInfo} from "../../util/device-info";
-import {FormsModule} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, FormsModule} from "@angular/forms";
 import {PaginationComponent} from "../../pagination/pagination.component";
 import {TaskUpdateDto} from "../../dto/task-update-dto";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
@@ -27,6 +27,7 @@ import {Priority} from "../../entities/priority";
 import {TaskCreateDto} from "../../dto/task-create-dto";
 import {DueDatePipe} from "../../pipes/due-date.pipe";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {TaskSearchDto} from "../../dto/task-search-dto";
 
 @Component({
   selector: 'app-tasks-list',
@@ -48,7 +49,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   templateUrl: './tasks-list.component.html',
   styleUrl: './tasks-list.component.css',
   animations: [
-    trigger('statArea', [
+    trigger('taskFilter', [
       state(
         'show', style({
           height: '*',
@@ -65,6 +66,10 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
     ])
   ]})
 export class TasksListComponent implements OnInit{
+  readonly iconAsc = 'arrow_upward';
+  readonly iconDesc = 'arrow_downward';
+  readonly defaultSortCol = 'created';
+
   txtNoCategory: string = '';
   txtNoPriority: string = '';
   txtNoDueDate: string = '';
@@ -76,8 +81,34 @@ export class TasksListComponent implements OnInit{
 
   isMobile: boolean;
 
+  gotFilter: TaskSearchDto;
+  curFilter: TaskSearchDto;
+  filterChanged: boolean;
+
+  sortIcon: String;
+  dueDateRangeForm: FormGroup;
+  createdDateRangeForm: FormGroup;
+
+  showFilter: Boolean = false;
+  animationState: String = 'hide';
+
   @Input()
   tasks: Page<Task>;
+
+  @Input('taskFilter')
+  set setTaskFilter(dto: TaskSearchDto) {
+    this.curFilter = dto;
+    this.gotFilter = structuredClone(dto);
+    this.filterChanged = false;
+
+    this.dueDateFrom.setValue(dto.dueDateFrom);
+    this.dueDateTo.setValue(dto.dueDateTo);
+
+    this.createdDateFrom.setValue(dto.createdFrom);
+    this.createdDateTo.setValue(dto.createdTo);
+
+    this.setSortIconName();
+  }
 
   @Input()
   categories: Category[];
@@ -100,6 +131,9 @@ export class TasksListComponent implements OnInit{
   @Output()
   deleteTaskEvent = new EventEmitter<number>();
 
+  @Output()
+  searchEvent = new EventEmitter<TaskSearchDto>();
+
   constructor(
     private srvCategory: CategoryService,
     private srvPriority: PriorityService,
@@ -112,6 +146,22 @@ export class TasksListComponent implements OnInit{
 
   ngOnInit() {
     this.isMobile = DeviceInfo.IsMobile;
+  }
+
+  get dueDateFrom(): AbstractControl {
+    return this.dueDateRangeForm.get('dateFrom');
+  }
+
+  get dueDateTo(): AbstractControl {
+    return this.dueDateRangeForm.get('dateTo');
+  }
+
+  get createdDateFrom(): AbstractControl {
+    return this.createdDateRangeForm.get('dateFrom');
+  }
+
+  get createdDateTo(): AbstractControl {
+    return this.createdDateRangeForm.get('dateTo');
   }
 
   getPriorityBackColor(task: Task): string {
@@ -166,11 +216,81 @@ export class TasksListComponent implements OnInit{
     this.changePageEvent.emit($event);
   }
 
+  initDateRangeForm() {
+    this.dueDateRangeForm = new FormGroup<any>({
+      dateFrom: new FormControl(),
+      dateTo: new FormControl()
+    });
+
+    this.createdDateRangeForm = new FormGroup<any>({
+      dateFrom: new FormControl(),
+      dateTo: new FormControl()
+    });
+
+    this.dueDateFrom.valueChanges.subscribe(() => this.checkFilterChanged());
+    this.dueDateTo.valueChanges.subscribe(() => this.checkFilterChanged());
+
+    this.createdDateFrom.valueChanges.subscribe(() => this.checkFilterChanged());
+    this.createdDateTo.valueChanges.subscribe(() => this.checkFilterChanged());
+  }
+
+  checkFilterChanged() {
+    if (this.gotFilter === null || this.curFilter === null) {
+      this.filterChanged = false;
+    } else if (this.gotFilter.name !== this.curFilter.name) {
+      this.filterChanged = true;
+    } else if (this.gotFilter.complete !== this.curFilter.complete) {
+      this.filterChanged = true;
+    } else if (this.gotFilter.dueDateFrom !== this.curFilter.dueDateFrom) {
+      this.filterChanged = true;
+    } else if (this.gotFilter.dueDateTo !== this.curFilter.dueDateTo) {
+      this.filterChanged = true;
+    } else if (this.gotFilter.repeatAfterDays !== this.curFilter.repeatAfterDays) {
+      this.filterChanged = true;
+    } else if (this.gotFilter.createdFrom !== this.curFilter.createdFrom) {
+      this.filterChanged = true;
+    } else if (this.gotFilter.createdTo !== this.curFilter.createdTo) {
+      this.filterChanged = true;
+    } else if (this.gotFilter.sortColumn !== this.curFilter.sortColumn) {
+      this.filterChanged = true;
+    } else if (this.gotFilter.sortDirection !== this.curFilter.sortDirection) {
+      this.filterChanged = true;
+    } else {
+      this.filterChanged = false;
+    }
+  }
+
+  setSortIconName() {
+    if (this.curFilter.sortDirection === 'DESC') {
+      this.sortIcon = this.iconDesc;
+    } else {
+      this.sortIcon = this.iconAsc;
+    }
+  }
+
+  toggleSortDirection() {
+    if (this.curFilter.sortDirection === 'DESC') {
+      this.curFilter.sortDirection = 'ASC';
+    } else {
+      this.curFilter.sortDirection = 'DESC';
+    }
+    this.setSortIconName();
+  }
+
   onToggleComplete($event: Task) {
     const dto = new TaskUpdateDto();
     dto.id = $event.id;
     dto.complete = $event.complete;
     this.updateTaskEvent.emit(dto);
+  }
+
+  onToggleSearch() {
+    this.showFilter = !this.showFilter;
+    if (this.showFilter) {
+      this.animationState = 'show';
+    } else {
+      this.animationState = 'hide';
+    }
   }
 
   onAdd() {

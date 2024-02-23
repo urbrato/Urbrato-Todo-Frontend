@@ -33,3 +33,7 @@ table td, table th {
   border-radius: 12px;
   border: solid 1px darkcyan;
 }
+
+.animated-area {
+  overflow: hidden;
+}
