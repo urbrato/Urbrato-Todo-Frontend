@@ -1,45 +1,53 @@
-<div class="container no-padding no-margin full-width">
-  <div class="row no-padding no-margin full-width align-items-center">
-    <div class="col-md-4">
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="onAdd()"
-      >
-        <mat-icon>add</mat-icon>
-        {{'Task.CreateTitle' | translate}}
-      </button>
-    </div>
-    <div class="col-md-4">
-      <span class="active-span">{{'Task.ShowHideFilter' | translate}}</span>
-    </div>
-    <div class="col-md-4">
-      <span>{{'Task.TotalTasksFound' | translate: ({count: (tasks ? tasks.totalElements : 0)})}}</span>
+<div class="no-padding no-margin full-width">
+  <div [@taskFilter]="animationState" class="search-region">
+    <div class="container no-padding no-margin full-width">
+      <div class="row no-padding no-margin full-width align-items-center">
+
+      </div>
     </div>
   </div>
-  <div class="row no-padding no-margin full-width">
-    <div class="col-12 no-padding no-margin full-width">
-      <div class="no-padding full-width">
-        <div class="card full-width" *ngIf="tasks">
-          <div class="card-body full-width">
-            <div class="table-responsive full-width">
-              <div class="card full-width" *ngIf="tasks.content.length === 0">
-                <h3>{{'Task.NotFound' | translate}}</h3>
-              </div>
-              <table *ngIf="tasks.content.length > 0"
-                     style="width: 100%;"
-              >
-                <colgroup>
-                  <col span="1" style="width: 3rem;">
-                  <col span="1">
-                  <col *ngIf="!isMobile" span="1" style="width: 7rem;">
-                  <col span="1" style="width: 7rem;">
-                  <col *ngIf="!isMobile" span="1">
-                  <col *ngIf="!isMobile" span="1">
-                  <col *ngIf="!isMobile" span="1" style="width: 120px;">
-                  <col *ngIf="isMobile" span="1" style="width: 40px;">
-                </colgroup>
-                <thead>
+  <div class="container no-padding no-margin full-width">
+    <div class="row no-padding no-margin full-width align-items-center">
+      <div class="col-md-4">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onAdd()"
+        >
+          <mat-icon>add</mat-icon>
+          {{'Task.CreateTitle' | translate}}
+        </button>
+      </div>
+      <div class="col-md-4">
+        <span class="active-span">{{'Task.ShowHideFilter' | translate}}</span>
+      </div>
+      <div class="col-md-4">
+        <span>{{'Task.TotalTasksFound' | translate: ({count: (tasks ? tasks.totalElements : 0)})}}</span>
+      </div>
+    </div>
+    <div class="row no-padding no-margin full-width">
+      <div class="col-12 no-padding no-margin full-width">
+        <div class="no-padding full-width">
+          <div class="card full-width" *ngIf="tasks">
+            <div class="card-body full-width">
+              <div class="table-responsive full-width">
+                <div class="card full-width" *ngIf="tasks.content.length === 0">
+                  <h3>{{'Task.NotFound' | translate}}</h3>
+                </div>
+                <table *ngIf="tasks.content.length > 0"
+                       style="width: 100%;"
+                >
+                  <colgroup>
+                    <col span="1" style="width: 3rem;">
+                    <col span="1">
+                    <col *ngIf="!isMobile" span="1" style="width: 7rem;">
+                    <col span="1" style="width: 7rem;">
+                    <col *ngIf="!isMobile" span="1">
+                    <col *ngIf="!isMobile" span="1">
+                    <col *ngIf="!isMobile" span="1" style="width: 120px;">
+                    <col *ngIf="isMobile" span="1" style="width: 40px;">
+                  </colgroup>
+                  <thead>
                   <caption>{{'Task.Tasks' | translate}}</caption>
                   <tr>
                     <th>#</th>
@@ -50,8 +58,8 @@
                     <th *ngIf="!isMobile">{{'Task.Priority' | translate}}</th>
                     <th><mat-icon>library_add_check</mat-icon></th>
                   </tr>
-                </thead>
-                <tbody>
+                  </thead>
+                  <tbody>
                   <tr *ngFor="let task of tasks.content; let i = index">
                     <td
                       class="text-right"
@@ -65,10 +73,10 @@
                       [class.strikeout]="task.complete"
                     >{{task.name}}</td>
                     <td *ngIf="!isMobile"
-                      class="text-center"
-                      [style.background-color]="getPriorityBackColor(task)"
-                      [style.color]="getPriorityForeColor(task)"
-                      [class.strikeout]="task.complete"
+                        class="text-center"
+                        [style.background-color]="getPriorityBackColor(task)"
+                        [style.color]="getPriorityForeColor(task)"
+                        [class.strikeout]="task.complete"
                     >{{task.created | date: 'dd.MM.yyyy'}}</td>
                     <td
                       class="text-center"
@@ -77,9 +85,9 @@
                       [class.strikeout]="task.complete"
                     >{{task.dueDate | dueDatePipe}}</td>
                     <td *ngIf="!isMobile"
-                      [style.background-color]="getPriorityBackColor(task)"
-                      [style.color]="getPriorityForeColor(task)"
-                      [class.strikeout]="task.complete"
+                        [style.background-color]="getPriorityBackColor(task)"
+                        [style.color]="getPriorityForeColor(task)"
+                        [class.strikeout]="task.complete"
                     >
                       <img *ngIf="task.hasCategoryIcon"
                            class="category-icon"
@@ -88,9 +96,9 @@
                       {{getCategoryName(task)}}
                     </td>
                     <td *ngIf="!isMobile"
-                      [style.background-color]="getPriorityBackColor(task)"
-                      [style.color]="getPriorityForeColor(task)"
-                      [class.strikeout]="task.complete"
+                        [style.background-color]="getPriorityBackColor(task)"
+                        [style.color]="getPriorityForeColor(task)"
+                        [class.strikeout]="task.complete"
                     >
                       <img *ngIf="task.hasPriorityIcon"
                            class="category-icon"
@@ -116,14 +124,15 @@
                       ></mat-checkbox>
                     </td>
                   </tr>
-                </tbody>
-              </table>
-              <app-pagination
-                *ngIf="tasks.content.length > 0"
-                class="full-width"
-                [totalPages]="tasks.totalPages"
-                (changePageEvent)="changePage($event)"
-              ></app-pagination>
+                  </tbody>
+                </table>
+                <app-pagination
+                  *ngIf="tasks.content.length > 0"
+                  class="full-width"
+                  [totalPages]="tasks.totalPages"
+                  (changePageEvent)="changePage($event)"
+                ></app-pagination>
+              </div>
             </div>
           </div>
         </div>

@@ -37,3 +37,15 @@ table td, table th {
 .animated-area {
   overflow: hidden;
 }
+
+.search-region {
+  box-shadow:
+    inset 0px 11px 8px -10px #8C8C8C,
+    inset 0px -11px 8px -10px #8C8C8C;
+
+  padding-left: 25px !important;
+  padding-right: 25px !important;
+
+  background-color: #FFFBE6;
+  opacity: 1 !important;
+}

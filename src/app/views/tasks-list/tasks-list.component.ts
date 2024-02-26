@@ -241,6 +241,8 @@ export class TasksListComponent implements OnInit{
       this.filterChanged = true;
     } else if (this.gotFilter.complete !== this.curFilter.complete) {
       this.filterChanged = true;
+    } else if (this.gotFilter.priorityId !== this.curFilter.priorityId) {
+      this.filterChanged = true;
     } else if (this.gotFilter.dueDateFrom !== this.curFilter.dueDateFrom) {
       this.filterChanged = true;
     } else if (this.gotFilter.dueDateTo !== this.curFilter.dueDateTo) {
