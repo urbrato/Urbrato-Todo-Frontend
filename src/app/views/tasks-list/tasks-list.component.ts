@@ -28,7 +28,7 @@ import {TaskCreateDto} from "../../dto/task-create-dto";
 import {DueDatePipe} from "../../pipes/due-date.pipe";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {TaskSearchDto} from "../../dto/task-search-dto";
-import {MatFormField, MatSuffix} from "@angular/material/form-field";
+import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {
@@ -58,6 +58,7 @@ import {DateAdapter} from "@angular/material/core";
     DueDatePipe,
     MatFormField,
     MatInput,
+    MatLabel,
     MatSuffix,
     MatSelect,
     MatOption,

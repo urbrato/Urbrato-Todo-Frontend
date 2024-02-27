@@ -51,4 +51,5 @@ table td, table th {
 
   --mat-form-field-container-text-size: small;
   --mat-select-trigger-text-size: small;
+  --mdc-filled-text-field-label-text-size: small;
 }

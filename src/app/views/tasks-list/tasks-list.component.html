@@ -7,9 +7,9 @@
       <div class="row no-padding no-margin full-width align-items-center">
         <div class="col-xl-3 col-md-6">
           <mat-form-field class="full-width">
+            <mat-label>{{'Task.Name' | translate}}</mat-label>
             <input
               matInput
-              placeholder="{{'Task.Name' | translate}}"
               [(ngModel)]="curFilter.name"
               (ngModelChange)="checkFilterChanged()"
               (keydown.escape)="$event.stopPropagation(); curFilter.name=''; checkFilterChanged()"
@@ -27,10 +27,10 @@
         </div>
         <div class="col-xl-3 col-md-6">
           <mat-form-field class="full-width">
+            <mat-label>{{'Task.State' | translate}}</mat-label>
             <mat-select
               [(ngModel)]="curFilter.complete"
               (selectionChange)="checkFilterChanged()"
-              placeholder="{{'Task.State' | translate}}"
             >
               <mat-option [value]="null">{{'Task.All' | translate}}</mat-option>
               <mat-option [value]="true">{{'Task.States.Completed' | translate}}</mat-option>
@@ -40,10 +40,10 @@
         </div>
         <div class="col-xl-3 col-md-6">
           <mat-form-field class="full-width">
+            <mat-label>{{'Task.Priority' | translate}}</mat-label>
             <mat-select
               [(ngModel)]="curFilter.priorityId"
               (selectionChange)="checkFilterChanged()"
-              placeholder="{{'Task.Priority' | translate}}"
             >
               <mat-option [value]="null">{{'Task.All' | translate}}</mat-option>
               <mat-option *ngFor="let priority of priorities"
@@ -54,10 +54,10 @@
         </div>
         <div class="col-xl-3 col-md-6">
           <mat-form-field class="full-width">
+            <mat-label>{{'Task.RepeatAfterDays' | translate}}</mat-label>
             <input
               matInput
               type="number"
-              placeholder="{{'Task.RepeatAfterDays' | translate}}"
               [(ngModel)]="curFilter.repeatAfterDays"
               (ngModelChange)="checkFilterChanged()"
               min="1" max="1000"
@@ -77,6 +77,7 @@
       <div class="row no-margin no-padding full-width align-items-center">
         <div class="col-xl-3 col-md-6">
           <mat-form-field class="full-width">
+            <mat-label>{{'Task.DueDate' | translate}}</mat-label>
             <mat-date-range-input
               [rangePicker]="dueDateRangePicker"
             >
@@ -117,6 +118,7 @@
         </div>
         <div class="col-xl-3 col-md-6">
           <mat-form-field class="full-width">
+            <mat-label>{{'Task.CreatedDate' | translate}}</mat-label>
             <mat-date-range-input
               [rangePicker]="createdRangePicker"
             >
@@ -157,9 +159,9 @@
         </div>
         <div class="col-xl-3 col-md-6">
           <mat-form-field class="full-width">
+            <mat-label>{{'Task.Sorting' | translate}}</mat-label>
             <mat-select
               [(ngModel)]="curFilter.sortColumn"
-              placeholder="{{'Task.Sorting' | translate}}"
               (selectionChange)="checkFilterChanged()"
             >
               <mat-option value="name">{{'Task.Name' | translate}}</mat-option>
