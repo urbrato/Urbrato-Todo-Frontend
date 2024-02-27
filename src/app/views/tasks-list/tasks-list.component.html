@@ -1,8 +1,78 @@
 <div class="no-padding no-margin full-width">
-  <div [@taskFilter]="animationState" class="search-region">
+  <div [@taskFilterArea]="animationState" class="search-region animated-area">
     <div class="container no-padding no-margin full-width">
+      <div class="row">
+        <div class="mat-mdc-form-field-subscript-wrapper mat-mdc-form-field-bottom-align"></div>
+      </div>
       <div class="row no-padding no-margin full-width align-items-center">
-
+        <div class="col-xl-3 col-md-6">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="{{'Task.Name' | translate}}"
+              [(ngModel)]="curFilter.name"
+              (ngModelChange)="checkFilterChanged()"
+              (keydown.escape)="$event.stopPropagation(); curFilter.name=''; checkFilterChanged()"
+              (keyup.enter)="onSearch()">
+            <button
+              *ngIf="curFilter && curFilter.name && curFilter.name.trim().length > 0"
+              class="clear-icon"
+              matSuffix
+              mat-icon-button
+              (click)="$event.stopPropagation(); curFilter.name=''; checkFilterChanged()"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select
+              [(ngModel)]="curFilter.complete"
+              (selectionChange)="checkFilterChanged()"
+              placeholder="{{'Task.State' | translate}}"
+            >
+              <mat-option [value]="null">{{'Task.All' | translate}}</mat-option>
+              <mat-option [value]="true">{{'Task.States.Completed' | translate}}</mat-option>
+              <mat-option [value]="false">{{'Task.States.Uncompleted' | translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select
+              [(ngModel)]="curFilter.priorityId"
+              (selectionChange)="checkFilterChanged()"
+              placeholder="{{'Task.Priority' | translate}}"
+            >
+              <mat-option [value]="null">{{'Task.All' | translate}}</mat-option>
+              <mat-option *ngFor="let priority of priorities"
+                          [value]="priority.id"
+              >{{priority.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              type="number"
+              placeholder="{{'Task.RepeatAfterDays' | translate}}"
+              [(ngModel)]="curFilter.repeatAfterDays"
+              (ngModelChange)="checkFilterChanged()"
+              min="1" max="1000"
+            >
+            <button
+              *ngIf="curFilter && curFilter.repeatAfterDays && curFilter.repeatAfterDays > 0"
+              class="clear-icon"
+              matSuffix
+              mat-icon-button
+              (click)="$event.stopPropagation(); curFilter.repeatAfterDays = null; checkFilterChanged()"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
       </div>
     </div>
   </div>
@@ -19,7 +89,11 @@
         </button>
       </div>
       <div class="col-md-4">
-        <span class="active-span">{{'Task.ShowHideFilter' | translate}}</span>
+        <span class="active-span"
+              (click)="onToggleSearch()"
+        >
+          {{'Task.ShowHideFilter' | translate}}
+        </span>
       </div>
       <div class="col-md-4">
         <span>{{'Task.TotalTasksFound' | translate: ({count: (tasks ? tasks.totalElements : 0)})}}</span>

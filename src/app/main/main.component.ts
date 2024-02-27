@@ -242,6 +242,17 @@ export class MainComponent {
     this.fltTasks.pageSize = this.dfltPageSize;
     this.fltTasks.pageNumber = this.dfltPageNumber;
 
+    this.fltTasks.name = '';
+    this.fltTasks.complete = null;
+    this.fltTasks.createdFrom = null;
+    this.fltTasks.createdTo = null;
+    this.fltTasks.dueDateFrom = null;
+    this.fltTasks.dueDateTo = null;
+    this.fltTasks.priorityId = null;
+    this.fltTasks.repeatAfterDays = null;
+    this.fltTasks.sortColumn = 'created';
+    this.fltTasks.sortDirection = 'ASC';
+
     this.updateTaskFilter(category);
   }
 

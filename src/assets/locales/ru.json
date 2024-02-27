@@ -53,6 +53,12 @@
     "DueDate": "Срок",
     "Category": "Категория",
     "Priority": "Приоритет",
+    "State": "Состояние",
+    "All": "Все",
+    "States": {
+      "Completed": "Завершённые",
+      "Uncompleted": "Незавершённые"
+    },
     "RepeatAfterDays": "Периодичность повтора в днях",
     "CreateTitle": "Создание задачи",
     "EditTitle": "Свойства задачи",

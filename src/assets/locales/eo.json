@@ -53,6 +53,12 @@
     "DueDate": "Limdato",
     "Category": "Kategorio",
     "Priority": "Prioritato",
+    "State": "Stato",
+    "All": "Ĉiuj",
+    "States": {
+      "Completed": "Kompletigitaj",
+      "Uncompleted": "Nekompletigitaj"
+    },
     "RepeatAfterDays": "Post kiom da tagoj ripeti",
     "CreateTitle": "Nova tasko",
     "EditTitle": "Propraĵoj de la tasko",
