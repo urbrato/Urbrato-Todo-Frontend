@@ -10,7 +10,7 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {DeviceInfo} from "../../util/device-info";
-import {FormControl, FormGroup, FormsModule} from "@angular/forms";
+import {FormsModule} from "@angular/forms";
 import {PaginationComponent} from "../../pagination/pagination.component";
 import {TaskUpdateDto} from "../../dto/task-update-dto";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
@@ -90,7 +90,7 @@ import {DateAdapter} from "@angular/material/core";
 export class TasksListComponent implements OnInit{
   readonly iconAsc = 'arrow_upward';
   readonly iconDesc = 'arrow_downward';
-  readonly defaultSortCol = 'created';
+  sortIcon: String;
 
   txtNoCategory: string = '';
   txtNoPriority: string = '';
@@ -106,10 +106,6 @@ export class TasksListComponent implements OnInit{
   gotFilter: TaskSearchDto;
   curFilter: TaskSearchDto;
   filterChanged: boolean;
-
-  sortIcon: String;
-  dueDateRangeForm: FormGroup;
-  createdDateRangeForm: FormGroup;
 
   showFilter: Boolean = false;
   animationState: String = 'hide';
@@ -228,18 +224,6 @@ export class TasksListComponent implements OnInit{
 
   changePage($event: number) {
     this.changePageEvent.emit($event);
-  }
-
-  initDateRangeForm() {
-    this.dueDateRangeForm = new FormGroup<any>({
-      dateFrom: new FormControl(),
-      dateTo: new FormControl()
-    });
-
-    this.createdDateRangeForm = new FormGroup<any>({
-      dateFrom: new FormControl(),
-      dateTo: new FormControl()
-    });
   }
 
   checkFilterChanged() {
