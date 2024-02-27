@@ -227,7 +227,6 @@ export class TasksListComponent implements OnInit{
   }
 
   checkFilterChanged() {
-    console.log('!');
     if (this.gotFilter === null || this.curFilter === null) {
       this.filterChanged = false;
     } else if (this.gotFilter.name !== this.curFilter.name) {
