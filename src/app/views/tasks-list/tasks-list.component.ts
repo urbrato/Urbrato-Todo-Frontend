@@ -31,6 +31,14 @@ import {TaskSearchDto} from "../../dto/task-search-dto";
 import {MatFormField, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatOption, MatSelect} from "@angular/material/select";
+import {
+  MatDatepickerToggle,
+  MatDateRangeInput,
+  MatDateRangePicker,
+  MatEndDate,
+  MatStartDate
+} from "@angular/material/datepicker";
+import {DateAdapter} from "@angular/material/core";
 
 @Component({
   selector: 'app-tasks-list',
@@ -52,7 +60,12 @@ import {MatOption, MatSelect} from "@angular/material/select";
     MatInput,
     MatSuffix,
     MatSelect,
-    MatOption
+    MatOption,
+    MatDateRangeInput,
+    MatStartDate,
+    MatEndDate,
+    MatDatepickerToggle,
+    MatDateRangePicker
   ],
   templateUrl: './tasks-list.component.html',
   styleUrl: './tasks-list.component.css',
@@ -109,13 +122,9 @@ export class TasksListComponent implements OnInit{
     this.gotFilter = structuredClone(dto);
     this.filterChanged = false;
 
-    this.dueDateFrom.setValue(dto.dueDateFrom);
-    this.dueDateTo.setValue(dto.dueDateTo);
-
-    this.createdDateFrom.setValue(dto.createdFrom);
-    this.createdDateTo.setValue(dto.createdTo);
-
-    this.setSortIconName();
+    if (dto) {
+      this.setSortIconName();
+    }
   }
 
   @Input()
@@ -148,28 +157,24 @@ export class TasksListComponent implements OnInit{
     private translate: TranslateService,
     private bldDlg: MatDialog,
     private dlgMsg: MatDialogRef<MessageBoxComponent>,
-    private dlgEditTask: MatDialogRef<EditTaskDialogComponent>
+    private dlgEditTask: MatDialogRef<EditTaskDialogComponent>,
+    private dateAdapter: DateAdapter<any>
   ) {
+    this.dateAdapter.setLocale(this.translate.instant('Locale'));
   }
 
   ngOnInit() {
     this.isMobile = DeviceInfo.IsMobile;
   }
 
-  get dueDateFrom(): AbstractControl {
-    return this.dueDateRangeForm.get('dateFrom');
+  clearDueDateRange() {
+    this.curFilter.dueDateFrom = null;
+    this.curFilter.dueDateTo = null;
   }
 
-  get dueDateTo(): AbstractControl {
-    return this.dueDateRangeForm.get('dateTo');
-  }
-
-  get createdDateFrom(): AbstractControl {
-    return this.createdDateRangeForm.get('dateFrom');
-  }
-
-  get createdDateTo(): AbstractControl {
-    return this.createdDateRangeForm.get('dateTo');
+  clearCreatedRange() {
+    this.curFilter.createdFrom = null;
+    this.curFilter.createdTo = null;
   }
 
   getPriorityBackColor(task: Task): string {
@@ -234,12 +239,6 @@ export class TasksListComponent implements OnInit{
       dateFrom: new FormControl(),
       dateTo: new FormControl()
     });
-
-    this.dueDateFrom.valueChanges.subscribe(() => this.checkFilterChanged());
-    this.dueDateTo.valueChanges.subscribe(() => this.checkFilterChanged());
-
-    this.createdDateFrom.valueChanges.subscribe(() => this.checkFilterChanged());
-    this.createdDateTo.valueChanges.subscribe(() => this.checkFilterChanged());
   }
 
   checkFilterChanged() {

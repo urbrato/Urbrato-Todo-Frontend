@@ -1,6 +1,6 @@
 <div class="no-padding no-margin full-width">
   <div [@taskFilterArea]="animationState" class="search-region animated-area">
-    <div class="container no-padding no-margin full-width">
+    <div *ngIf="curFilter" class="container no-padding no-margin full-width">
       <div class="row">
         <div class="mat-mdc-form-field-subscript-wrapper mat-mdc-form-field-bottom-align"></div>
       </div>
@@ -68,6 +68,88 @@
               matSuffix
               mat-icon-button
               (click)="$event.stopPropagation(); curFilter.repeatAfterDays = null; checkFilterChanged()"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row no-margin no-padding full-width align-items-center">
+        <div class="col-xl-3 col-md-6">
+          <mat-form-field class="full-width">
+            <mat-date-range-input
+              [rangePicker]="dueDateRangePicker"
+            >
+              <input
+                matStartDate
+                placeholder="{{'Task.DueDateFrom' | translate}}"
+                (change)="checkFilterChanged()"
+                readonly="true"
+                [(ngModel)]="curFilter.dueDateFrom"
+              >
+              <input
+                matEndDate
+                placeholder="{{'Task.DueDateTo' | translate}}"
+                (change)="checkFilterChanged()"
+                readonly="true"
+                [(ngModel)]="curFilter.dueDateTo"
+              >
+            </mat-date-range-input>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="dueDateRangePicker"
+              (select)="checkFilterChanged()"
+            ></mat-datepicker-toggle>
+            <mat-date-range-picker
+              #dueDateRangePicker
+              (change)="checkFilterChanged()"
+            ></mat-date-range-picker>
+            <button
+              *ngIf="curFilter && (curFilter.dueDateFrom || curFilter.dueDateTo)"
+              class="clear-icon"
+              matSuffix
+              mat-icon-button
+              (click)="$event.stopPropagation(); clearDueDateRange(); checkFilterChanged()"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <mat-form-field class="full-width">
+            <mat-date-range-input
+              [rangePicker]="createdRangePicker"
+            >
+              <input
+                matStartDate
+                placeholder="{{'Task.CreatedFrom' | translate}}"
+                (change)="checkFilterChanged()"
+                readonly="true"
+                [(ngModel)]="curFilter.createdFrom"
+              >
+              <input
+                matEndDate
+                placeholder="{{'Task.CreatedTo' | translate}}"
+                (change)="checkFilterChanged()"
+                readonly="true"
+                [(ngModel)]="curFilter.createdTo"
+              >
+            </mat-date-range-input>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="createdRangePicker"
+              (select)="checkFilterChanged()"
+            ></mat-datepicker-toggle>
+            <mat-date-range-picker
+              #createdRangePicker
+              (change)="checkFilterChanged()"
+            ></mat-date-range-picker>
+            <button
+              *ngIf="curFilter && (curFilter.createdFrom || curFilter.createdTo)"
+              class="clear-icon"
+              matSuffix
+              mat-icon-button
+              (click)="$event.stopPropagation(); clearCreatedRange(); checkFilterChanged()"
             >
               <mat-icon>clear</mat-icon>
             </button>
