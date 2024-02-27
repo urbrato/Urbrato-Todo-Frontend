@@ -10,7 +10,7 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {DeviceInfo} from "../../util/device-info";
-import {AbstractControl, FormControl, FormGroup, FormsModule} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule} from "@angular/forms";
 import {PaginationComponent} from "../../pagination/pagination.component";
 import {TaskUpdateDto} from "../../dto/task-update-dto";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
@@ -242,6 +242,7 @@ export class TasksListComponent implements OnInit{
   }
 
   checkFilterChanged() {
+    console.log('!');
     if (this.gotFilter === null || this.curFilter === null) {
       this.filterChanged = false;
     } else if (this.gotFilter.name !== this.curFilter.name) {

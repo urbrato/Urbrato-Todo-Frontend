@@ -64,6 +64,8 @@
       "Uncompleted": "Незавершённые"
     },
     "RepeatAfterDays": "Периодичность повтора в днях",
+    "Sorting": "Сортировка",
+    "SortDirection": "Направление сортировки",
     "CreateTitle": "Создание задачи",
     "EditTitle": "Свойства задачи",
     "SetDueDate": {

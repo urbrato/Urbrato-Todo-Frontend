@@ -64,6 +64,8 @@
       "Uncompleted": "Nekompletigitaj"
     },
     "RepeatAfterDays": "Post kiom da tagoj ripeti",
+    "Sorting": "Ordigado",
+    "SortDirection": "Ordiga direkto",
     "CreateTitle": "Nova tasko",
     "EditTitle": "Propraĵoj de la tasko",
     "SetDueDate": {

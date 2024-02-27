@@ -83,14 +83,14 @@
               <input
                 matStartDate
                 placeholder="{{'Task.DueDateFrom' | translate}}"
-                (change)="checkFilterChanged()"
+                (dateChange)="checkFilterChanged()"
                 readonly="true"
                 [(ngModel)]="curFilter.dueDateFrom"
               >
               <input
                 matEndDate
                 placeholder="{{'Task.DueDateTo' | translate}}"
-                (change)="checkFilterChanged()"
+                (dateChange)="checkFilterChanged()"
                 readonly="true"
                 [(ngModel)]="curFilter.dueDateTo"
               >
@@ -123,14 +123,14 @@
               <input
                 matStartDate
                 placeholder="{{'Task.CreatedFrom' | translate}}"
-                (change)="checkFilterChanged()"
+                (dateChange)="checkFilterChanged()"
                 readonly="true"
                 [(ngModel)]="curFilter.createdFrom"
               >
               <input
                 matEndDate
                 placeholder="{{'Task.CreatedTo' | translate}}"
-                (change)="checkFilterChanged()"
+                (dateChange)="checkFilterChanged()"
                 readonly="true"
                 [(ngModel)]="curFilter.createdTo"
               >
@@ -155,6 +155,41 @@
             </button>
           </mat-form-field>
         </div>
+        <div class="col-xl-3 col-md-6">
+          <mat-form-field class="full-width">
+            <mat-select
+              [(ngModel)]="curFilter.sortColumn"
+              placeholder="{{'Task.Sorting' | translate}}"
+              (selectionChange)="checkFilterChanged()"
+            >
+              <mat-option value="name">{{'Task.Name' | translate}}</mat-option>
+              <mat-option value="complete">{{'Task.State' | translate}}</mat-option>
+              <mat-option value="dueDate">{{'Task.DueDate' | translate}}</mat-option>
+              <mat-option value="created">{{'Task.CreatedDate' | translate}}</mat-option>
+              <mat-option value="repeatAfterDays">{{'Task.RepeatAfterDays' | translate}}</mat-option>
+              <mat-option value="importance">{{'Task.Priority' | translate}}</mat-option>
+              <mat-option value="categoryName">{{'Task.Category' | translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              readonly
+              placeholder="{{'Task.SortDirection' | translate}}"
+              (click)="$event.stopPropagation(); toggleSortDirection(); checkFilterChanged()"
+            >
+            <button
+              matSuffix
+              mat-icon-button
+              value="{{'Task.SortDirection' | translate}}"
+              (click)="$event.stopPropagation(); toggleSortDirection(); checkFilterChanged()"
+            >
+              <mat-icon>{{sortIcon}}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
       </div>
     </div>
   </div>
@@ -176,6 +211,12 @@
         >
           {{'Task.ShowHideFilter' | translate}}
         </span>
+        <button
+          class="{{filterChanged ? 'blink-button' : 'no-border'}}"
+          (click)="onSearch()"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
       </div>
       <div class="col-md-4">
         <span>{{'Task.TotalTasksFound' | translate: ({count: (tasks ? tasks.totalElements : 0)})}}</span>

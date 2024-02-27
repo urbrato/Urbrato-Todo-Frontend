@@ -401,6 +401,11 @@ export class MainComponent {
     })
   }
 
+  searchTasks($event: TaskSearchDto) {
+    this.fltTasks = $event;
+    this.getTasks();
+  }
+
   toggleDrawer() {
     this.catsOpened = !this.catsOpened;
   }
