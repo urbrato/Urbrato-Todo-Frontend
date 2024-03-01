@@ -39,6 +39,8 @@ import {
   MatStartDate
 } from "@angular/material/datepicker";
 import {DateAdapter} from "@angular/material/core";
+import {LocalStorageUtils} from "../../util/local-storage-utils";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-tasks-list',
@@ -88,6 +90,7 @@ import {DateAdapter} from "@angular/material/core";
     ])
   ]})
 export class TasksListComponent implements OnInit{
+  readonly SHOW_FILTER = 'showTaskFilter';
   readonly iconAsc = 'arrow_upward';
   readonly iconDesc = 'arrow_downward';
   sortIcon: String;
@@ -151,6 +154,7 @@ export class TasksListComponent implements OnInit{
   constructor(
     private srvCategory: CategoryService,
     private srvPriority: PriorityService,
+    private srvAuth: AuthService,
     private translate: TranslateService,
     private bldDlg: MatDialog,
     private dlgMsg: MatDialogRef<MessageBoxComponent>,
@@ -158,10 +162,27 @@ export class TasksListComponent implements OnInit{
     private dateAdapter: DateAdapter<any>
   ) {
     this.dateAdapter.setLocale(this.translate.instant('Locale'));
+    this.srvAuth.currentUser.subscribe((_) => {
+      this.loadShowFilter();
+    });
   }
 
   ngOnInit() {
     this.isMobile = DeviceInfo.IsMobile;
+
+    this.loadShowFilter();
+  }
+
+  loadShowFilter() {
+    if (this.srvAuth.currentUser.value !== null) {
+      const lsShowFilter = LocalStorageUtils.getObject<boolean>(
+        this.SHOW_FILTER,
+        this.srvAuth.currentUser.value
+      );
+
+      this.showFilter = lsShowFilter ?? false;
+      this.setAnimationState();
+    }
   }
 
   clearDueDateRange() {
@@ -262,6 +283,22 @@ export class TasksListComponent implements OnInit{
     }
   }
 
+  setAnimationState() {
+    if (this.showFilter) {
+      this.animationState = 'show';
+    } else {
+      this.animationState = 'hide';
+    }
+
+    if (this.srvAuth.currentUser.value !== null) {
+      LocalStorageUtils.setObject(
+        this.SHOW_FILTER,
+        this.srvAuth.currentUser.value,
+        this.showFilter
+      )
+    }
+  }
+
   toggleSortDirection() {
     if (this.curFilter.sortDirection === 'DESC') {
       this.curFilter.sortDirection = 'ASC';
@@ -280,11 +317,7 @@ export class TasksListComponent implements OnInit{
 
   onToggleSearch() {
     this.showFilter = !this.showFilter;
-    if (this.showFilter) {
-      this.animationState = 'show';
-    } else {
-      this.animationState = 'hide';
-    }
+    this.setAnimationState();
   }
 
   onAdd() {

@@ -28,6 +28,7 @@ import {TaskUpdateDto} from "../dto/task-update-dto";
 import {Priority} from "../entities/priority";
 import {PriorityService} from "../dao/priority.service";
 import {TaskCreateDto} from "../dto/task-create-dto";
+import {LocalStorageUtils} from "../util/local-storage-utils";
 
 export const LANG_RU = 'ru';
 export const LANG_EO = 'eo';
@@ -38,6 +39,9 @@ export const LANG_EO = 'eo';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent {
+  readonly FILTER_COOKIE = 'taskFilter';
+  readonly SHOW_CATEGORIES_LIST = 'showCategoriesList';
+
   currentUser: User | null = null;
 
   // категории
@@ -79,19 +83,20 @@ export class MainComponent {
 
     this.detectDevice();
     this.translate.use(LANG_RU);
-    this.initCatsDrawer();
 
     srvAuth.currentUser.subscribe(user => {
       this.currentUser = user;
       if (user === null) {
         this.categories = [];
       } else {
+        this.initCatsDrawer();
+
         this.getAllCategories();
         this.getPriorities();
         this.updateStats();
 
         this.fltTasks = new TaskSearchDto();
-        this.initTaskFilter(null);
+        this.initTaskFilter();
       }
     });
 
@@ -128,6 +133,15 @@ export class MainComponent {
     } else {
       this.catsOpened = true;
       this.catsMode = "side";
+    }
+
+    const cats = LocalStorageUtils.getObject<boolean>(
+      this.SHOW_CATEGORIES_LIST, this.currentUser);
+
+    if (cats === null) {
+      this.catsOpened = !DeviceInfo.IsMobile;
+    } else {
+      this.catsOpened = cats;
     }
   }
 
@@ -222,6 +236,10 @@ export class MainComponent {
 
   getTasks() {
     if (this.fltTasks) {
+      LocalStorageUtils.setObject(
+        this.FILTER_COOKIE,
+        this.currentUser,
+        this.fltTasks);
       this.srvTask.search(this.fltTasks).subscribe({
         next: (tasks) => {
           this.tasks = tasks.payload;
@@ -233,7 +251,7 @@ export class MainComponent {
     }
   }
 
-  initTaskFilter(category: Category) {
+  initTaskFilter() {
     if (DeviceInfo.IsMobile)
       this.dfltPageSize = 5;
     else
@@ -242,21 +260,53 @@ export class MainComponent {
     this.fltTasks.pageSize = this.dfltPageSize;
     this.fltTasks.pageNumber = this.dfltPageNumber;
 
-    this.fltTasks.name = '';
-    this.fltTasks.complete = null;
-    this.fltTasks.createdFrom = null;
-    this.fltTasks.createdTo = null;
-    this.fltTasks.dueDateFrom = null;
-    this.fltTasks.dueDateTo = null;
-    this.fltTasks.priorityId = null;
-    this.fltTasks.repeatAfterDays = null;
-    this.fltTasks.sortColumn = 'created';
-    this.fltTasks.sortDirection = 'ASC';
+    const cookieFilter = LocalStorageUtils.getObject<TaskSearchDto>(
+      this.FILTER_COOKIE,
+      this.currentUser);
 
-    this.updateTaskFilter(category);
+    if (cookieFilter === null) {
+      this.fltTasks.name = '';
+      this.fltTasks.complete = null;
+      this.fltTasks.createdFrom = null;
+      this.fltTasks.createdTo = null;
+      this.fltTasks.dueDateFrom = null;
+      this.fltTasks.dueDateTo = null;
+      this.fltTasks.priorityId = null;
+      this.fltTasks.categoryId = null;
+      this.fltTasks.repeatAfterDays = null;
+      this.fltTasks.sortColumn = 'created';
+      this.fltTasks.sortDirection = 'ASC';
+    } else {
+      this.fltTasks.name = cookieFilter.name;
+      this.fltTasks.complete = cookieFilter.complete;
+      this.fltTasks.createdFrom = cookieFilter.createdFrom;
+      this.fltTasks.createdTo = cookieFilter.createdTo;
+      this.fltTasks.dueDateFrom = cookieFilter.dueDateFrom;
+      this.fltTasks.dueDateTo = cookieFilter.dueDateTo;
+      this.fltTasks.priorityId = cookieFilter.priorityId;
+      this.fltTasks.categoryId = cookieFilter.categoryId;
+      this.fltTasks.repeatAfterDays = cookieFilter.repeatAfterDays;
+      this.fltTasks.sortColumn = cookieFilter.sortColumn;
+      this.fltTasks.sortDirection = cookieFilter.sortDirection;
+    }
+
+    if (this.fltTasks.categoryId === null) {
+      this.updateTaskFilter();
+    } else {
+      this.srvCategory.findById(this.fltTasks.categoryId).subscribe({
+        next: (category: Category) => {
+          this.selectCategory(category);
+        },
+        error: _ => {
+          this.updateTaskFilter();
+        }
+      })
+    }
   }
 
-  updateTaskFilter(category: Category) {
+  updateTaskFilter() {
+    const category = this.selectedCategory;
+
     if (category === null)
       this.fltTasks.categoryId = null;
     else
@@ -356,7 +406,7 @@ export class MainComponent {
 
     if (changed) {
       this.updateStats();
-      this.updateTaskFilter(category);
+      this.updateTaskFilter();
     }
   }
 
@@ -408,5 +458,10 @@ export class MainComponent {
 
   toggleDrawer() {
     this.catsOpened = !this.catsOpened;
+    LocalStorageUtils.setObject(
+      this.SHOW_CATEGORIES_LIST,
+      this.currentUser,
+      this.catsOpened
+    );
   }
 }

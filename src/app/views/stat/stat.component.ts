@@ -2,6 +2,8 @@ import {Component, Input} from '@angular/core';
 import {StatCardComponent} from "../stat-card/stat-card.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {AuthService} from "../../service/auth.service";
+import {LocalStorageUtils} from "../../util/local-storage-utils";
 
 @Component({
   selector: 'app-stat',
@@ -31,6 +33,8 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   ]
 })
 export class StatComponent {
+  readonly SHOW_STATS = 'showStats';
+
   @Input()
   completed: number;
 
@@ -40,12 +44,42 @@ export class StatComponent {
   showStat: boolean = false;
   animationState: string = 'hide';
 
-  onToggleStat() {
-    this.showStat = !this.showStat;
+  constructor(
+    private srvAuth: AuthService
+  ) {
+    this.srvAuth.currentUser.subscribe((user) => {
+      if (user !== null) {
+        const lsShowStat = LocalStorageUtils.getObject<boolean>(
+          this.SHOW_STATS,
+          user
+        );
+
+        if (lsShowStat !== null) {
+          this.showStat = lsShowStat;
+          this.setAnimationState();
+        }
+      }
+    })
+  }
+
+  setAnimationState() {
     if (this.showStat) {
       this.animationState = 'show';
     } else {
       this.animationState = 'hide';
     }
+
+    if (this.srvAuth.currentUser.value !== null) {
+      LocalStorageUtils.setObject(
+        this.SHOW_STATS,
+        this.srvAuth.currentUser.value,
+        this.showStat
+      )
+    }
+  }
+
+  onToggleStat() {
+    this.showStat = !this.showStat;
+    this.setAnimationState();
   }
 }
