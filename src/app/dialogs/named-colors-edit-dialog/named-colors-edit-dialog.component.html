@@ -1,6 +1,6 @@
 <mat-dialog-content>
   <div class="container full-width">
-    <div class="row full-width">
+    <div class="row full-width no-padding">
       <div class="col-8">
         <span
           [style.background-color]="data.backcolor"
@@ -9,19 +9,19 @@
           {{data.name}}
         </span>
       </div>
-      <div class="col-2">
-        <input class="full-width"
-               type="color"
-               [(colorPicker)]="data.backcolor"
-               [style.background-color]="data.backcolor"
+      <div class="col-2 no-padding">
+        <div class="full-width no-padding no-margin" style="height: 100%; border: solid 1px black;"
+              [(colorPicker)]="data.backcolor"
+              [style.background-color]="data.backcolor"
         >
+        </div>
       </div>
-      <div class="col-2">
-        <input class="full-width"
-               type="color"
-               [(colorPicker)]="data.forecolor"
-               [style.background-color]="data.forecolor"
+      <div class="col-2 no-padding">
+        <div class="full-width no-padding no-margin" style="height: 100%; border: solid 1px black;"
+              [(colorPicker)]="data.forecolor"
+              [style.background-color]="data.forecolor"
         >
+        </div>
       </div>
     </div>
   </div>
