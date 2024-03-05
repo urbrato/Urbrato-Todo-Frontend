@@ -99,10 +99,17 @@ export class TasksListComponent implements OnInit{
   txtNoPriority: string = '';
   txtNoDueDate: string = '';
 
-  clrDefaultBack = 'white';
-  clrDefaultTxt = 'black';
-  clrCompleteBack = 'lightgray';
-  clrCompleteTxt = 'darkgray';
+  @Input()
+  clrDefaultBack: string;
+
+  @Input()
+  clrDefaultTxt: string;
+
+  @Input()
+  clrCompleteBack: string;
+
+  @Input()
+  clrCompleteTxt: string;
 
   isMobile: boolean;
 

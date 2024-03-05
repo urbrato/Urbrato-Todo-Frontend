@@ -127,3 +127,10 @@ body {
 .no-border {
   border: none;
 }
+
+.dlg-buttons-footer {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  max-width: unset;
+}

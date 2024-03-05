@@ -1,0 +1,24 @@
+<div class="container no-hor-padding"
+     style="box-sizing: border-box;"
+>
+  <div class="row no-hor-margin align-items-center full-width"
+       style="height: 48px; box-sizing: border-box;"
+       (mouseenter)="onMouseEnter()"
+       (mouseleave)="onMouseLeave()"
+  >
+    <div class="col-md-11 col-10 no-hor-padding align-items-center">
+      <span>{{name}}</span>
+    </div>
+    <div class="col-md-1 col-2 no-hor-padding">
+      <span class="edit-button">
+        <mat-icon
+          class="edit-button"
+          *ngIf="showButtons"
+          (click)="$event.stopPropagation(); edit()"
+        >
+          edit
+        </mat-icon>
+      </span>
+    </div>
+  </div>
+</div>

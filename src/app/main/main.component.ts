@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {User} from "../entities/user";
 import {AuthService} from "../service/auth.service";
 import {ProfileService} from "../service/profile.service";
@@ -29,6 +29,8 @@ import {Priority} from "../entities/priority";
 import {PriorityService} from "../dao/priority.service";
 import {TaskCreateDto} from "../dto/task-create-dto";
 import {LocalStorageUtils} from "../util/local-storage-utils";
+import {SettingsDialogComponent} from "../dialogs/settings-dialog/settings-dialog.component";
+import {CommonSettingsUtils} from "../util/common-settings-utils";
 
 export const LANG_RU = 'ru';
 export const LANG_EO = 'eo';
@@ -67,6 +69,10 @@ export class MainComponent {
   fltTasks: TaskSearchDto;
   dfltPageSize = 3;
   dfltPageNumber = 0;
+  clrDefaultBack: string;
+  clrDefaultTxt: string;
+  clrCompleteBack: string;
+  clrCompleteTxt: string;
 
   constructor(
     private srvAuth: AuthService,
@@ -75,10 +81,12 @@ export class MainComponent {
     private srvPriority: PriorityService,
     private srvStat: StatService,
     private srvTask: TaskService,
+    private commonSettings: CommonSettingsUtils,
     private router: Router,
     private deviceDetector: DeviceDetectorService,
     private translate: TranslateService,
     private dlgMsg: MatDialogRef<MessageBoxComponent>,
+    private dlgSettings: MatDialogRef<SettingsDialogComponent>,
     private bldDlg: MatDialog) {
 
     this.detectDevice();
@@ -90,6 +98,7 @@ export class MainComponent {
         this.categories = [];
       } else {
         this.initCatsDrawer();
+        this.initSettings();
 
         this.getAllCategories();
         this.getPriorities();
@@ -143,6 +152,21 @@ export class MainComponent {
     } else {
       this.catsOpened = cats;
     }
+  }
+
+  initSettings() {
+    this.clrDefaultBack = this.commonSettings.taskWithoutPriorityBackColor;
+    this.clrDefaultTxt = this.commonSettings.taskWithoutPriorityForeColor;
+    this.clrCompleteBack = this.commonSettings.taskCompletedBackColor;
+    this.clrCompleteTxt = this.commonSettings.taskCompletedForeColor;
+  }
+
+  showSettingsDialog(): Observable<DialogResult> {
+    this.dlgSettings = this.bldDlg.open(SettingsDialogComponent, {
+      width: '450px'
+    });
+
+    return this.dlgSettings.afterClosed();
   }
 
   showMessageBox(
@@ -463,5 +487,14 @@ export class MainComponent {
       this.currentUser,
       this.catsOpened
     );
+  }
+
+  editSettings() {
+    this.showSettingsDialog().subscribe({
+      next: () => {
+        this.initSettings();
+        this.getPriorities();
+      }
+    })
   }
 }

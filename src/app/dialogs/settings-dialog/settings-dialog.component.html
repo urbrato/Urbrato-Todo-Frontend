@@ -1,0 +1,44 @@
+<mat-dialog-content>
+  <mat-tab-group>
+    <mat-tab label="{{'Settings.Priorities' | translate}}">
+      <ul class="list-group">
+        <li *ngFor="let priority of priorities">
+          <app-priority
+            [priority]="priority"
+          ></app-priority>
+        </li>
+        <li
+          [style.background-color]="localSettings.taskWithoutPriorityBackColor"
+          [style.color]="localSettings.taskWithoutPriorityForeColor"
+        >
+          <app-named-setting
+            name="{{'Task.WithoutPriority' | translate}}"
+            (editEvent)="editTaskWithoutPriority()"
+          ></app-named-setting>
+        </li>
+        <li
+          [style.background-color]="localSettings.taskCompletedBackColor"
+          [style.color]="localSettings.taskCompletedForeColor"
+        >
+          <app-named-setting
+            name="{{'Task.States.Completed' | translate}}"
+          ></app-named-setting>
+        </li>
+      </ul>
+    </mat-tab>
+    <mat-tab label="{{'Settings.Language' | translate}}">
+      there will be language settings
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+<mat-dialog-actions class="padding-bottom-20">
+  <div class="dlg-buttons-footer">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onClose()"
+    >
+      {{'Main.Save' | translate}}
+    </button>
+  </div>
+</mat-dialog-actions>

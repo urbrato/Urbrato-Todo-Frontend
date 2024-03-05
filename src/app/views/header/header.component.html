@@ -31,7 +31,9 @@
             <mat-icon>supervisor_account</mat-icon>
             <span>{{'Menu.Admin' | translate}}</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item
+                  (click)="settings()"
+          >
             <mat-icon>settings</mat-icon>
             <span>{{'Menu.Settings' | translate}}</span>
           </button>

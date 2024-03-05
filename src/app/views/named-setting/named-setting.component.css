@@ -1,0 +1,11 @@
+.edit-button:hover {
+  border: solid 1px;
+}
+
+span.edit-button {
+  display: inline-block;
+  align-items: center;
+  font-size: 13px;
+  text-align: center;
+  overflow: hidden;
+}

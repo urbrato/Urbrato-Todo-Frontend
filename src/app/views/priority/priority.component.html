@@ -1,0 +1,45 @@
+<div class="container no-hor-padding"
+     [style.background-color]="priority.backcolor"
+     [style.color]="priority.forecolor"
+     style="box-sizing: border-box;"
+>
+  <div class="row no-hor-margin align-items-center full-width"
+       style="height: 48px; box-sizing: border-box;"
+       (mouseenter)="onMouseEnter()"
+       (mouseleave)="onMouseLeave()"
+  >
+    <div class="col-md-1 col-2 no-hor-padding">
+      <img class="category-icon img-fluid"
+           src="{{iconUrl}}" alt=""
+           *ngIf="priority.hasIcon"
+      >
+    </div>
+    <div class="col-md-9 col-6 no-hor-padding align-items-center">
+      <span>
+        {{priority.name}}
+      </span>
+    </div>
+    <div class="col-md-1 col-2 no-hor-padding">
+      <span class="priority-button">
+        <mat-icon
+          class="priority-button"
+          *ngIf="showButtons"
+          (click)="$event.stopPropagation(); editPriority()"
+        >
+          edit
+        </mat-icon>
+      </span>
+    </div>
+    <div class="col-md-1 col-2 no-hor-padding">
+      <span class="priority-button">
+        <mat-icon
+          class="priority-button"
+          *ngIf="showButtons"
+          (click)="$event.stopPropagation(); deletePriority()"
+        >
+          delete
+        </mat-icon>
+      </span>
+    </div>
+  </div>
+</div>

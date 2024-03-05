@@ -39,6 +39,7 @@ import {TasksListComponent} from "./views/tasks-list/tasks-list.component";
 import {MatSortModule} from "@angular/material/sort";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import {ColorPickerService} from "ngx-color-picker";
 
 registerLocaleData(localeRu);
 registerLocaleData(localeEo);
@@ -98,6 +99,7 @@ function HttpLoaderFactory(http: HttpBackend): MultiTranslateHttpLoader {
   ],
   providers: [
     MatDatepickerModule,
+    ColorPickerService,
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {siteKey: '6Le9iEAkAAAAADUn4jwOXZ74kksw18JxYjFBGIYD' as RecaptchaSettings}

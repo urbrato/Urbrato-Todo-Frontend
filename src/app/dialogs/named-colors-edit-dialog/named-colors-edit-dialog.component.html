@@ -1,0 +1,46 @@
+<mat-dialog-content>
+  <div class="container full-width">
+    <div class="row full-width">
+      <div class="col-8">
+        <span
+          [style.background-color]="data.backcolor"
+          [style.color]="data.forecolor"
+        >
+          {{data.name}}
+        </span>
+      </div>
+      <div class="col-2">
+        <input class="full-width"
+               type="color"
+               [(colorPicker)]="data.backcolor"
+               [style.background-color]="data.backcolor"
+        >
+      </div>
+      <div class="col-2">
+        <input class="full-width"
+               type="color"
+               [(colorPicker)]="data.forecolor"
+               [style.background-color]="data.forecolor"
+        >
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="dlg-buttons-footer">
+    <button style="margin: 5px;"
+      mat-raised-button
+      color="secondary"
+      (click)="cancel()"
+    >
+      {{'Main.Cancel' | translate}}
+    </button>
+    <button style="margin: 5px;"
+      mat-raised-button
+      color="primary"
+      (click)="confirm()"
+    >
+      {{'Main.Save' | translate}}
+    </button>
+  </div>
+</mat-dialog-actions>

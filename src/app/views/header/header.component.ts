@@ -37,6 +37,9 @@ export class HeaderComponent {
   @Output()
   toggleDrawerEvent = new EventEmitter();
 
+  @Output()
+  editSettingsEvent = new EventEmitter();
+
   constructor(
     private translate: TranslateService,
     private srvAuth: AuthService,
@@ -69,5 +72,9 @@ export class HeaderComponent {
         this.router.navigate(['']).then(_ => {});
       }
     });
+  }
+
+  settings() {
+    this.editSettingsEvent.emit();
   }
 }

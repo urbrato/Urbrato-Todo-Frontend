@@ -28,6 +28,7 @@
       [category]="selectedCategory"
       [user]="currentUser"
       (toggleDrawerEvent)="toggleDrawer()"
+      (editSettingsEvent)="editSettings()"
     ></app-header>
     <app-stat
       [completed]="completed"
@@ -40,6 +41,10 @@
       [priorities]="priorities"
       [selectedCategory]="selectedCategory"
       [taskFilter]="fltTasks"
+      [clrDefaultBack]="clrDefaultBack"
+      [clrDefaultTxt]="clrDefaultTxt"
+      [clrCompleteBack]="clrCompleteBack"
+      [clrCompleteTxt]="clrCompleteTxt"
       (changePageEvent)="changeTaskPage($event)"
       (createTaskEvent)="addTask($event)"
       (updateTaskEvent)="editTask($event)"

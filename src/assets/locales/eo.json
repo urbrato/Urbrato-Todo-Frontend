@@ -88,5 +88,9 @@
       "UserConstraints": "La kategorio, la prioritato kaj la tasko apartenas al malsamaj uzantoj",
       "NotOwner": "Vi ne rajtas labori kun ĉi tiun taskon"
     }
+  },
+  "Settings": {
+    "Priorities": "Prioritatoj",
+    "Language": "Lingvo"
   }
 }
