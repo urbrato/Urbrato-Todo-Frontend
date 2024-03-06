@@ -22,6 +22,7 @@
         >
           <app-named-setting
             name="{{'Task.States.Completed' | translate}}"
+            (editEvent)="editTaskCompleted()"
           ></app-named-setting>
         </li>
       </ul>
@@ -33,6 +34,12 @@
 </mat-dialog-content>
 <mat-dialog-actions class="padding-bottom-20">
   <div class="dlg-buttons-footer">
+    <button
+      mat-icon-button
+      (click)="onPriorityAdd()"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
     <button
       mat-raised-button
       color="primary"

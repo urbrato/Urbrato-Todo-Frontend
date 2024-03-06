@@ -9,19 +9,11 @@
           {{data.name}}
         </span>
       </div>
-      <div class="col-2 no-padding">
-        <div class="full-width no-padding no-margin" style="height: 100%; border: solid 1px black;"
-              [(colorPicker)]="data.backcolor"
-              [style.background-color]="data.backcolor"
-        >
-        </div>
-      </div>
-      <div class="col-2 no-padding">
-        <div class="full-width no-padding no-margin" style="height: 100%; border: solid 1px black;"
-              [(colorPicker)]="data.forecolor"
-              [style.background-color]="data.forecolor"
-        >
-        </div>
+      <div class="col-4 no-padding">
+        <app-both-colors-edit
+          [(backColor)]="data.backcolor"
+          [(foreColor)]="data.forecolor"
+        ></app-both-colors-edit>
       </div>
     </div>
   </div>

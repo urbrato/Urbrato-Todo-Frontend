@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {MatDialog, MatDialogActions, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {NgForOf} from "@angular/common";
 import {Priority} from "../../entities/priority";
 import {PriorityService} from "../../dao/priority.service";
@@ -13,21 +13,24 @@ import {NamedColorsEditDlgData} from "../named-colors-edit-dialog/named-colors-e
 import {NamedColorsEditDialogComponent} from "../named-colors-edit-dialog/named-colors-edit-dialog.component";
 import {DialogReturn} from "../../util/dialog-return";
 import {DialogResult} from "../../util/dialog-result";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-settings-dialog',
   standalone: true,
-    imports: [
-        MatDialogContent,
-        MatDialogActions,
-        MatTabGroup,
-        MatTab,
-        TranslateModule,
-        MatButton,
-        NgForOf,
-        PriorityComponent,
-        NamedSettingComponent
-    ],
+  imports: [
+    MatDialogContent,
+    MatDialogActions,
+    MatTabGroup,
+    MatTab,
+    TranslateModule,
+    MatButton,
+    NgForOf,
+    PriorityComponent,
+    NamedSettingComponent,
+    MatIcon,
+    MatIconButton
+  ],
   templateUrl: './settings-dialog.component.html',
   styleUrl: './settings-dialog.component.css'
 })
@@ -68,6 +71,31 @@ export class SettingsDialogComponent {
         }
       }
     })
+  }
+
+  editTaskCompleted() {
+    const data = new NamedColorsEditDlgData();
+    data.name = this.translate.instant('Task.States.Completed');
+    data.backcolor = this.localSettings.taskCompletedBackColor;
+    data.forecolor = this.localSettings.taskCompletedForeColor;
+
+    this.dlgEditColor = this.bldDlg.open(NamedColorsEditDialogComponent, {
+      data: data,
+      width: '400px'
+    });
+
+    this.dlgEditColor.afterClosed().subscribe({
+      next: (retVal: DialogReturn<NamedColorsEditDlgData>) => {
+        if (retVal && retVal.result === DialogResult.OK) {
+          this.localSettings.taskCompletedBackColor = retVal.data.backcolor;
+          this.localSettings.taskCompletedForeColor = retVal.data.forecolor;
+        }
+      }
+    })
+  }
+
+  onPriorityAdd() {
+    //
   }
 
   onClose() {

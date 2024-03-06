@@ -53,6 +53,18 @@ body {
   max-width: unset;
 }
 
+.full-height {
+  height: 100%;
+  max-height: unset;
+}
+
+.full-box {
+  width: 100%;
+  height: 100%;
+  max-width: unset;
+  max-height: unset;
+}
+
 .vertical-centered-text {
   vertical-align: middle;
   display: inline-block;
@@ -130,7 +142,8 @@ body {
 
 .dlg-buttons-footer {
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   max-width: unset;
 }

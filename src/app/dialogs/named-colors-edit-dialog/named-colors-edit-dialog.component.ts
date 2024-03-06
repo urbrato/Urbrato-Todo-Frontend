@@ -7,6 +7,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {MatButton} from "@angular/material/button";
 import {FormsModule} from "@angular/forms";
 import {ColorPickerModule} from "ngx-color-picker";
+import {BothColorsEditComponent} from "../../both-colors-edit/both-colors-edit.component";
 
 @Component({
   selector: 'app-named-colors-edit-dialog',
@@ -17,7 +18,8 @@ import {ColorPickerModule} from "ngx-color-picker";
     TranslateModule,
     MatButton,
     ColorPickerModule,
-    FormsModule
+    FormsModule,
+    BothColorsEditComponent
   ],
   templateUrl: './named-colors-edit-dialog.component.html',
   styleUrl: './named-colors-edit-dialog.component.css'

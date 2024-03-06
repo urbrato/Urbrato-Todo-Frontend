@@ -1,0 +1,18 @@
+<div class="container full-box no-padding no-margin">
+  <div class="row full-box no-padding no-margin">
+    <div class="col-6 no-padding">
+      <div class="color-div"
+           [(colorPicker)]="backColor"
+           [style.background-color]="backColor"
+           (colorPickerChange)="onBackColorChange()"
+      ></div>
+    </div>
+    <div class="col-6 no-padding">
+      <div class="color-div"
+           [(colorPicker)]="foreColor"
+           [style.background-color]="foreColor"
+           (colorPickerChange)="onForeColorChange()"
+      ></div>
+    </div>
+  </div>
+</div>
