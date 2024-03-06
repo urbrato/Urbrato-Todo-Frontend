@@ -92,5 +92,25 @@
   "Settings": {
     "Priorities": "Prioritatoj",
     "Language": "Lingvo"
+  },
+  "Priority": {
+    "CreateTitle": "Nova prioritato",
+    "EditTitle": "Propraĵoj de la prioritato",
+    "DeleteTitle": "Viŝu la prioritaton",
+    "DeleteConfirm": "Ĉu vi vere volas viŝi la prioritaton \"{{name}}\"? Taskoj kun ĉi tiu prioritato fariĝos taskoj sen prioritato",
+    "RemoveIcon": "Viŝu la ikonon",
+    "Name": "Titolo",
+    "Importance": "Grado de la prioritato",
+    "ChooseIcon": "Elektu ikonon",
+    "ErrorCodes": {
+      "EmptyName": "Titolo de la prioritato ne povas esti malplena",
+      "EmptyImportance": "Grado de la prioritato ne povas esti malplena",
+      "EmptyBackcolor": "Fona koloro ne povas esti malplena",
+      "EmptyForecolor": "Teksta koloro ne povas esti malplena",
+      "NameAlreadyExists": "Estas jam prioritato kun ĉi tiu nomo",
+      "ImportanceAlreadyExists": "Estas jam prioritato kun ĉi tiu grado",
+      "NoSuchPriority": "La prioritato ne ekzistas",
+      "NotOwner": "Vi ne rajtas uzi ĉi tiun prioritaton"
+    }
   }
 }

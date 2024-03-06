@@ -27,7 +27,7 @@ export class PriorityService {
   }
 
   public add(dto: PriorityCreateDto): Observable<ControllerResult<Priority>> {
-    return this.http.post(this.controller + '/add', dto);
+    return this.http.post<ControllerResult<Priority>>(this.controller + '/add', dto);
   }
 
   public update(dto: PriorityUpdateDto): Observable<ControllerResult<Priority>> {

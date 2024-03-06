@@ -14,6 +14,11 @@ import {NamedColorsEditDialogComponent} from "../named-colors-edit-dialog/named-
 import {DialogReturn} from "../../util/dialog-return";
 import {DialogResult} from "../../util/dialog-result";
 import {MatIcon} from "@angular/material/icon";
+import {EditPriorityDlgData} from "../edit-priority-dialog/edit-priority-dlg-data";
+import {PriorityCreateDto} from "../../dto/priority-create-dto";
+import {EditPriorityDialogComponent} from "../edit-priority-dialog/edit-priority-dialog.component";
+import {map} from "rxjs";
+import {ShowError} from "../../util/show-error";
 
 @Component({
   selector: 'app-settings-dialog',
@@ -41,14 +46,21 @@ export class SettingsDialogComponent {
     private srvPriority: PriorityService,
     private translate: TranslateService,
     public localSettings: CommonSettingsUtils,
+    private showError: ShowError,
     private bldDlg: MatDialog,
     private dlgEditColor: MatDialogRef<NamedColorsEditDialogComponent>,
+    private dlgEditPriority: MatDialogRef<EditPriorityDialogComponent>,
     private dlg: MatDialogRef<SettingsDialogComponent>
   ) {
-    srvPriority.list().subscribe({
+    this.getPriorities();
+  }
+
+  getPriorities() {
+    this.srvPriority.list().subscribe({
       next: priorities => {
         this.priorities = priorities;
-      }
+      },
+      error: (err) => this.showError.showError(err, 'Priority')
     })
   }
 
@@ -95,7 +107,35 @@ export class SettingsDialogComponent {
   }
 
   onPriorityAdd() {
-    //
+    const data = new EditPriorityDlgData();
+    data.dlgTitle = this.translate.instant('Priority.CreateTitle');
+    data.exists = false;
+    data.newIcon = null;
+    data.hasNullIcon = false;
+    data.dto = new PriorityCreateDto();
+    data.dto.name = '';
+    data.dto.importance = 50;
+    data.dto.backcolor = '#ffffff';
+    data.dto.forecolor = '#000000';
+
+    this.dlgEditPriority = this.bldDlg.open(EditPriorityDialogComponent, {
+      data: data,
+      width: '400px'
+    });
+
+    this.dlgEditPriority.afterClosed().subscribe({
+      next: (retVal: DialogReturn<PriorityCreateDto>) => {
+        if (retVal && retVal.result === DialogResult.OK) {
+          const dto = retVal.data;
+          dto.backcolor = dto.backcolor.slice(1);
+          dto.forecolor = dto.forecolor.slice(1);
+          this.srvPriority.add(retVal.data).subscribe({
+            next: _ => this.getPriorities(),
+            error: (err) => this.showError.showError(err, 'Priority')
+          })
+        }
+      }
+    })
   }
 
   onClose() {

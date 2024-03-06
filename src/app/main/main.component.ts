@@ -9,10 +9,6 @@ import {TranslateService} from "@ngx-translate/core";
 import {Category} from "../entities/category";
 import {CategoryService} from "../dao/category.service";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {MessageBoxComponent} from "../dialogs/message-box/message-box.component";
-import {MessageBoxData} from "../util/message-box-data";
-import {MessageBoxButtons} from "../util/message-box-buttons";
-import {MessageBoxIcon} from "../util/message-box-icon";
 import {Observable} from "rxjs";
 import {DialogResult} from "../util/dialog-result";
 import {DeviceInfo} from "../util/device-info";
@@ -31,6 +27,8 @@ import {TaskCreateDto} from "../dto/task-create-dto";
 import {LocalStorageUtils} from "../util/local-storage-utils";
 import {SettingsDialogComponent} from "../dialogs/settings-dialog/settings-dialog.component";
 import {CommonSettingsUtils} from "../util/common-settings-utils";
+import {PriorityCreateDto} from "../dto/priority-create-dto";
+import {ShowError} from "../util/show-error";
 
 export const LANG_RU = 'ru';
 export const LANG_EO = 'eo';
@@ -85,7 +83,7 @@ export class MainComponent {
     private router: Router,
     private deviceDetector: DeviceDetectorService,
     private translate: TranslateService,
-    private dlgMsg: MatDialogRef<MessageBoxComponent>,
+    private showError: ShowError,
     private dlgSettings: MatDialogRef<SettingsDialogComponent>,
     private bldDlg: MatDialog) {
 
@@ -163,51 +161,10 @@ export class MainComponent {
 
   showSettingsDialog(): Observable<DialogResult> {
     this.dlgSettings = this.bldDlg.open(SettingsDialogComponent, {
-      width: '450px'
+      width: '500px'
     });
 
     return this.dlgSettings.afterClosed();
-  }
-
-  showMessageBox(
-    message: string,
-    title: string,
-    buttons: MessageBoxButtons,
-    icon: MessageBoxIcon
-  ): Observable<DialogResult> {
-    let data = new MessageBoxData(
-      message,
-      title,
-      buttons,
-      icon
-    );
-
-    this.dlgMsg = this.bldDlg.open(MessageBoxComponent, {
-      data: data,
-      width: '400px'
-    });
-
-    return this.dlgMsg.afterClosed();
-  }
-
-  showError(err, controller) {
-    if (err.error.code) {
-      this.showMessageBox(
-        this.translate.instant(`${controller}.ErrorCodes.${err.error.code}`),
-        this.translate.instant('Main.Error'),
-        MessageBoxButtons.OK,
-        MessageBoxIcon.ERROR
-      )
-    } else if (err.status == 401) {
-      this.router.navigate(['']).then(_ => {});
-    } else {
-      this.showMessageBox(
-        this.translate.instant('Main.Error'),
-        this.translate.instant('Main.Error'),
-        MessageBoxButtons.OK,
-        MessageBoxIcon.ERROR
-      )
-    }
   }
 
   getFilteredCategories() {
@@ -220,7 +177,7 @@ export class MainComponent {
           this.updateSelectedCategory();
         },
         error: (err) => {
-          this.showError(err, 'Category');
+          this.showError.showError(err, 'Category');
         }
       })
     } else {
@@ -269,7 +226,7 @@ export class MainComponent {
           this.tasks = tasks.payload;
         },
         error: (err) => {
-          this.showError(err, 'Task');
+          this.showError.showError(err, 'Task');
         }
       })
     }
@@ -360,7 +317,7 @@ export class MainComponent {
         this.getAllCategories();
       },
       error: err => {
-        this.showError(err, "Category");
+        this.showError.showError(err, "Category");
       }
     });
   }
@@ -377,7 +334,7 @@ export class MainComponent {
               this.getAllCategories();
             },
             error: err => {
-              this.showError(err, "Category");
+              this.showError.showError(err, "Category");
             }
           })
         } else if ($event.newIcon !== null) {
@@ -386,7 +343,7 @@ export class MainComponent {
               this.getAllCategories();
             },
             error: err => {
-              this.showError(err, "Category");
+              this.showError.showError(err, "Category");
             }
           })
         } else {
@@ -397,7 +354,7 @@ export class MainComponent {
         }
       },
       error: err => {
-        this.showError(err, "Category");
+        this.showError.showError(err, "Category");
       }
     })
   }
@@ -412,7 +369,7 @@ export class MainComponent {
         this.getTasks();
       },
       error: err => {
-        this.showError(err, "Category");
+        this.showError.showError(err, "Category");
       }
     })
   }
@@ -446,7 +403,7 @@ export class MainComponent {
         this.getTasks();
       },
       error: (err) => {
-        this.showError(err, 'Task');
+        this.showError.showError(err, 'Task');
       }
     })
   }
@@ -458,7 +415,7 @@ export class MainComponent {
         this.getTasks();
       },
       error: (err) => {
-        this.showError(err, 'Task');
+        this.showError.showError(err, 'Task');
       }
     })
   }
@@ -470,7 +427,7 @@ export class MainComponent {
         this.getTasks();
       },
       error: (err) => {
-        this.showError(err, 'Task');
+        this.showError.showError(err, 'Task');
       }
     })
   }

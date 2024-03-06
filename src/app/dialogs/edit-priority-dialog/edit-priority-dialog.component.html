@@ -1,0 +1,120 @@
+<mat-dialog-content>
+  <p mat-dialog-title>{{data.dlgTitle}}</p>
+  <mat-form-field
+    class="full-width"
+  >
+    <mat-label>{{'Priority.Name' | translate}}</mat-label>
+    <input class="full-width"
+      matInput
+      [(ngModel)]="data.dto.name"
+      (keydown.enter)="confirm()"
+    >
+    <button
+      *ngIf="data.dto.name.trim().length > 0"
+      class="clear-icon"
+      matSuffix
+      mat-icon-button
+      aria-label="clear"
+      (click)="data.dto.name = ''"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
+  <div class="container">
+    <div class="row no-padding">
+      <div class="col-9">
+        <span>{{'Priority.Importance' | translate}}</span>
+      </div>
+      <div class="col-3">
+        <input
+          matInput
+          type="number"
+          class="full-width"
+          min="1"
+          max="100"
+          [(ngModel)]="data.dto.importance"
+        >
+      </div>
+    </div>
+    <div class="row no-padding">
+      <div class="col-12">
+        <mat-slider
+          class="full-width"
+        >
+          <input
+            matSliderThumb
+            min="1"
+            max="100"
+            step="1"
+            class="full-width"
+            [(value)]="data.dto.importance"
+          >
+        </mat-slider>
+      </div>
+    </div>
+    <div class="row no-padding"
+         style="min-height: 1rem;"
+    >
+      <div class="col-8">
+        <span class="full-box"
+              [style.background-color]="data.dto.backcolor"
+              [style.color]="data.dto.forecolor"
+        >{{data.dto.name}}</span>
+      </div>
+      <div class="col-4">
+        <app-both-colors-edit
+          class="full-box"
+          [(backColor)]="data.dto.backcolor"
+          [(foreColor)]="data.dto.forecolor"
+        ></app-both-colors-edit>
+      </div>
+    </div>
+  </div>
+  <div class="container" *ngIf="data.exists">
+    <div class="row no-padding">
+      <div class="col-sm-6 no-padding padding-bottom-20">
+        <button mat-raised-button (click)="iconSave.click()">
+          {{'Priority.ChooseIcon' | translate}}
+        </button>
+        <input #iconSave hidden type="file" [(ngModel)]="data.newIcon" (input)="onFileSelected($event)">
+      </div>
+      <div class="col-sm-6">
+        <p>
+          {{data.newIcon === null ? '' : data.newIcon.name}}
+        </p>
+      </div>
+    </div>
+    <div class="row no-padding">
+      <div class="col-12 no-padding">
+        <mat-slider
+          [(ngModel)]="data.hasNullIcon"
+          (change)="toggleNullifyIcon()"
+        >
+          {{'Category.RemoveIcon' | translate}}
+        </mat-slider>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="padding-bottom-20">
+  <div class="col-4"></div>
+  <div class="col-4 text-center no-padding">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="confirm()"
+      [disabled]="data.dto.name.trim() === ''"
+    >
+      {{'Main.Save' | translate}}
+    </button>
+  </div>
+  <div class="col-4 text-center no-padding">
+    <button
+      mat-raised-button
+      color="secondary"
+      (click)="cancel()"
+    >
+      {{'Main.Cancel' | translate}}
+    </button>
+  </div>
+</mat-dialog-actions>
