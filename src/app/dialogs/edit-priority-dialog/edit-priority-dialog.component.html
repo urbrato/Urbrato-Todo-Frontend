@@ -86,12 +86,12 @@
     </div>
     <div class="row no-padding">
       <div class="col-12 no-padding">
-        <mat-slider
+        <mat-slide-toggle
           [(ngModel)]="data.hasNullIcon"
           (change)="toggleNullifyIcon()"
         >
-          {{'Category.RemoveIcon' | translate}}
-        </mat-slider>
+          {{'Priority.RemoveIcon' | translate}}
+        </mat-slide-toggle>
       </div>
     </div>
   </div>

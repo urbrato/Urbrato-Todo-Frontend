@@ -27,10 +27,10 @@ export class PriorityComponent {
   }
 
   @Output()
-  editPriorityEvent = new EventEmitter();
+  editPriorityEvent = new EventEmitter<Priority>();
 
   @Output()
-  deletePriorityEvent = new EventEmitter<number>();
+  deletePriorityEvent = new EventEmitter<Priority>();
 
   constructor(
     private srvPriority: PriorityService
@@ -46,10 +46,10 @@ export class PriorityComponent {
   }
 
   editPriority() {
-    //
+    this.editPriorityEvent.emit(this.priority);
   }
 
   deletePriority() {
-    //
+    this.deletePriorityEvent.emit(this.priority);
   }
 }

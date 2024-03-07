@@ -13,11 +13,12 @@ import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {TranslateModule} from "@ngx-translate/core";
 import {MatInput} from "@angular/material/input";
 import {MatIcon} from "@angular/material/icon";
-import {MatIconButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatSlider, MatSliderThumb} from "@angular/material/slider";
 import {BothColorsEditComponent} from "../../both-colors-edit/both-colors-edit.component";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-edit-priority-dialog',
@@ -37,7 +38,9 @@ import {CommonModule} from "@angular/common";
     FormsModule,
     BothColorsEditComponent,
     MatDialogActions,
-    MatSliderThumb
+    MatSliderThumb,
+    MatSlideToggle,
+    MatButton
   ],
   templateUrl: './edit-priority-dialog.component.html',
   styleUrl: './edit-priority-dialog.component.css'
@@ -63,7 +66,7 @@ export class EditPriorityDialogComponent {
   }
 
   confirm() {
-    this.dlg.close(new DialogReturn(DialogResult.OK, this.data.dto));
+    this.dlg.close(new DialogReturn(DialogResult.OK, this.data));
   }
 
   cancel() {

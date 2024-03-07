@@ -451,6 +451,7 @@ export class MainComponent {
       next: () => {
         this.initSettings();
         this.getPriorities();
+        this.getTasks();
       }
     })
   }

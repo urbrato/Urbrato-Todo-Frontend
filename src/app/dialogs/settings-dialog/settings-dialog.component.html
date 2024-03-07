@@ -5,6 +5,8 @@
         <li *ngFor="let priority of priorities">
           <app-priority
             [priority]="priority"
+            (editPriorityEvent)="onPriorityEdit($event)"
+            (deletePriorityEvent)="onPriorityDelete($event)"
           ></app-priority>
         </li>
         <li
