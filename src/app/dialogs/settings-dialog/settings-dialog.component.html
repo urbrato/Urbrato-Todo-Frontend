@@ -30,7 +30,24 @@
       </ul>
     </mat-tab>
     <mat-tab label="{{'Settings.Language' | translate}}">
-      there will be language settings
+      <ul class="list-group">
+        <li class="lang-item"
+          (click)="onSetLanguage('ru')"
+        >
+          <img class="category-icon"
+               src="assets/img/icons8-russian-federation-48.png"
+               alt="">
+          <span style="margin: 5px;">Русский</span>
+        </li>
+        <li class="lang-item"
+          (click)="onSetLanguage('eo')"
+        >
+          <img class="category-icon"
+               src="assets/img/icons8-esperanto-flag-48.png"
+               alt="">
+          <span style="margin: 5px;">Esperanto</span>
+        </li>
+      </ul>
     </mat-tab>
   </mat-tab-group>
 </mat-dialog-content>

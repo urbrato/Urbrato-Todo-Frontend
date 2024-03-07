@@ -47,6 +47,7 @@ export class SettingsDialogComponent {
   constructor(
     private srvPriority: PriorityService,
     private translate: TranslateService,
+    private commonSettings: CommonSettingsUtils,
     public localSettings: CommonSettingsUtils,
     private showError: ShowError,
     private bldDlg: MatDialog,
@@ -214,6 +215,11 @@ export class SettingsDialogComponent {
       },
       error: (err) => this.showError.showError(err, 'Priority')
     })
+  }
+
+  onSetLanguage(language: string) {
+    this.translate.use(language)
+    this.commonSettings.language = language;
   }
 
   onClose() {

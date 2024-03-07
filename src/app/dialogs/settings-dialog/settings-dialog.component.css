@@ -1,0 +1,8 @@
+.lang-item {
+  padding: 15px;
+}
+
+.lang-item:hover {
+  border-radius: 5px;
+  background-color: darkgrey;
+}

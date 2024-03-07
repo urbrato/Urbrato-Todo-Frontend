@@ -157,6 +157,8 @@ export class MainComponent {
     this.clrDefaultTxt = this.commonSettings.taskWithoutPriorityForeColor;
     this.clrCompleteBack = this.commonSettings.taskCompletedBackColor;
     this.clrCompleteTxt = this.commonSettings.taskCompletedForeColor;
+
+    this.translate.use(this.commonSettings.language);
   }
 
   showSettingsDialog(): Observable<DialogResult> {

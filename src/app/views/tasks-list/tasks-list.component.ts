@@ -95,10 +95,6 @@ export class TasksListComponent implements OnInit{
   readonly iconDesc = 'arrow_downward';
   sortIcon: String;
 
-  txtNoCategory: string = '';
-  txtNoPriority: string = '';
-  txtNoDueDate: string = '';
-
   @Input()
   clrDefaultBack: string;
 
@@ -224,9 +220,7 @@ export class TasksListComponent implements OnInit{
 
   getPriorityName(task: Task): string {
     if (task.priorityName === null) {
-      if (this.txtNoPriority === '')
-        this.txtNoPriority = this.translate.instant('Task.WithoutPriority');
-      return this.txtNoPriority;
+      return this.translate.instant('Task.WithoutPriority');
     }
     else
       return task.priorityName;
@@ -238,9 +232,7 @@ export class TasksListComponent implements OnInit{
 
   getCategoryName(task: Task): string {
     if (task.categoryName === null) {
-      if (this.txtNoCategory === '')
-        this.txtNoCategory = this.translate.instant('Task.WithoutCategory');
-      return this.txtNoCategory;
+      return this.translate.instant('Task.WithoutCategory');
     }
     else
       return task.categoryName;
