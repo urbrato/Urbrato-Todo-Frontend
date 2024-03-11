@@ -68,6 +68,7 @@
     "SortDirection": "Направление сортировки",
     "CreateTitle": "Создание задачи",
     "EditTitle": "Свойства задачи",
+    "RepeatTitle": "Повтор задачи",
     "SetDueDate": {
       "Today": "сегодня",
       "Yesterday": "вчера",

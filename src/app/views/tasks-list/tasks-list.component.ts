@@ -11,6 +11,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {DeviceInfo} from "../../util/device-info";
 import {FormsModule} from "@angular/forms";
+import {addDays, startOfDay, isEqual} from 'date-fns';
 import {PaginationComponent} from "../../pagination/pagination.component";
 import {TaskUpdateDto} from "../../dto/task-update-dto";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
@@ -312,6 +313,35 @@ export class TasksListComponent implements OnInit{
     dto.id = $event.id;
     dto.complete = $event.complete;
     this.updateTaskEvent.emit(dto);
+
+    if ($event.complete === true && $event.repeatAfterDays) {
+      const dlgData = new EditTaskDlgData();
+      dlgData.dlgTitle = this.translate.instant('Task.RepeatTitle');
+      dlgData.categories = this.categories;
+      dlgData.priorities = this.priorities;
+
+      dlgData.dto = new TaskCreateDto();
+      dlgData.dto.name = $event.name;
+      dlgData.dto.complete = false;
+      dlgData.dto.dueDate = addDays(startOfDay(new Date()), $event.repeatAfterDays);
+      dlgData.dto.categoryId = $event.categoryId;
+      dlgData.dto.priorityId = $event.priorityId;
+      dlgData.dto.repeatAfterDays = $event.repeatAfterDays;
+
+      this.dlgEditTask = this.bldDlg.open(EditTaskDialogComponent, {
+        data: dlgData,
+        width: '600px',
+        maxHeight: '95vh;'
+      });
+
+      this.dlgEditTask.afterClosed().subscribe({
+        next: (result: DialogReturn<TaskCreateDto>) => {
+          if (result && result.result === DialogResult.OK) {
+            this.createTaskEvent.emit(result.data);
+          }
+        }
+      })
+    }
   }
 
   onToggleSearch() {
