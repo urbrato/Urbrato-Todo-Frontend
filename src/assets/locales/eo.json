@@ -113,5 +113,8 @@
       "NoSuchPriority": "La prioritato ne ekzistas",
       "NotOwner": "Vi ne rajtas uzi ĉi tiun prioritaton"
     }
+  },
+  "Profile": {
+    "Title": "Profilo"
   }
 }
