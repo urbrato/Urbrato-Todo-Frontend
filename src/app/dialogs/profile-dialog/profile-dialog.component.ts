@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {MatDialogActions, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {TranslateModule} from "@ngx-translate/core";
+import {MatButton} from "@angular/material/button";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-profile-dialog',
@@ -9,7 +11,9 @@ import {TranslateModule} from "@ngx-translate/core";
     MatDialogContent,
     MatDialogActions,
     MatDialogTitle,
-    TranslateModule
+    TranslateModule,
+    MatButton,
+    MatSlideToggle
   ],
   templateUrl: './profile-dialog.component.html',
   styleUrl: './profile-dialog.component.css'

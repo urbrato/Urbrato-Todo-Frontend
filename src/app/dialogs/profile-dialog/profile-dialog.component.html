@@ -1,5 +1,25 @@
 <mat-dialog-content>
   <p mat-dialog-title>{{'Profile.Title' | translate}}</p>
+  <div class="container">
+    <div class="row no-padding">
+      <div class="col-sm-6 no-padding padding-bottom-20">
+        <button mat-raised-button>
+          {{'Profile.ChooseAvatar' | translate}}
+        </button>
+        <input #avatarSave hidden type="file">
+      </div>
+      <div class="col-sm-6">
+        <p></p>
+      </div>
+    </div>
+    <div class="row no-padding">
+      <div class="col-12 no-padding">
+        <mat-slide-toggle>
+          {{'Profile.RemoveAvatar' | translate}}
+        </mat-slide-toggle>
+      </div>
+    </div>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions class="padding-bottom-20">
 

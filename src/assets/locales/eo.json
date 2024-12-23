@@ -115,6 +115,8 @@
     }
   },
   "Profile": {
-    "Title": "Profilo"
+    "Title": "Profilo",
+    "ChooseAvatar": "Elektu profilbildon",
+    "RemoveAvatar": "Viŝu la profilbildon"
   }
 }
