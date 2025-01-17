@@ -20,7 +20,57 @@
       </div>
     </div>
   </div>
+  <mat-form-field style="width: 100%;">
+    <mat-label>{{'Profile.CurrentEmail' | translate}}</mat-label>
+    <input
+      #txtCurrentEmail
+      matInput
+      style="width: 100%;"
+    />
+  </mat-form-field>
+  <mat-form-field style="width: 100%;">
+    <mat-label>{{'Profile.ChangedToEmail' | translate}}</mat-label>
+    <input
+      #txtChangedToEmail
+      matInput
+      style="width: 100%;"
+    />
+  </mat-form-field>
+  <mat-form-field style="width: 100%;">
+    <mat-label>{{'Profile.NewPassword' | translate}}</mat-label>
+    <input
+      #txtNewPassword
+      matInput
+      type="password"
+      style="width: 100%;"
+    />
+  </mat-form-field>
+  <mat-form-field style="width: 100%;">
+    <mat-label>{{'Profile.ChangedToEmail' | translate}}</mat-label>
+    <input
+      #txtReenterPassword
+      matInput
+      type="password"
+      style="width: 100%;"
+    />
+  </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions class="padding-bottom-20">
-
+  <div class="col-4"></div>
+  <div class="col-4 text-center no-padding">
+    <button
+      mat-raised-button
+      color="primary"
+    >
+      {{'Main.Save' | translate}}
+    </button>
+  </div>
+  <div class="col-4 text-center no-padding">
+    <button
+      mat-raised-button
+      color="secondary"
+    >
+      {{'Main.Cancel' | translate}}
+    </button>
+  </div>
 </mat-dialog-actions>

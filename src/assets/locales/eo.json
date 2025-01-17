@@ -117,6 +117,10 @@
   "Profile": {
     "Title": "Profilo",
     "ChooseAvatar": "Elektu profilbildon",
-    "RemoveAvatar": "Viŝu la profilbildon"
+    "RemoveAvatar": "Viŝu la profilbildon",
+    "CurrentEmail": "Aktuala retpoŝto",
+    "ChangedToEmail": "Nova retpoŝto (atendanta konfirmon)",
+    "NewPassword": "Nova pasvorto",
+    "ReenterPassword": "Reenigu pasvorton"
   }
 }
