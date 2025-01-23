@@ -1,34 +1,34 @@
-import {Component, Input} from '@angular/core';
-import {User} from "../entities/user";
-import {AuthService} from "../service/auth.service";
-import {ProfileService} from "../service/profile.service";
-import {Router} from "@angular/router";
-import {DeviceDetectorService} from "ngx-device-detector";
-import {MatDrawerMode} from "@angular/material/sidenav";
-import {TranslateService} from "@ngx-translate/core";
-import {Category} from "../entities/category";
-import {CategoryService} from "../dao/category.service";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {Observable} from "rxjs";
-import {DialogResult} from "../util/dialog-result";
-import {DeviceInfo} from "../util/device-info";
-import {EditCategoryDlgData} from "../dialogs/edit-category-dialog/edit-category-dlg-data";
-import {CategorySearchDto} from "../dto/category-search-dto";
-import {StatService} from "../dao/stat.service";
-import {Page} from "../dto/page";
-import {TaskService} from "../dao/task.service";
-import {Task} from "../entities/task";
-import {TaskSearchDto} from "../dto/task-search-dto";
-import {Stat} from "../entities/stat";
-import {TaskUpdateDto} from "../dto/task-update-dto";
-import {Priority} from "../entities/priority";
-import {PriorityService} from "../dao/priority.service";
-import {TaskCreateDto} from "../dto/task-create-dto";
-import {LocalStorageUtils} from "../util/local-storage-utils";
-import {SettingsDialogComponent} from "../dialogs/settings-dialog/settings-dialog.component";
-import {CommonSettingsUtils} from "../util/common-settings-utils";
-import {PriorityCreateDto} from "../dto/priority-create-dto";
-import {ShowError} from "../util/show-error";
+import { Component } from '@angular/core';
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { MatDrawerMode } from "@angular/material/sidenav";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import { DeviceDetectorService } from "ngx-device-detector";
+import { Observable } from "rxjs";
+import { CategoryService } from "../dao/category.service";
+import { PriorityService } from "../dao/priority.service";
+import { StatService } from "../dao/stat.service";
+import { TaskService } from "../dao/task.service";
+import { EditCategoryDlgData } from "../dialogs/edit-category-dialog/edit-category-dlg-data";
+import { ProfileDialogComponent } from '../dialogs/profile-dialog/profile-dialog.component';
+import { SettingsDialogComponent } from "../dialogs/settings-dialog/settings-dialog.component";
+import { CategorySearchDto } from "../dto/category-search-dto";
+import { Page } from "../dto/page";
+import { TaskCreateDto } from "../dto/task-create-dto";
+import { TaskSearchDto } from "../dto/task-search-dto";
+import { TaskUpdateDto } from "../dto/task-update-dto";
+import { Category } from "../entities/category";
+import { Priority } from "../entities/priority";
+import { Stat } from "../entities/stat";
+import { Task } from "../entities/task";
+import { User } from "../entities/user";
+import { AuthService } from "../service/auth.service";
+import { ProfileService } from "../service/profile.service";
+import { CommonSettingsUtils } from "../util/common-settings-utils";
+import { DeviceInfo } from "../util/device-info";
+import { DialogResult } from "../util/dialog-result";
+import { LocalStorageUtils } from "../util/local-storage-utils";
+import { ShowError } from "../util/show-error";
 
 export const LANG_RU = 'ru';
 export const LANG_EO = 'eo';
@@ -85,6 +85,7 @@ export class MainComponent {
     private translate: TranslateService,
     private showError: ShowError,
     private dlgSettings: MatDialogRef<SettingsDialogComponent>,
+    private dlgProfile: MatDialogRef<ProfileDialogComponent>,
     private bldDlg: MatDialog) {
 
     this.detectDevice();
@@ -167,6 +168,15 @@ export class MainComponent {
     });
 
     return this.dlgSettings.afterClosed();
+  }
+
+  showProfileDialog(): Observable<DialogResult> {
+    this.dlgProfile = this.bldDlg.open(ProfileDialogComponent, {
+      width: '500px',
+      height: 'auto'
+    });
+
+    return this.dlgProfile.afterClosed();
   }
 
   getFilteredCategories() {
@@ -453,6 +463,14 @@ export class MainComponent {
       next: () => {
         this.initSettings();
         this.getPriorities();
+        this.getTasks();
+      }
+    })
+  }
+
+  editProfile() {
+    this.showProfileDialog().subscribe({
+      next: () => {
         this.getTasks();
       }
     })

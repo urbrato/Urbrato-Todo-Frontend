@@ -121,6 +121,7 @@
     "CurrentEmail": "Aktuala retpoŝto",
     "ChangedToEmail": "Nova retpoŝto (atendanta konfirmon)",
     "NewPassword": "Nova pasvorto",
-    "ReenterPassword": "Reenigu pasvorton"
+    "ReenterPassword": "Reenigu pasvorton",
+    "CleanTaskList": "Forigi malnovajn Kompletigitajn taskojn"
   }
 }

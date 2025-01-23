@@ -1,15 +1,15 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Category} from "../../entities/category";
-import {User} from "../../entities/user";
-import {MatIconButton} from "@angular/material/button";
-import {MatIcon} from "@angular/material/icon";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {NgIf} from "@angular/common";
-import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {FormsModule} from "@angular/forms";
-import {AuthService} from "../../service/auth.service";
-import {Router} from "@angular/router";
-import {ROLE_ADMIN} from "../../entities/role";
+import { NgIf } from "@angular/common";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormsModule } from "@angular/forms";
+import { MatIconButton } from "@angular/material/button";
+import { MatIcon } from "@angular/material/icon";
+import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
+import { Router } from "@angular/router";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { Category } from "../../entities/category";
+import { ROLE_ADMIN } from "../../entities/role";
+import { User } from "../../entities/user";
+import { AuthService } from "../../service/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -39,6 +39,9 @@ export class HeaderComponent {
 
   @Output()
   editSettingsEvent = new EventEmitter();
+
+  @Output()
+  editProfileEvent = new EventEmitter();
 
   constructor(
     private translate: TranslateService,
@@ -76,5 +79,9 @@ export class HeaderComponent {
 
   settings() {
     this.editSettingsEvent.emit();
+  }
+
+  profile() {
+    this.editProfileEvent.emit();
   }
 }

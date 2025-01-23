@@ -1,0 +1,5 @@
+.button-container-right {
+    display: flex;
+    justify-content: right;
+    padding: 10px 0;
+}

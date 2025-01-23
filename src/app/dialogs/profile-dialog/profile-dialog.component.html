@@ -56,21 +56,27 @@
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions class="padding-bottom-20">
-  <div class="col-4"></div>
-  <div class="col-4 text-center no-padding">
-    <button
-      mat-raised-button
-      color="primary"
-    >
-      {{'Main.Save' | translate}}
-    </button>
-  </div>
-  <div class="col-4 text-center no-padding">
-    <button
-      mat-raised-button
-      color="secondary"
-    >
-      {{'Main.Cancel' | translate}}
-    </button>
-  </div>
+  <div class="col-12">
+    <div class="button-container-right">
+      <button mat-raised-button color="secondary">
+        {{'Profile.CleanTaskList' | translate}}
+      </button>
+    </div>
+    </div>
+  <div class="col-12">
+    <div class="button-container-right">
+      <button
+        mat-raised-button
+        color="primary"
+      >
+        {{'Main.Save' | translate}}
+      </button>
+      <button
+        mat-raised-button
+        color="secondary"
+      >
+        {{'Main.Cancel' | translate}}
+      </button>
+    </div>
+    </div>
 </mat-dialog-actions>
