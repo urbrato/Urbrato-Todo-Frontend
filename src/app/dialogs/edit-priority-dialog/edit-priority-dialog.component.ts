@@ -1,4 +1,7 @@
-import {Component, Inject} from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { Component, Inject } from '@angular/core';
+import { FormsModule } from "@angular/forms";
+import { MatButton, MatIconButton } from "@angular/material/button";
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -6,19 +9,16 @@ import {
   MatDialogRef,
   MatDialogTitle
 } from "@angular/material/dialog";
-import {EditPriorityDlgData} from "./edit-priority-dlg-data";
-import {DialogReturn} from "../../util/dialog-return";
-import {DialogResult} from "../../util/dialog-result";
-import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
-import {TranslateModule} from "@ngx-translate/core";
-import {MatInput} from "@angular/material/input";
-import {MatIcon} from "@angular/material/icon";
-import {MatButton, MatIconButton} from "@angular/material/button";
-import {MatSlider, MatSliderThumb} from "@angular/material/slider";
-import {BothColorsEditComponent} from "../../both-colors-edit/both-colors-edit.component";
-import {FormsModule} from "@angular/forms";
-import {CommonModule} from "@angular/common";
-import {MatSlideToggle} from "@angular/material/slide-toggle";
+import { MatFormField, MatLabel, MatSuffix } from "@angular/material/form-field";
+import { MatIcon } from "@angular/material/icon";
+import { MatInput } from "@angular/material/input";
+import { MatSlideToggle } from "@angular/material/slide-toggle";
+import { MatSlider, MatSliderThumb } from "@angular/material/slider";
+import { TranslateModule } from "@ngx-translate/core";
+import { BothColorsEditComponent } from "../../both-colors-edit/both-colors-edit.component";
+import { DialogResult } from "../../util/dialog-result";
+import { DialogReturn } from "../../util/dialog-return";
+import { EditPriorityDlgData } from "./edit-priority-dlg-data";
 
 @Component({
   selector: 'app-edit-priority-dialog',
@@ -47,7 +47,7 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
 })
 export class EditPriorityDialogComponent {
   constructor(
-    private dlg: MatDialogRef<EditPriorityDialogComponent>,
+    private readonly dlg: MatDialogRef<EditPriorityDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditPriorityDlgData
   ) {
   }

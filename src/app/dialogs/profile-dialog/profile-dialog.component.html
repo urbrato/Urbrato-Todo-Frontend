@@ -3,18 +3,20 @@
   <div class="container">
     <div class="row no-padding">
       <div class="col-sm-6 no-padding padding-bottom-20">
-        <button mat-raised-button>
+        <button mat-raised-button (click)="avatarSave.click()">
           {{'Profile.ChooseAvatar' | translate}}
         </button>
-        <input #avatarSave hidden type="file">
+        <input #avatarSave hidden type="file" [(ngModel)]="data.newIcon" (input)="onFileSelected($event)">
       </div>
       <div class="col-sm-6">
-        <p></p>
+        <p>
+          {{data.newIcon === null ? '' : data.newIcon.name}}
+        </p>
       </div>
     </div>
     <div class="row no-padding">
       <div class="col-12 no-padding">
-        <mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="data.hasNullIcon" (change)="toggleNullifyIcon()">
           {{'Profile.RemoveAvatar' | translate}}
         </mat-slide-toggle>
       </div>
@@ -26,14 +28,16 @@
       #txtCurrentEmail
       matInput
       style="width: 100%;"
+      [disabled]="data.waitingEmail"
     />
   </mat-form-field>
-  <mat-form-field style="width: 100%;">
+  <mat-form-field style="width: 100%;" *ngIf="data.waitingEmail">
     <mat-label>{{'Profile.ChangedToEmail' | translate}}</mat-label>
     <input
       #txtChangedToEmail
       matInput
       style="width: 100%;"
+      disabled="true"
     />
   </mat-form-field>
   <mat-form-field style="width: 100%;">

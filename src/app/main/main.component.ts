@@ -11,6 +11,7 @@ import { StatService } from "../dao/stat.service";
 import { TaskService } from "../dao/task.service";
 import { EditCategoryDlgData } from "../dialogs/edit-category-dialog/edit-category-dlg-data";
 import { ProfileDialogComponent } from '../dialogs/profile-dialog/profile-dialog.component';
+import { ProfileDlgData } from '../dialogs/profile-dialog/profile-dlg-data';
 import { SettingsDialogComponent } from "../dialogs/settings-dialog/settings-dialog.component";
 import { CategorySearchDto } from "../dto/category-search-dto";
 import { Page } from "../dto/page";
@@ -171,9 +172,17 @@ export class MainComponent {
   }
 
   showProfileDialog(): Observable<DialogResult> {
+    let data = new ProfileDlgData();
+    data.hasNullIcon = true;
+    data.newIcon = null;
+    data.email = this.currentUser.email;
+    data.waitingEmail = this.currentUser.activity?.additionalData ?? '';
+    data.password = '';
+
     this.dlgProfile = this.bldDlg.open(ProfileDialogComponent, {
+      data: data,
       width: '500px',
-      height: 'auto'
+      height: 'auto',
     });
 
     return this.dlgProfile.afterClosed();
