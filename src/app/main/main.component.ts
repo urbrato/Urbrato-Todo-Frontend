@@ -28,7 +28,10 @@ import { ProfileService } from "../service/profile.service";
 import { CommonSettingsUtils } from "../util/common-settings-utils";
 import { DeviceInfo } from "../util/device-info";
 import { DialogResult } from "../util/dialog-result";
+import { DialogReturn } from '../util/dialog-return';
 import { LocalStorageUtils } from "../util/local-storage-utils";
+import { MessageBoxButtons } from '../util/message-box-buttons';
+import { MessageBoxIcon } from '../util/message-box-icon';
 import { ShowError } from "../util/show-error";
 
 export const LANG_RU = 'ru';
@@ -171,12 +174,12 @@ export class MainComponent {
     return this.dlgSettings.afterClosed();
   }
 
-  showProfileDialog(): Observable<DialogResult> {
+  showProfileDialog(): Observable<DialogReturn<ProfileDlgData>> {
     let data = new ProfileDlgData();
     data.hasNullIcon = true;
     data.newIcon = null;
     data.email = this.currentUser.email;
-    data.waitingEmail = this.currentUser.activity?.additionalData ?? '';
+    data.waitingEmail = this.currentUser.activity?.additionalData;
     data.password = '';
 
     this.dlgProfile = this.bldDlg.open(ProfileDialogComponent, {
@@ -189,8 +192,7 @@ export class MainComponent {
   }
 
   getFilteredCategories() {
-    if (this.categoriesFilter &&
-      this.categoriesFilter.name &&
+    if (this.categoriesFilter?.name &&
       this.categoriesFilter.name.trim().length > 0) {
       this.srvCategory.search(this.categoriesFilter).subscribe({
         next: (categories) => {
@@ -479,8 +481,12 @@ export class MainComponent {
 
   editProfile() {
     this.showProfileDialog().subscribe({
-      next: () => {
-        this.getTasks();
+      next: (res) => {
+        console.log(res);
+        if (res.result == DialogResult.OK) {
+          this.showError.showMessageBox(res.data.email, 'q', MessageBoxButtons.OK, MessageBoxIcon.INFORMATION);
+          this.getTasks();
+        }
       }
     })
   }

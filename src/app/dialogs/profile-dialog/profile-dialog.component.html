@@ -29,6 +29,7 @@
       matInput
       style="width: 100%;"
       [disabled]="data.waitingEmail"
+      [(ngModel)]="data.email"
     />
   </mat-form-field>
   <mat-form-field style="width: 100%;" *ngIf="data.waitingEmail">
@@ -38,6 +39,7 @@
       matInput
       style="width: 100%;"
       disabled="true"
+      [(ngModel)]="data.waitingEmail"
     />
   </mat-form-field>
   <mat-form-field style="width: 100%;">
@@ -47,10 +49,11 @@
       matInput
       type="password"
       style="width: 100%;"
+      [(ngModel)]="data.password"
     />
   </mat-form-field>
   <mat-form-field style="width: 100%;">
-    <mat-label>{{'Profile.ChangedToEmail' | translate}}</mat-label>
+    <mat-label>{{'Profile.ReenterPassword' | translate}}</mat-label>
     <input
       #txtReenterPassword
       matInput
@@ -72,12 +75,14 @@
       <button
         mat-raised-button
         color="primary"
+        (click)="confirm()"
       >
         {{'Main.Save' | translate}}
       </button>
       <button
         mat-raised-button
         color="secondary"
+        (click)="cancel()"
       >
         {{'Main.Cancel' | translate}}
       </button>

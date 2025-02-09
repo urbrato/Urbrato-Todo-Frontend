@@ -33,7 +33,7 @@ import { ProfileDlgData } from './profile-dlg-data';
 
 export class ProfileDialogComponent {
   constructor(
-    private dlg: MatDialogRef<ProfileDialogComponent>,
+    private readonly dlg: MatDialogRef<ProfileDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProfileDlgData
   ) {
   }
