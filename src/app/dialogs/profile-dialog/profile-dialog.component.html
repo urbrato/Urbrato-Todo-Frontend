@@ -1,5 +1,14 @@
 <mat-dialog-content>
   <p mat-dialog-title>{{'Profile.Title' | translate}}</p>
+  <mat-form-field style="width: 100%;">
+    <mat-label>{{'Profile.Name' | translate}}</mat-label>
+    <input
+      #txtName
+      matInput
+      style="width: 100%;"
+      [(ngModel)]="data.name"
+    />
+  </mat-form-field>
   <div class="container">
     <div class="row no-padding">
       <div class="col-sm-6 no-padding padding-bottom-20">
@@ -42,23 +51,28 @@
       [(ngModel)]="data.waitingEmail"
     />
   </mat-form-field>
-  <mat-form-field style="width: 100%;">
+  <button mat-raised-button color="secondary" *ngIf="!pwdChangeAllowed" (click)="allowChangePassword()">
+    {{'Profile.ChangePassword' | translate}}
+  </button>
+  <mat-form-field style="width: 100%;" *ngIf="pwdChangeAllowed">
     <mat-label>{{'Profile.NewPassword' | translate}}</mat-label>
     <input
       #txtNewPassword
       matInput
       type="password"
       style="width: 100%;"
-      [(ngModel)]="data.password"
+      autocomplete="off"
+      [(ngModel)]="pwd"
     />
   </mat-form-field>
-  <mat-form-field style="width: 100%;">
+  <mat-form-field style="width: 100%;" *ngIf="pwdChangeAllowed">
     <mat-label>{{'Profile.ReenterPassword' | translate}}</mat-label>
     <input
       #txtReenterPassword
       matInput
       type="password"
       style="width: 100%;"
+      [(ngModel)]="repwd"
     />
   </mat-form-field>
 </mat-dialog-content>
@@ -75,6 +89,7 @@
       <button
         mat-raised-button
         color="primary"
+        [disabled]="pwdChangeAllowed && pwd != repwd"
         (click)="confirm()"
       >
         {{'Main.Save' | translate}}

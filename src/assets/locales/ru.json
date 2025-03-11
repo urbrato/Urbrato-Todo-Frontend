@@ -116,12 +116,14 @@
   },
   "Profile": {
     "Title": "Личный кабинет",
+    "Name": "Экранное имя",
     "ChooseAvatar": "Выберите аватарку",
     "RemoveAvatar": "Убрать аватарку",
     "CurrentEmail": "Текущий e-mail",
     "ChangedToEmail": "Новый e-mail (ожидает подтверждения)",
     "NewPassword": "Новый пароль",
     "ReenterPassword": "Повторите пароль",
-    "CleanTaskList": "Очистить старые выполненные задачи"
+    "CleanTaskList": "Очистить старые выполненные задачи",
+    "ChangePassword": "Сменить пароль"
   }
 }

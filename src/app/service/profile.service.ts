@@ -1,12 +1,12 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
-import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
-import {from, Observable, switchMap} from "rxjs";
-import {ControllerResult} from "../dto/controller-result";
-import {User} from "../entities/user";
-import {UserUpdateDto} from "../dto/user-update-dto";
-import {FileUtils} from "../util/file-utils";
-import {UserAvatar} from "../entities/user-avatar";
+import { from, Observable, switchMap } from "rxjs";
+import { environment } from "../../environments/environment";
+import { ControllerResult } from "../dto/controller-result";
+import { UserUpdateDto } from "../dto/user-update-dto";
+import { User } from "../entities/user";
+import { UserAvatar } from "../entities/user-avatar";
+import { FileUtils } from "../util/file-utils";
 
 @Injectable({
   providedIn: 'root'

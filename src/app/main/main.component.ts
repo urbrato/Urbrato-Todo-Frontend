@@ -18,6 +18,7 @@ import { Page } from "../dto/page";
 import { TaskCreateDto } from "../dto/task-create-dto";
 import { TaskSearchDto } from "../dto/task-search-dto";
 import { TaskUpdateDto } from "../dto/task-update-dto";
+import { UserUpdateDto } from '../dto/user-update-dto';
 import { Category } from "../entities/category";
 import { Priority } from "../entities/priority";
 import { Stat } from "../entities/stat";
@@ -30,8 +31,6 @@ import { DeviceInfo } from "../util/device-info";
 import { DialogResult } from "../util/dialog-result";
 import { DialogReturn } from '../util/dialog-return';
 import { LocalStorageUtils } from "../util/local-storage-utils";
-import { MessageBoxButtons } from '../util/message-box-buttons';
-import { MessageBoxIcon } from '../util/message-box-icon';
 import { ShowError } from "../util/show-error";
 
 export const LANG_RU = 'ru';
@@ -114,15 +113,7 @@ export class MainComponent {
 
     this.currentUser = this.srvAuth.currentUser.value;
     if (this.currentUser == null) {
-      this.srvProfile.getCurrentUser().subscribe({
-        next: (user) => {
-          this.srvAuth.currentUser.next(user);
-        },
-        error: (_) => {
-          this.srvAuth.currentUser.next(null);
-          this.router.navigate(['']).then(_ => {});
-        }
-      });
+      this.refreshCurrentUser();
     }
 
     this.categoriesFilter = new CategorySearchDto();
@@ -130,6 +121,18 @@ export class MainComponent {
 
     translate.addLangs([LANG_RU, LANG_EO]);
     translate.setDefaultLang(LANG_RU);
+  }
+
+  refreshCurrentUser() {
+    this.srvProfile.getCurrentUser().subscribe({
+      next: (user) => {
+        this.srvAuth.currentUser.next(user);
+      },
+      error: (_) => {
+        this.srvAuth.currentUser.next(null);
+        this.router.navigate(['']).then(_ => {});
+      }
+    });
   }
 
   detectDevice() {
@@ -178,9 +181,9 @@ export class MainComponent {
     let data = new ProfileDlgData();
     data.hasNullIcon = true;
     data.newIcon = null;
+    data.name = this.currentUser.name;
     data.email = this.currentUser.email;
     data.waitingEmail = this.currentUser.activity?.additionalData;
-    data.password = '';
 
     this.dlgProfile = this.bldDlg.open(ProfileDialogComponent, {
       data: data,
@@ -482,10 +485,24 @@ export class MainComponent {
   editProfile() {
     this.showProfileDialog().subscribe({
       next: (res) => {
-        console.log(res);
         if (res.result == DialogResult.OK) {
-          this.showError.showMessageBox(res.data.email, 'q', MessageBoxButtons.OK, MessageBoxIcon.INFORMATION);
-          this.getTasks();
+          if (res.data.email != this.currentUser.email || res.data.name != this.currentUser.name) {
+            const dto = new UserUpdateDto();
+            dto.name = res.data.name;
+            dto.email = res.data.email;
+            this.srvProfile.update(dto).subscribe({
+              next: () => {
+                this.refreshCurrentUser();
+              }
+            });
+          }
+          if (res.data.password != '') {
+            this.srvProfile.updatePassword(res.data.password).subscribe({
+              next: () => {
+                this.refreshCurrentUser();
+              }
+            });
+          }
         }
       }
     })

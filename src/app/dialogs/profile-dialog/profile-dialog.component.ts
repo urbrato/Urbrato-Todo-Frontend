@@ -32,10 +32,20 @@ import { ProfileDlgData } from './profile-dlg-data';
 })
 
 export class ProfileDialogComponent {
+  public pwd: string = '';
+  public repwd: string = '';
+  public pwdChangeAllowed: boolean = false;
+
   constructor(
     private readonly dlg: MatDialogRef<ProfileDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProfileDlgData
   ) {
+  }
+
+  allowChangePassword() {
+    this.data.password = '';
+    this.repwd = '';
+    this.pwdChangeAllowed = true;
   }
 
   onFileSelected(event: any) {
@@ -52,7 +62,10 @@ export class ProfileDialogComponent {
   }
 
   confirm() {
-    this.dlg.close(new DialogReturn(DialogResult.OK, this.data));
+    if (!this.pwdChangeAllowed || (this.pwd == this.repwd)) {
+      this.data.password = this.pwdChangeAllowed ? this.pwd : '';
+      this.dlg.close(new DialogReturn(DialogResult.OK, this.data));
+    }
   }
 
   cancel() {
