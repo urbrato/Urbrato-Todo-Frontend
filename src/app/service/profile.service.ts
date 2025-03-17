@@ -12,9 +12,9 @@ import { FileUtils } from "../util/file-utils";
   providedIn: 'root'
 })
 export class ProfileService {
-  private profileController = environment.backendURL + '/profile';
+  private readonly profileController = environment.backendURL + '/profile';
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
   public updatePassword(password: string): Observable<any> {
     return this.http.post<ControllerResult<User>>(this.profileController + '/update-password', password);
